@@ -14,7 +14,7 @@
 \usepackage{circuitikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
-\usetikzlibrary{arrows.meta,calc,positioning}
+\usetikzlibrary{arrows.meta,calc,positioning,decorations.pathmorphing}
 \usepackage[hidelinks]{hyperref}
 
 \geometry{left=1.85cm,right=1.85cm,top=1.65cm,bottom=1.55cm,headheight=16pt,headsep=0.35cm,footskip=0.75cm}
@@ -1421,6 +1421,1077 @@ G(s)=
 {s^3+3s^2+2s+1}.}
 \]
 
+
+
+\subsection*{Bài tập bổ sung từ bộ đề A1--A6}
+
+\textbf{A1 -- Biến đổi Laplace}
+
+\baitap{2.20}
+\debai
+(Nguồn A1.1) Tìm biến đổi Laplace của
+\[
+f(t)=
+\begin{cases}
+0,&t<0,\\
+t e^{-3t},&t\ge0.
+\end{cases}
+\]
+
+\loigiai
+Ta dùng
+\[
+\Lap\{t\}=\frac1{s^2}
+\]
+và tính chất dịch:
+\[
+\Lap\{e^{-at}f(t)\}=F(s+a).
+\]
+Do đó
+\[
+\boxed{
+F(s)=\Lap\{te^{-3t}\}=\frac1{(s+3)^2}.
+}
+\]
+
+\baitap{2.21}
+\debai
+(Nguồn A1.2) Tìm biến đổi Laplace của
+\[
+f(t)=
+\begin{cases}
+0,&t<0,\\
+\sin(\omega t+\theta),&t\ge0,
+\end{cases}
+\]
+trong đó \(\theta\) là hằng số.
+
+\loigiai
+Khai triển
+\[
+\sin(\omega t+\theta)
+=
+\sin\omega t\cos\theta+\cos\omega t\sin\theta.
+\]
+Vì
+\[
+\Lap\{\sin\omega t\}=\frac{\omega}{s^2+\omega^2},
+\qquad
+\Lap\{\cos\omega t\}=\frac{s}{s^2+\omega^2},
+\]
+nên
+\[
+\boxed{
+F(s)=
+\frac{\omega\cos\theta+s\sin\theta}
+{s^2+\omega^2}.
+}
+\]
+
+\baitap{2.22}
+\debai
+(Nguồn A1.3) Cho tín hiệu
+\[
+f(t)=
+\begin{cases}
+\dfrac1{a^2},&0\le t<a,\\[1mm]
+-\dfrac1{a^2},&a\le t<2a,\\[1mm]
+0,&t\ge2a.
+\end{cases}
+\]
+Tìm \(F(s)=\Lap\{f(t)\}\) và tính
+\(\displaystyle \lim_{s\to0}F(s)\).
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,scale=0.95]
+  \draw[->] (-0.7,0)--(6.2,0) node[right]{$t$};
+  \draw[->] (0,-2.0)--(0,2.1) node[above]{$f(t)$};
+  \draw[very thick] (0,1.2)--(2.2,1.2)--(2.2,-1.2)--(4.4,-1.2)--(4.4,0)--(5.6,0);
+  \draw[dashed] (2.2,-1.55)--(2.2,1.45);
+  \draw[dashed] (4.4,-1.55)--(4.4,0.3);
+  \node[below] at (2.2,0) {$a$};
+  \node[above] at (4.4,0) {$2a$};
+  \node[left] at (0,1.2) {$1/a^2$};
+  \node[left] at (0,-1.2) {$-1/a^2$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Theo định nghĩa:
+\[
+F(s)
+=
+\frac1{a^2}\int_0^a e^{-st}\,dt
+-\frac1{a^2}\int_a^{2a}e^{-st}\,dt.
+\]
+Tính tích phân:
+\[
+F(s)
+=
+\frac{1-e^{-as}}{a^2s}
+-\frac{e^{-as}-e^{-2as}}{a^2s}.
+\]
+Do đó
+\[
+\boxed{
+F(s)=
+\frac{(1-e^{-as})^2}{a^2s}.
+}
+\]
+Khi \(s\to0\),
+\[
+1-e^{-as}\sim as
+\]
+nên
+\[
+F(s)\sim\frac{a^2s^2}{a^2s}=s.
+\]
+Vì vậy
+\[
+\boxed{\lim_{s\to0}F(s)=0.}
+\]
+
+\baitap{2.23}
+\debai
+(Nguồn A1.4) Tìm biến đổi Laplace của
+\[
+f(t)=t^2\sin(\omega t),\qquad t\ge0.
+\]
+
+\loigiai
+Dùng tính chất
+\[
+\Lap\{t^nf(t)\}=(-1)^n\frac{d^nF(s)}{ds^n}.
+\]
+Với
+\[
+F(s)=\Lap\{\sin\omega t\}=\frac{\omega}{s^2+\omega^2},
+\]
+ta có
+\[
+\Lap\{t^2\sin\omega t\}
+=
+\frac{d^2}{ds^2}
+\left(\frac{\omega}{s^2+\omega^2}\right).
+\]
+Sau khi đạo hàm:
+\[
+\boxed{
+\Lap\{t^2\sin\omega t\}
+=
+\frac{2\omega(3s^2-\omega^2)}
+{(s^2+\omega^2)^3}.
+}
+\]
+
+\textbf{A2 -- Biến đổi Laplace ngược}
+
+\baitap{2.24}
+\debai
+(Nguồn A2.1) Tìm biến đổi Laplace ngược của
+\[
+F(s)=\frac1{s(s^2+2s+2)}.
+\]
+
+\loigiai
+Ta có
+\[
+s^2+2s+2=(s+1)^2+1.
+\]
+Tách phân thức:
+\[
+F(s)
+=
+\frac{1}{2s}
+-\frac12\frac{s+1}{(s+1)^2+1}
+-\frac12\frac1{(s+1)^2+1}.
+\]
+Do đó
+\[
+\boxed{
+f(t)=
+\frac12
+-\frac12e^{-t}\cos t
+-\frac12e^{-t}\sin t.
+}
+\]
+
+\baitap{2.25}
+\debai
+(Nguồn A2.2) Tìm biến đổi Laplace ngược của
+\[
+F(s)=
+\frac{5(s+2)}
+{s^2(s+1)(s+3)}.
+\]
+
+\loigiai
+Tách phân thức:
+\[
+F(s)
+=
+-\frac{25}{9s}
++\frac{10}{3s^2}
++\frac{5}{2(s+1)}
++\frac{5}{18(s+3)}.
+\]
+Suy ra
+\[
+\boxed{
+f(t)
+=
+-\frac{25}{9}
++\frac{10}{3}t
++\frac52e^{-t}
++\frac5{18}e^{-3t}.
+}
+\]
+
+\baitap{2.26}
+\debai
+(Nguồn A1.7 trong trang bài A2) Tìm biến đổi Laplace ngược của
+\[
+F(s)=
+\frac{s^4+2s^3+3s^2+4s+5}{s(s+1)}.
+\]
+
+\loigiai
+Phân thức này là \textbf{phân thức không đúng} vì bậc tử lớn hơn bậc mẫu. Chia đa thức:
+\[
+F(s)
+=
+s^2+s+2+\frac{2s+5}{s(s+1)}.
+\]
+Tiếp tục tách:
+\[
+\frac{2s+5}{s(s+1)}
+=
+\frac5s-\frac3{s+1}.
+\]
+Vì vậy
+\[
+F(s)
+=
+s^2+s+2+\frac5s-\frac3{s+1}.
+\]
+Theo đúng biểu thức đề bài, biến đổi Laplace ngược phải hiểu theo nghĩa phân phối:
+\[
+\Lap^{-1}\{s^2\}=\delta''(t),\quad
+\Lap^{-1}\{s\}=\delta'(t),\quad
+\Lap^{-1}\{1\}=\delta(t).
+\]
+Do đó
+\[
+\boxed{
+f(t)
+=
+\delta''(t)+\delta'(t)+2\delta(t)
++5-3e^{-t}.
+}
+\]
+Nếu môn học chỉ xét các hàm thông thường mà không dùng xung Dirac, biểu thức trong đề cần được kiểm tra lại vì nó không phải hàm hữu tỉ đúng.
+
+\baitap{2.27}
+\debai
+(Nguồn A2.3) Tìm biến đổi Laplace ngược của
+\[
+F(s)=\frac1{s(s^2+\omega^2)}.
+\]
+
+\loigiai
+Tách:
+\[
+\frac1{s(s^2+\omega^2)}
+=
+\frac1{\omega^2}
+\left(
+\frac1s-\frac{s}{s^2+\omega^2}
+\right).
+\]
+Suy ra
+\[
+\boxed{
+f(t)=
+\frac{1-\cos(\omega t)}{\omega^2}.
+}
+\]
+
+\textbf{A3 -- Giải phương trình vi phân tuyến tính}
+
+\baitap{2.28}
+\debai
+(Nguồn A3.1) Tìm nghiệm \(x(t)\) của
+\[
+\ddot x+3\dot x+6x=0,
+\qquad
+x(0)=0,\quad \dot x(0)=3.
+\]
+
+\loigiai
+Lấy Laplace:
+\[
+(s^2X-3)+3sX+6X=0.
+\]
+Do đó
+\[
+X(s)=\frac3{s^2+3s+6}.
+\]
+Hoàn thành bình phương:
+\[
+s^2+3s+6
+=
+\left(s+\frac32\right)^2+\frac{15}{4}.
+\]
+Suy ra
+\[
+\boxed{
+x(t)=
+\frac6{\sqrt{15}}\,
+e^{-3t/2}
+\sin\left(\frac{\sqrt{15}}2t\right).
+}
+\]
+
+\baitap{2.29}
+\debai
+(Nguồn A3.2; trong ảnh gốc bị lặp số A3.1) Giải
+\[
+2\ddot x+7\dot x+3x=u(t),
+\qquad
+x(0)=0,\quad \dot x(0)=3,
+\]
+với
+\[
+u(t)=2\,1(t).
+\]
+
+\loigiai
+Vì \(U(s)=2/s\):
+\[
+2(s^2X-3)+7sX+3X=\frac2s.
+\]
+Suy ra
+\[
+X(s)
+=
+\frac{6s+2}{s(2s+1)(s+3)}.
+\]
+Tách phân thức:
+\[
+X(s)
+=
+\frac{2}{3s}
++\frac{2/5}{s+1/2}
+-\frac{16/15}{s+3}.
+\]
+Do đó
+\[
+\boxed{
+x(t)
+=
+\frac23+\frac25e^{-t/2}
+-\frac{16}{15}e^{-3t}.
+}
+\]
+Kiểm tra:
+\[
+x(0)=0,\qquad \dot x(0)=3.
+\]
+
+\baitap{2.30}
+\debai
+(Nguồn A3.3) Giải
+\[
+\ddot x+2\dot x+5x=3\,1(t),
+\qquad
+x(0)=0,\quad \dot x(0)=0.
+\]
+
+\loigiai
+Lấy Laplace:
+\[
+(s^2+2s+5)X(s)=\frac3s.
+\]
+Vì
+\[
+s^2+2s+5=(s+1)^2+4,
+\]
+ta tách
+\[
+X(s)
+=
+\frac{3}{5s}
+-\frac35\frac{s+1}{(s+1)^2+4}
+-\frac35\frac1{(s+1)^2+4}.
+\]
+Nhớ rằng
+\[
+\Lap^{-1}\left\{
+\frac1{(s+1)^2+2^2}
+\right\}
+=
+\frac12e^{-t}\sin2t.
+\]
+Do đó
+\[
+\boxed{
+x(t)
+=
+\frac35
+-\frac35e^{-t}\cos2t
+-\frac3{10}e^{-t}\sin2t.
+}
+\]
+
+\textbf{A4 -- Hàm truyền}
+
+\baitap{2.31}
+\debai
+(Nguồn A4.1) Xét mạch RLC gồm cuộn cảm \(L\) và điện trở \(R\) mắc nối tiếp từ ngõ vào đến ngõ ra, tụ \(C\) nối từ ngõ ra xuống mass. Tìm
+\[
+G(s)=\frac{E_o(s)}{E_i(s)}.
+\]
+
+\begin{center}
+\begin{circuitikz}[european resistors,>=Stealth]
+  \draw (0,0) node[ground]{} to[open,v^>=$e_i(t)$] (0,3)
+        to[L=$L$,i>^=$i(t)$] (2.5,3)
+        to[R=$R$] (5,3)
+        to[short] (6,3)
+        to[C=$C$,v^>=$e_o(t)$] (6,0) node[ground]{};
+\end{circuitikz}
+\end{center}
+
+\loigiai
+Trong miền \(s\), trở kháng:
+\[
+Z_L=sL,\qquad Z_R=R,\qquad Z_C=\frac1{sC}.
+\]
+Mạch là mạch nối tiếp \(L,R,C\), đầu ra lấy trên tụ:
+\[
+G(s)
+=
+\frac{Z_C}{Z_L+Z_R+Z_C}.
+\]
+Do đó
+\[
+\boxed{
+G(s)=
+\frac1{LCs^2+RCs+1}.
+}
+\]
+
+\baitap{2.32}
+\debai
+(Nguồn A4.2) Xét mạch RC hai tầng như hình. Tìm
+\[
+G(s)=\frac{E_o(s)}{E_i(s)}.
+\]
+
+\begin{center}
+\begin{circuitikz}[european resistors,>=Stealth]
+  \draw (0,0) node[ground]{} to[open,v^>=$e_i$] (0,3)
+        to[R=$R_1$] (2.8,3) node[circ] (n1) {}
+        to[R=$R_2$] (5.6,3) node[circ] (n2) {}
+        to[short] (6.5,3);
+  \draw (n1) to[C=$C_1$] (2.8,0) node[ground]{};
+  \draw (n2) to[C=$C_2$,v^>=$e_o$] (5.6,0) node[ground]{};
+\end{circuitikz}
+\end{center}
+
+\loigiai
+Gọi điện áp tại nút giữa \(R_1,R_2\) là \(V_1\), điện áp ra là \(V_2=E_o\).
+KCL tại nút ra:
+\[
+\frac{V_1-V_2}{R_2}=sC_2V_2,
+\]
+nên
+\[
+V_1=(1+sR_2C_2)V_2. \tag{1}
+\]
+KCL tại nút \(V_1\):
+\[
+\frac{E_i-V_1}{R_1}
+=
+sC_1V_1+\frac{V_1-V_2}{R_2}. \tag{2}
+\]
+Thay (1) vào (2), rút gọn:
+\[
+E_i
+=
+\Big[
+1+s(R_1C_1+R_1C_2+R_2C_2)
++s^2R_1R_2C_1C_2
+\Big]V_2.
+\]
+Vậy
+\[
+\boxed{
+G(s)=
+\frac1{
+R_1R_2C_1C_2s^2
++(R_1C_1+R_1C_2+R_2C_2)s
++1
+}.
+}
+\]
+
+\baitap{2.33}
+\debai
+(Nguồn A4.3) Hệ cơ gồm hai khối lượng \(m_1,m_2\). Khối \(m_1\) nối với nền chuyển động \(u(t)\) qua lò xo \(k_1\); hai khối nối với nhau bằng lò xo \(k_2\) và giảm chấn \(b\) mắc song song. Gọi \(x(t)\) là chuyển vị \(m_1\), \(y(t)\) là chuyển vị \(m_2\). Tìm
+\[
+G(s)=\frac{Y(s)}{U(s)}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,scale=0.9]
+  \draw[thick] (-1.6,-0.3)--(1.6,-0.3);
+  \node[draw,minimum width=2.2cm,minimum height=0.8cm] (m1) at (0,2.0) {$m_1$};
+  \node[draw,minimum width=2.2cm,minimum height=0.8cm] (m2) at (0,5.4) {$m_2$};
+
+  \draw[decorate,decoration={coil,aspect=0.45,segment length=4mm,amplitude=3mm}]
+    (0,0)--(0,1.6) node[midway,right=4mm]{$k_1$};
+
+  \draw[decorate,decoration={coil,aspect=0.45,segment length=4mm,amplitude=3mm}]
+    (-0.65,2.4)--(-0.65,5.0) node[midway,left=4mm]{$k_2$};
+
+  \draw (0.65,2.4)--(0.65,3.15);
+  \draw (0.35,3.15) rectangle (0.95,4.2);
+  \draw (0.65,4.2)--(0.65,5.0);
+  \node[right] at (0.95,3.65) {$b$};
+
+  \draw[->,thick] (2.0,0)--(2.0,0.9) node[above]{$u(t)$};
+  \draw[->,thick] (1.5,2.0)--(1.5,2.9) node[above]{$x(t)$};
+  \draw[->,thick] (1.5,5.4)--(1.5,6.3) node[above]{$y(t)$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Phương trình động lực học của \(m_1\):
+\[
+m_1\ddot x
+=
+k_1(u-x)+k_2(y-x)+b(\dot y-\dot x).
+\]
+Suy ra
+\[
+m_1\ddot x+b(\dot x-\dot y)
++k_1(x-u)+k_2(x-y)=0. \tag{1}
+\]
+Với \(m_2\):
+\[
+m_2\ddot y
+=
+k_2(x-y)+b(\dot x-\dot y),
+\]
+hay
+\[
+m_2\ddot y+b(\dot y-\dot x)+k_2(y-x)=0. \tag{2}
+\]
+Lấy Laplace:
+\[
+[m_1s^2+bs+k_1+k_2]X-(bs+k_2)Y=k_1U,
+\]
+\[
+-(bs+k_2)X+[m_2s^2+bs+k_2]Y=0.
+\]
+Giải hệ cho \(Y/U\):
+\[
+\boxed{
+\frac{Y(s)}{U(s)}
+=
+\frac{k_1(bs+k_2)}
+{
+m_1m_2s^4+b(m_1+m_2)s^3
++[k_1m_2+k_2(m_1+m_2)]s^2
++bk_1s+k_1k_2
+}.
+}
+\]
+
+\textbf{A5 -- Không gian trạng thái}
+
+\baitap{2.34}
+\debai
+(Nguồn A5.1) Với mạch \(L\) nối tiếp với nhánh \(R\parallel C\), đầu vào là \(v_i(t)\), đầu ra là \(v_C(t)\). Hãy lập mô hình không gian trạng thái.
+
+\begin{center}
+\begin{circuitikz}[european resistors,>=Stealth]
+  \draw (0,0) node[ground]{} to[sV,l_=$v_i(t)$] (0,3)
+        to[L=$L$,i>^=$i_L$] (3.2,3) node[circ] (n) {};
+  \draw (n) to[R=$R$,i>_=$i_R$] (3.2,0) node[ground]{};
+  \draw (n) -- (5.8,3) to[C=$C$,i>^=$i_C$,v^>=$v_C$] (5.8,0) node[ground]{};
+\end{circuitikz}
+\end{center}
+
+\loigiai
+Chọn
+\[
+x_1=v_C,\qquad x_2=i_L,\qquad u=v_i,\qquad y=v_C.
+\]
+KCL:
+\[
+i_L=\frac{v_C}{R}+C\dot v_C
+\]
+nên
+\[
+\dot x_1
+=
+-\frac1{RC}x_1+\frac1C x_2.
+\]
+KVL:
+\[
+v_i=L\dot i_L+v_C
+\]
+nên
+\[
+\dot x_2
+=
+-\frac1Lx_1+\frac1Lu.
+\]
+Do đó
+\[
+\boxed{
+\dot x=
+\begin{bmatrix}
+-\dfrac1{RC}&\dfrac1C\\[2mm]
+-\dfrac1L&0
+\end{bmatrix}x
++
+\begin{bmatrix}
+0\\[1mm]\dfrac1L
+\end{bmatrix}u,
+\qquad
+y=
+\begin{bmatrix}1&0\end{bmatrix}x.
+}
+\]
+
+\baitap{2.35}
+\debai
+(Nguồn A5.2) Với mạch \(R,L,C\) nối tiếp, đầu vào là \(v_i(t)\), đầu ra là điện áp tụ \(v_C(t)\). Hãy lập mô hình không gian trạng thái.
+
+\begin{center}
+\begin{circuitikz}[european resistors,>=Stealth]
+  \draw (0,0) node[ground]{} to[sV,l_=$v_i(t)$] (0,3)
+        to[R=$R$,i>^=$i(t)$] (2.5,3)
+        to[L=$L$] (5.0,3)
+        to[C=$C$,v^>=$v_C(t)$] (5.0,0) node[ground]{};
+\end{circuitikz}
+\end{center}
+
+\loigiai
+Chọn
+\[
+x_1=v_C,\qquad x_2=i,\qquad u=v_i,\qquad y=v_C.
+\]
+Với tụ:
+\[
+i=C\dot v_C
+\quad\Rightarrow\quad
+\dot x_1=\frac1C x_2.
+\]
+KVL:
+\[
+v_i=Ri+L\dot i+v_C,
+\]
+suy ra
+\[
+\dot x_2
+=
+-\frac1Lx_1-\frac RLx_2+\frac1Lu.
+\]
+Vậy
+\[
+\boxed{
+\dot x=
+\begin{bmatrix}
+0&\dfrac1C\\[2mm]
+-\dfrac1L&-\dfrac RL
+\end{bmatrix}x
++
+\begin{bmatrix}
+0\\[1mm]\dfrac1L
+\end{bmatrix}u,
+\qquad
+y=
+\begin{bmatrix}1&0\end{bmatrix}x.
+}
+\]
+
+\baitap{2.36}
+\debai
+(Nguồn A5.3) Lập mô hình không gian trạng thái của hệ hai khối lượng ở Bài 2.33, với đầu vào \(u(t)\) là chuyển vị nền và đầu ra \(y(t)\) là chuyển vị của \(m_2\).
+
+\loigiai
+Chọn
+\[
+x_1=x,\qquad
+x_2=\dot x,\qquad
+x_3=y,\qquad
+x_4=\dot y.
+\]
+Từ các phương trình động lực học ở Bài 2.33:
+\[
+\dot x_1=x_2,
+\]
+\[
+\dot x_2
+=
+-\frac{k_1+k_2}{m_1}x_1
+-\frac b{m_1}x_2
++\frac{k_2}{m_1}x_3
++\frac b{m_1}x_4
++\frac{k_1}{m_1}u,
+\]
+\[
+\dot x_3=x_4,
+\]
+\[
+\dot x_4
+=
+\frac{k_2}{m_2}x_1
++\frac b{m_2}x_2
+-\frac{k_2}{m_2}x_3
+-\frac b{m_2}x_4.
+\]
+Do đó
+\[
+\boxed{
+A=
+\begin{bmatrix}
+0&1&0&0\\
+-\dfrac{k_1+k_2}{m_1}&-\dfrac b{m_1}&\dfrac{k_2}{m_1}&\dfrac b{m_1}\\
+0&0&0&1\\
+\dfrac{k_2}{m_2}&\dfrac b{m_2}&-\dfrac{k_2}{m_2}&-\dfrac b{m_2}
+\end{bmatrix},
+}
+\]
+\[
+\boxed{
+B=
+\begin{bmatrix}
+0\\[1mm]\dfrac{k_1}{m_1}\\[1mm]0\\[1mm]0
+\end{bmatrix},
+\qquad
+C=
+\begin{bmatrix}
+0&0&1&0
+\end{bmatrix},
+\qquad D=0.
+}
+\]
+
+\textbf{A6 -- Quan hệ giữa hàm truyền và không gian trạng thái}
+
+\baitap{2.37}
+\debai
+(Nguồn A6.1) Tìm một mô hình không gian trạng thái của
+\[
+G(s)=\frac{Y(s)}{U(s)}
+=
+\frac{24}{s^3+9s^2+2s+6}.
+\]
+
+\loigiai
+Từ
+\[
+(s^3+9s^2+2s+6)Y=24U
+\]
+suy ra
+\[
+y^{(3)}+9\ddot y+2\dot y+6y=24u.
+\]
+Chọn
+\[
+x_1=y,\qquad x_2=\dot y,\qquad x_3=\ddot y.
+\]
+Khi đó
+\[
+\boxed{
+\dot x=
+\begin{bmatrix}
+0&1&0\\
+0&0&1\\
+-6&-2&-9
+\end{bmatrix}x
++
+\begin{bmatrix}
+0\\0\\24
+\end{bmatrix}u,
+\qquad
+y=
+\begin{bmatrix}
+1&0&0
+\end{bmatrix}x.
+}
+\]
+
+\baitap{2.38}
+\debai
+(Nguồn A6.2) Tìm một mô hình không gian trạng thái của
+\[
+G(s)=
+\frac{2s+24}{s^3+6s^2+12s+16}.
+\]
+
+\loigiai
+Dùng dạng chuẩn điều khiển:
+\[
+A=
+\begin{bmatrix}
+0&1&0\\
+0&0&1\\
+-16&-12&-6
+\end{bmatrix},
+\qquad
+B=
+\begin{bmatrix}
+0\\0\\1
+\end{bmatrix}.
+\]
+Với tử số
+\[
+2s+24=24+2s+0s^2,
+\]
+chọn
+\[
+C=
+\begin{bmatrix}
+24&2&0
+\end{bmatrix},
+\qquad D=0.
+\]
+Vậy
+\[
+\boxed{
+\dot x=Ax+Bu,\qquad y=Cx,
+}
+\]
+với các ma trận \(A,B,C\) ở trên.
+
+\baitap{2.39}
+\debai
+(Nguồn A6.3) Tìm một mô hình không gian trạng thái của
+\[
+G(s)=
+\frac{s^2+24s+2}
+{2s^3+16s^2+12s+1}.
+\]
+
+\loigiai
+Chuẩn hóa mẫu bằng cách chia cả tử và mẫu cho \(2\):
+\[
+G(s)
+=
+\frac{\frac12s^2+12s+1}
+{s^3+8s^2+6s+\frac12}.
+\]
+Một dạng chuẩn điều khiển là
+\[
+\boxed{
+A=
+\begin{bmatrix}
+0&1&0\\
+0&0&1\\
+-\frac12&-6&-8
+\end{bmatrix},
+\qquad
+B=
+\begin{bmatrix}
+0\\0\\1
+\end{bmatrix},
+}
+\]
+\[
+\boxed{
+C=
+\begin{bmatrix}
+1&12&\frac12
+\end{bmatrix},
+\qquad D=0.
+}
+\]
+
+\baitap{2.40}
+\debai
+(Nguồn A6.4) Cho
+\[
+\dot x=
+\begin{bmatrix}
+-5&-1\\
+3&-1
+\end{bmatrix}x
++
+\begin{bmatrix}
+2\\5
+\end{bmatrix}u,
+\qquad
+y=
+\begin{bmatrix}
+1&2
+\end{bmatrix}x.
+\]
+Tìm hàm truyền \(G(s)=Y(s)/U(s)\).
+
+\loigiai
+Dùng
+\[
+G(s)=C(sI-A)^{-1}B.
+\]
+Ta có
+\[
+sI-A=
+\begin{bmatrix}
+s+5&1\\
+-3&s+1
+\end{bmatrix},
+\]
+\[
+\det(sI-A)
+=
+(s+5)(s+1)+3
+=
+s^2+6s+8
+=
+(s+2)(s+4),
+\]
+\[
+\operatorname{adj}(sI-A)
+=
+\begin{bmatrix}
+s+1&-1\\
+3&s+5
+\end{bmatrix}.
+\]
+Suy ra
+\[
+C\,\operatorname{adj}(sI-A)B
+=
+12s+59.
+\]
+Do đó
+\[
+\boxed{
+G(s)=
+\frac{12s+59}{(s+2)(s+4)}.
+}
+\]
+
+\baitap{2.41}
+\debai
+(Nguồn A6.5) Cho
+\[
+\dot x=
+\begin{bmatrix}
+0&1&0\\
+0&0&1\\
+-1&-5&-7
+\end{bmatrix}x
++
+\begin{bmatrix}
+2\\5\\0
+\end{bmatrix}u,
+\qquad
+y=
+\begin{bmatrix}
+1&0&0
+\end{bmatrix}x.
+\]
+Tìm hàm truyền \(G(s)\).
+
+\loigiai
+Ta có
+\[
+\det(sI-A)
+=
+s^3+7s^2+5s+1.
+\]
+Tính \(C(sI-A)^{-1}B\) cho tử số:
+\[
+2s^2+19s+45.
+\]
+Vì vậy
+\[
+\boxed{
+G(s)=
+\frac{2s^2+19s+45}
+{s^3+7s^2+5s+1}
+=
+\frac{(s+5)(2s+9)}
+{s^3+7s^2+5s+1}.
+}
+\]
+
+\baitap{2.42}
+\debai
+(Nguồn A6.6) Hệ cơ gồm khối lượng \(m\), lò xo \(k\) và giảm chấn \(b\). Lực ngoài \(u(t)\) tác dụng theo chiều dương của chuyển vị \(y(t)\). Hãy:
+\begin{itemize}
+  \item lập mô hình không gian trạng thái;
+  \item tìm hàm truyền \(Y(s)/U(s)\).
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,scale=0.95]
+  \draw[thick] (-1.4,5.8)--(1.4,5.8);
+  \draw[thick] (-1.4,0)--(1.4,0);
+  \node[draw,minimum width=2.1cm,minimum height=0.9cm] (m) at (0,3.0) {$m$};
+
+  \draw[decorate,decoration={coil,aspect=0.45,segment length=4mm,amplitude=3mm}]
+    (-0.55,5.8)--(-0.55,3.45) node[midway,left=4mm]{$k$};
+
+  \draw (0.55,0)--(0.55,1.1);
+  \draw (0.25,1.1) rectangle (0.85,2.2);
+  \draw (0.55,2.2)--(0.55,2.55);
+  \node[right] at (0.85,1.65) {$b$};
+
+  \draw[->,thick] (1.55,3.35)--(1.55,2.2) node[below]{$u(t)$};
+  \draw[->,thick] (2.35,3.35)--(2.35,2.2) node[below]{$y(t)$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Đo chuyển vị từ vị trí cân bằng tĩnh nên trọng lực đã được triệt bởi độ biến dạng cân bằng của lò xo. Phương trình động lực học:
+\[
+m\ddot y+b\dot y+ky=u.
+\]
+Chọn
+\[
+x_1=y,\qquad x_2=\dot y.
+\]
+Suy ra
+\[
+\boxed{
+\dot x=
+\begin{bmatrix}
+0&1\\
+-\dfrac km&-\dfrac bm
+\end{bmatrix}x
++
+\begin{bmatrix}
+0\\[1mm]\dfrac1m
+\end{bmatrix}u,
+\qquad
+y=
+\begin{bmatrix}
+1&0
+\end{bmatrix}x.
+}
+\]
+Lấy Laplace:
+\[
+(ms^2+bs+k)Y=U.
+\]
+Vậy
+\[
+\boxed{
+\frac{Y(s)}{U(s)}
+=
+\frac1{ms^2+bs+k}.
+}
+\]
+
+
 \clearpage
 \chuong{3}{ĐẠI SỐ SƠ ĐỒ KHỐI VÀ GRAPH TÍN HIỆU}
 
@@ -2081,6 +3152,361 @@ G(s)=\frac{P_1\Delta_1}{\Delta}
 =
 \frac{G_1G_2G_3}
 {1+G_1G_2H_1+G_2G_3H_2-G_1G_2G_3}.}
+\]
+
+
+
+
+\subsection*{Bài tập bổ sung từ bộ đề A7 -- Sơ đồ khối}
+
+\baitap{3.9}
+\debai
+(Nguồn A7.1) Rút gọn sơ đồ khối và tìm
+\[
+\frac{C(s)}{R(s)}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[sum] (s1) at (0,0) {};
+  \node[pickoff] (e) at (1.1,0) {};
+  \node[block] (g) at (3.0,0) {$G$};
+  \node[pickoff] (gp) at (4.6,0) {};
+  \node[sum] (s2) at (6.2,0) {};
+  \node[block] (h1) at (3.0,1.7) {$H_1$};
+  \node[block] (h2) at (3.0,-1.7) {$H_2$};
+
+  \draw[->] (-1.4,0) node[left]{$R$} -- (s1.west);
+  \draw[->] (s1.east) -- (e);
+  \draw[->] (e) -- (g.west);
+  \draw[->] (e) |- (h1.west);
+  \draw[->] (g.east) -- (gp) -- (s2.west);
+  \draw[->] (h1.east) -| (s2.north);
+  \draw[->] (s2.east) -- (7.5,0) node[right]{$C$};
+  \draw[->] (gp) |- (h2.east);
+  \draw[->] (h2.west) -- (0,-1.7) -- (s1.south);
+
+  \node at (-0.34,0.28) {$+$};
+  \node at (-0.30,-0.48) {$-$};
+  \node at (5.84,0.30) {$+$};
+  \node at (6.0,0.55) {$+$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Gọi tín hiệu sau bộ tổng thứ nhất là \(E\). Nhánh hồi tiếp lấy sau khối \(G\):
+\[
+E=R-H_2GE.
+\]
+Do đó
+\[
+E=\frac{R}{1+GH_2}.
+\]
+Bộ tổng đầu ra cộng hai nhánh \(GE\) và \(H_1E\):
+\[
+C=(G+H_1)E.
+\]
+Suy ra
+\[
+\boxed{
+\frac{C}{R}
+=
+\frac{G+H_1}{1+GH_2}.
+}
+\]
+
+\baitap{3.10}
+\debai
+(Nguồn A7.2) Rút gọn sơ đồ khối sau và tìm \(C(s)/R(s)\).
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[pickoff] (r) at (0,0) {};
+  \node[block] (g1) at (2,0) {$G_1$};
+  \node[sum] (s1) at (4,0) {};
+  \node[block] (g2) at (6,0) {$G_2$};
+  \node[sum] (s2) at (8,0) {};
+  \draw[->] (-1.2,0) node[left]{$R$}--(r);
+  \draw[->] (r)--(g1.west);
+  \draw[->] (g1.east)--(s1.west);
+  \draw[->] (s1.east)--node[above]{$X$}(g2.west);
+  \draw[->] (g2.east)--(s2.west);
+  \draw[->] (s2.east)--(9.2,0) node[right]{$C$};
+  \draw[->] (r)--(0,-1.5)--(4,-1.5)--(s1.south);
+  \draw[->] (4,-1.5)--(8,-1.5)--(s2.south);
+  \node at (3.65,0.28) {$+$};
+  \node at (3.75,-0.45) {$+$};
+  \node at (7.65,0.28) {$+$};
+  \node at (7.75,-0.45) {$+$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Tại bộ tổng thứ nhất:
+\[
+X=(G_1+1)R.
+\]
+Tại bộ tổng thứ hai:
+\[
+C=G_2X+R.
+\]
+Do đó
+\[
+\boxed{
+\frac{C}{R}
+=
+G_2(G_1+1)+1.
+}
+\]
+
+\baitap{3.11}
+\debai
+(Nguồn A7.3) Với sơ đồ khối sau, tìm \(Y(s)/U(s)\).
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[sum] (s1) at (0,0) {};
+  \node[pickoff] (e) at (1.1,0) {};
+  \node[block] (bs) at (3.0,0) {$\dfrac{b}{s}$};
+  \node[block] (a) at (3.0,1.5) {$a$};
+  \node[sum] (s2) at (5.0,0) {};
+  \node[block] (int) at (7.0,0) {$\dfrac1s$};
+  \node[pickoff] (y) at (8.5,0) {};
+  \draw[->] (-1.3,0) node[left]{$U$}--(s1.west);
+  \draw[->] (s1.east)--(e)--(bs.west);
+  \draw[->] (e)|-(a.west);
+  \draw[->] (bs.east)--(s2.west);
+  \draw[->] (a.east)-|(s2.north);
+  \draw[->] (s2.east)--(int.west);
+  \draw[->] (int.east)--(y)--(9.5,0) node[right]{$Y$};
+  \draw[->] (y)--(8.5,-1.6)--(0,-1.6)--(s1.south);
+  \node at (-0.34,0.28) {$+$};
+  \node at (-0.30,-0.48) {$-$};
+  \node at (4.65,0.28) {$+$};
+  \node at (4.85,0.55) {$+$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Khâu truyền thuận từ sai lệch \(E\) đến \(Y\) là
+\[
+F(s)
+=
+\left(a+\frac bs\right)\frac1s
+=
+\frac{as+b}{s^2}.
+\]
+Hệ hồi tiếp âm đơn vị nên
+\[
+\frac{Y}{U}
+=
+\frac{F}{1+F}.
+\]
+Vì vậy
+\[
+\boxed{
+\frac{Y(s)}{U(s)}
+=
+\frac{as+b}{s^2+as+b}.
+}
+\]
+
+\baitap{3.12}
+\debai
+(Nguồn A7.4) Rút gọn sơ đồ và tìm \(C(s)/R(s)\).
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[pickoff] (r) at (0,0) {};
+  \node[sum] (s1) at (2,0) {};
+  \node[sum] (s2) at (4.1,0) {};
+  \node[block] (g2) at (6,0) {$G_2$};
+  \node[pickoff] (c) at (7.5,0) {};
+  \node[block] (g1) at (2.8,1.5) {$G_1$};
+  \node[block] (h1) at (5.6,-1.7) {$H_1$};
+  \node[block] (h2) at (5.6,-3.0) {$H_2$};
+  \node[sum] (sf) at (3.2,-2.35) {};
+
+  \draw[->] (-1.2,0) node[left]{$R$}--(r)--(s1.west);
+  \draw[->] (r)|-(g1.west);
+  \draw[->] (s1.east)--(s2.west);
+  \draw[->] (g1.east)-|(s2.north);
+  \draw[->] (s2.east)--(g2.west);
+  \draw[->] (g2.east)--(c)--(8.5,0) node[right]{$C$};
+
+  \draw[->] (c)--(7.5,-1.7)--(h1.east);
+  \draw[->] (c)--(7.5,-3.0)--(h2.east);
+  \draw[->] (h1.west)--(sf.east);
+  \draw[->] (h2.west)-|(sf.south);
+  \draw[->] (sf.west)--(2,-2.35)--(s1.south);
+
+  \node at (1.65,0.28) {$+$};
+  \node at (1.75,-0.48) {$-$};
+  \node at (3.75,0.28) {$+$};
+  \node at (3.95,0.55) {$+$};
+  \node at (2.85,-2.05) {$+$};
+  \node at (3.0,-2.82) {$-$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Bộ tổng hồi tiếp phía dưới tạo
+\[
+F_b=(H_1-H_2)C.
+\]
+Tại bộ tổng thứ nhất:
+\[
+E=R-(H_1-H_2)C.
+\]
+Bộ tổng thứ hai nhận \(E\) và \(G_1R\):
+\[
+C=G_2(E+G_1R).
+\]
+Suy ra
+\[
+C
+=
+G_2[(1+G_1)R-(H_1-H_2)C].
+\]
+Do đó
+\[
+\boxed{
+\frac{C}{R}
+=
+\frac{(1+G_1)G_2}
+{1+G_2(H_1-H_2)}.
+}
+\]
+
+\baitap{3.13}
+\debai
+(Nguồn A7.5) Rút gọn sơ đồ và tìm \(C(s)/R(s)\).
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[sum] (s1) at (0,0) {};
+  \node[pickoff] (e) at (1.1,0) {};
+  \node[block] (g1) at (3,1.0) {$G_1$};
+  \node[block] (g2) at (3,-0.3) {$G_2$};
+  \node[sum] (s2) at (5.2,0.35) {};
+  \node[pickoff] (c) at (6.6,0.35) {};
+  \node[block] (g3) at (4.0,-2.0) {$G_3$};
+  \node[block] (g4) at (4.0,-3.2) {$G_4$};
+  \node[sum] (sf) at (1.7,-2.6) {};
+
+  \draw[->] (-1.2,0) node[left]{$R$}--(s1.west);
+  \draw[->] (s1.east)--(e);
+  \draw[->] (e)|-(g1.west);
+  \draw[->] (e)|-(g2.west);
+  \draw[->] (g1.east)-|(s2.north);
+  \draw[->] (g2.east)-|(s2.south);
+  \draw[->] (s2.east)--(c)--(7.6,0.35) node[right]{$C$};
+
+  \draw[->] (c)--(6.6,-2.0)--(g3.east);
+  \draw[->] (c)--(6.6,-3.2)--(g4.east);
+  \draw[->] (g3.west)--(sf.east);
+  \draw[->] (g4.west)-|(sf.south);
+  \draw[->] (sf.west)--(0,-2.6)--(s1.south);
+
+  \node at (-0.34,0.28) {$+$};
+  \node at (-0.30,-0.48) {$-$};
+  \node at (4.88,0.73) {$+$};
+  \node at (4.88,-0.03) {$+$};
+  \node at (1.35,-2.28) {$+$};
+  \node at (1.50,-3.06) {$-$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Hai khối thuận song song:
+\[
+G_f=G_1+G_2.
+\]
+Nhánh hồi tiếp phía dưới:
+\[
+H=G_3-G_4.
+\]
+Với hồi tiếp âm:
+\[
+C=G_f(R-HC).
+\]
+Suy ra
+\[
+\boxed{
+\frac{C}{R}
+=
+\frac{G_1+G_2}
+{1+(G_1+G_2)(G_3-G_4)}.
+}
+\]
+
+\baitap{3.14}
+\debai
+(Nguồn A7.6) Hệ có bộ điều khiển
+\[
+G_c(s)=\frac1s,
+\]
+đối tượng
+\[
+G_p(s)=\frac{10}{s+5},
+\]
+và cảm biến
+\[
+H(s)=\frac1{s+1}.
+\]
+Hồi tiếp âm. Tìm hàm truyền kín \(Y(s)/U(s)\).
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[sum] (s1) at (0,0) {};
+  \node[block] (gc) at (2.2,0) {$\dfrac1s$};
+  \node[block,minimum width=2cm] (gp) at (4.8,0) {$\dfrac{10}{s+5}$};
+  \node[pickoff] (y) at (6.5,0) {};
+  \node[block,minimum width=1.8cm] (h) at (3.5,-1.7) {$\dfrac1{s+1}$};
+
+  \draw[->] (-1.3,0) node[left]{$U$}--(s1.west);
+  \draw[->] (s1.east)--(gc.west);
+  \draw[->] (gc.east)--(gp.west);
+  \draw[->] (gp.east)--(y)--(7.5,0) node[right]{$Y$};
+  \draw[->] (y)--(6.5,-1.7)--(h.east);
+  \draw[->] (h.west)--(0,-1.7)--(s1.south);
+
+  \node at (-0.34,0.28) {$+$};
+  \node at (-0.30,-0.48) {$-$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Khâu truyền thuận:
+\[
+G(s)=G_cG_p
+=
+\frac{10}{s(s+5)}.
+\]
+Với hồi tiếp âm không đơn vị:
+\[
+\frac{Y}{U}
+=
+\frac{G}{1+GH}.
+\]
+Suy ra
+\[
+\frac{Y}{U}
+=
+\frac{\dfrac{10}{s(s+5)}}
+{1+\dfrac{10}{s(s+5)(s+1)}}.
+\]
+Rút gọn:
+\[
+\boxed{
+\frac{Y(s)}{U(s)}
+=
+\frac{10(s+1)}
+{s(s+5)(s+1)+10}
+=
+\frac{10(s+1)}
+{s^3+6s^2+5s+10}.
+}
 \]
 
 
