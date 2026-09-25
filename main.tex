@@ -1800,6 +1800,304 @@ c=
 \qquad D=0.}
 \]
 
-\textbf{Ghi chú.} Cuối tài liệu bắt đầu mục \(3.2\) về graph tín hiệu; phần được cung cấp mới nêu khái niệm điểm nút và các loại điểm, chưa có một bài giải hoàn chỉnh để bổ sung thành bài tập mới.
+
+\baitap{3.6}
+\debai
+Chuyển hai sơ đồ khối cơ bản sau sang graph tín hiệu và xác định quan hệ vào--ra.
+
+\textbf{a) Hai nhánh song song cùng đi vào một bộ tổng dương.}
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[pickoff] (u) at (0,0) {};
+  \node[block] (g1) at (2.2,0.8) {$G_1$};
+  \node[block] (g2) at (2.2,-0.8) {$G_2$};
+  \node[sum] (sum) at (4.5,0) {};
+  \draw[->] (-1.0,0) node[left]{$u(t)$} -- (u);
+  \draw[->] (u) |- (g1.west);
+  \draw[->] (u) |- (g2.west);
+  \draw[->] (g1.east) -| (sum.north);
+  \draw[->] (g2.east) -| (sum.south);
+  \draw[->] (sum.east) -- (5.8,0) node[right]{$y(t)$};
+  \node at (4.15,0.42) {$+$};
+  \node at (4.15,-0.42) {$+$};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[pickoff] (u) at (0,0) {};
+  \node[pickoff] (y) at (4.0,0) {};
+  \draw[->] (-0.9,0) node[left]{$u$} -- (u);
+  \draw[->] (u) to[bend left=25] node[above]{$G_1$} (y);
+  \draw[->] (u) to[bend right=25] node[below]{$G_2$} (y);
+  \draw[->] (y) -- (4.9,0) node[right]{$y$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{b) Một khâu thuận \(G_1\) với hồi tiếp âm \(G_2\) tại bộ tổng.}
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[block] (g1) at (0,0) {$G_1$};
+  \node[sum] (sum) at (2.2,0) {};
+  \node[pickoff] (ypt) at (4.0,0) {};
+  \node[block] (g2) at (2.2,-1.55) {$G_2$};
+  \draw[->] (-1.4,0) node[left]{$u(t)$} -- (g1.west);
+  \draw[->] (g1.east) -- (sum.west);
+  \draw[->] (sum.east) -- (ypt) -- (5.0,0) node[right]{$y(t)$};
+  \draw[->] (ypt) -- (4.0,-1.55) -- (g2.east);
+  \draw[->] (g2.west) -- (1.0,-1.55) -- (1.0,-0.7) -- (sum.south);
+  \node at (1.82,0.28) {$+$};
+  \node at (1.86,-0.48) {$-$};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[pickoff] (u) at (0,0) {};
+  \node[pickoff] (x) at (2.2,0) {};
+  \node[pickoff] (y) at (4.2,0) {};
+  \draw[->] (-0.9,0) node[left]{$u$} -- (u);
+  \draw[->] (u) -- node[above]{$G_1$} (x);
+  \draw[->] (x) -- node[above]{$1$} (y);
+  \draw[->] (y) -- (5.0,0) node[right]{$y$};
+  \draw[->] (y) to[bend left=38] node[below]{$-G_2$} (x);
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Trong graph tín hiệu:
+\begin{itemize}
+  \item mỗi nút biểu diễn một tín hiệu;
+  \item mỗi nhánh có hướng và mang một hệ số truyền;
+  \item tín hiệu tại một nút bằng tổng các tín hiệu đi vào nút đó sau khi nhân với hệ số truyền của từng nhánh.
+\end{itemize}
+
+Với câu a:
+\[
+y=G_1u+G_2u,
+\]
+nên
+\[
+\boxed{\frac{Y}{U}=G_1+G_2.}
+\]
+
+Với câu b, gọi tín hiệu ngay sau bộ tổng là \(x\). Từ graph:
+\[
+x=G_1u-G_2y,
+\qquad
+y=x.
+\]
+Do đó
+\[
+y=G_1u-G_2y
+\]
+và
+\[
+\boxed{
+\frac{Y}{U}
+=
+\frac{G_1}{1+G_2}.}
+\]
+
+\baitap{3.7}
+\debai
+Cho graph tín hiệu dưới đây. Dùng công thức Mason để tìm hàm truyền tổng
+\[
+G(s)=\frac{C(s)}{R(s)}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick,scale=0.93,transform shape]
+  \node[pickoff] (n0) at (0,0) {};
+  \node[pickoff] (n1) at (1.7,0) {};
+  \node[pickoff] (n2) at (3.4,0) {};
+  \node[pickoff] (n3) at (5.1,0) {};
+  \node[pickoff] (n4) at (6.8,0) {};
+  \node[pickoff] (n5) at (8.5,0) {};
+  \node[pickoff] (n6) at (10.2,0) {};
+
+  \draw[->] (-1.0,0) node[left]{$R(s)$} -- (n0);
+  \draw[->] (n0) -- node[above]{$G_1$} (n1);
+  \draw[->] (n1) -- node[above]{$G_2$} (n2);
+  \draw[->] (n2) -- node[above]{$G_3$} (n3);
+  \draw[->] (n3) -- node[above]{$G_4$} (n4);
+  \draw[->] (n4) -- node[above]{$G_5$} (n5);
+  \draw[->] (n5) -- node[above]{$1$} (n6);
+  \draw[->] (n6) -- (11.1,0) node[right]{$C(s)$};
+
+  \draw[->] (n1) to[bend left=42] node[above]{$G_6$} (n3);
+  \draw[->] (n2) to[bend left=50] node[above]{$G_7$} (n5);
+
+  \draw[->] (n4) to[bend left=38] node[below]{$-H_1$} (n3);
+  \draw[->] (n5) to[bend left=55] node[below]{$-H_2$} (n1);
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Công thức Mason:
+\[
+\boxed{
+G(s)=\frac{1}{\Delta}\sum_k P_k\Delta_k
+}
+\]
+với
+\[
+\Delta
+=
+1-\sum L_i
++\sum L_iL_j
+-\sum L_iL_jL_m+\cdots,
+\]
+trong đó chỉ lấy tích của các vòng lặp không chạm nhau.
+
+\textbf{Bước 1: các đường truyền thuận.}
+Từ graph có ba đường truyền thuận:
+\[
+P_1=G_1G_2G_3G_4G_5,
+\]
+\[
+P_2=G_1G_6G_4G_5,
+\]
+\[
+P_3=G_1G_2G_7.
+\]
+
+\textbf{Bước 2: các vòng lặp.}
+Các vòng lặp là
+\[
+L_1=-G_4H_1,
+\]
+\[
+L_2=-G_2G_3G_4G_5H_2,
+\]
+\[
+L_3=-G_6G_4G_5H_2,
+\]
+\[
+L_4=-G_2G_7H_2.
+\]
+Trong bốn vòng trên, chỉ có \(L_1\) và \(L_4\) không chạm nhau. Vì vậy
+\[
+\boxed{
+\Delta
+=
+1-(L_1+L_2+L_3+L_4)+L_1L_4.
+}
+\]
+
+\textbf{Bước 3: xác định \(\Delta_k\).}
+Đường \(P_1\) chạm tất cả các vòng lặp:
+\[
+\Delta_1=1.
+\]
+Đường \(P_2\) cũng chạm tất cả các vòng lặp:
+\[
+\Delta_2=1.
+\]
+Với \(P_3\), chỉ có vòng \(L_1\) không chạm \(P_3\):
+\[
+\Delta_3=1-L_1.
+\]
+
+\textbf{Bước 4: áp dụng công thức Mason.}
+\[
+\boxed{
+G(s)
+=
+\frac{
+P_1+P_2+P_3(1-L_1)
+}{
+1-(L_1+L_2+L_3+L_4)+L_1L_4
+}.}
+\]
+Thay trực tiếp các \(P_k,L_i\):
+\[
+\boxed{
+G(s)=
+\frac{
+G_1G_2G_3G_4G_5
++G_1G_6G_4G_5
++G_1G_2G_7(1+G_4H_1)
+}{
+\Delta
+}
+}
+\]
+với
+\[
+\Delta=
+1+G_4H_1
++G_2G_3G_4G_5H_2
++G_6G_4G_5H_2
++G_2G_7H_2
++G_2G_4G_7H_1H_2.
+\]
+
+\baitap{3.8}
+\debai
+Cho graph tín hiệu sau. Dùng công thức Mason để tìm
+\[
+G(s)=\frac{Y(s)}{U(s)}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick,scale=1.0,transform shape]
+  \node[pickoff] (n0) at (0,0) {};
+  \node[pickoff] (n1) at (2.1,0) {};
+  \node[pickoff] (n2) at (4.2,0) {};
+  \node[pickoff] (n3) at (6.3,0) {};
+
+  \draw[->] (-1.0,0) node[left]{$U(s)$} -- (n0);
+  \draw[->] (n0) -- node[above]{$G_1$} (n1);
+  \draw[->] (n1) -- node[above]{$G_2$} (n2);
+  \draw[->] (n2) -- node[above]{$G_3$} (n3);
+  \draw[->] (n3) -- (7.3,0) node[right]{$Y(s)$};
+
+  \draw[->] (n2) to[bend left=42] node[below]{$-H_1$} (n0);
+  \draw[->] (n3) to[bend left=38] node[above]{$-H_2$} (n1);
+  \draw[->] (n3) to[bend right=58] node[below]{$1$} (n0);
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Có một đường truyền thuận:
+\[
+P_1=G_1G_2G_3.
+\]
+Các vòng lặp:
+\[
+L_1=-G_1G_2H_1,
+\]
+\[
+L_2=-G_2G_3H_2,
+\]
+\[
+L_3=G_1G_2G_3.
+\]
+Ba vòng lặp đều chạm nhau nên không có tích của hai vòng lặp không chạm nhau. Do đó
+\[
+\Delta
+=
+1-(L_1+L_2+L_3).
+\]
+Mọi vòng lặp đều chạm đường thuận \(P_1\), vì thế
+\[
+\Delta_1=1.
+\]
+Theo Mason:
+\[
+G(s)
+=
+\frac{P_1}{\Delta}
+=
+\frac{G_1G_2G_3}
+{1-\left(-G_1G_2H_1-G_2G_3H_2+G_1G_2G_3\right)}.
+\]
+Suy ra
+\[
+\boxed{
+G(s)
+=
+\frac{G_1G_2G_3}
+{1+G_1G_2H_1+G_2G_3H_2-G_1G_2G_3}.}
+\]
 
 \end{document}
