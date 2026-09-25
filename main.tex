@@ -2058,36 +2058,24 @@ G(s)=\frac{Y(s)}{U(s)}.
 \end{center}
 
 \loigiai
-Có một đường truyền thuận:
+Có một đường truyền thuận
 \[
-P_1=G_1G_2G_3.
+P_1=G_1G_2G_3,
 \]
-Các vòng lặp:
+và ba vòng lặp
 \[
-L_1=-G_1G_2H_1,
-\]
-\[
-L_2=-G_2G_3H_2,
-\]
-\[
+L_1=-G_1G_2H_1,\qquad
+L_2=-G_2G_3H_2,\qquad
 L_3=G_1G_2G_3.
 \]
-Ba vòng lặp đều chạm nhau nên không có tích của hai vòng lặp không chạm nhau. Do đó
+Ba vòng lặp đều chạm nhau nên không có tích của các vòng không chạm nhau:
 \[
-\Delta
-=
-1-(L_1+L_2+L_3).
+\Delta=1-(L_1+L_2+L_3).
 \]
-Mọi vòng lặp đều chạm đường thuận \(P_1\), vì thế
-\[
-\Delta_1=1.
-\]
-Theo Mason, thay trực tiếp \(P_1,L_1,L_2,L_3\):
+Mọi vòng lặp đều chạm đường thuận \(P_1\), do đó \(\Delta_1=1\). Theo Mason:
 \[
 \boxed{
-G(s)
-=
-\frac{P_1}{\Delta}
+G(s)=\frac{P_1\Delta_1}{\Delta}
 =
 \frac{G_1G_2G_3}
 {1+G_1G_2H_1+G_2G_3H_2-G_1G_2G_3}.}
