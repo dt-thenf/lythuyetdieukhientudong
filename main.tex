@@ -837,4 +837,401 @@ Giải hệ (6)--(7) cho $I_2/V$ cũng thu được
 Vì đầu ra là dòng điện và đầu vào là điện áp nên $G(s)$ phải có đơn vị nghịch đảo điện trở. Biểu thức trên thỏa điều này: tử số $LCs^2$ không thứ nguyên, còn mẫu số có đơn vị $\Omega$.
 
 
+
+\baitap{14}
+\debai
+Từ hàm truyền
+\[
+G(s)=\frac{Y(s)}{U(s)}
+=\frac{24}{s^3+9s^2+26s+24},
+\]
+hãy xây dựng mô hình không gian trạng thái. Trình bày hai cách chọn biến trạng thái như trong ghi chép.
+
+\loigiai
+Đặt
+\[
+A(s)=s^3+9s^2+26s+24.
+\]
+
+\textbf{Cách 1: chọn chuỗi biến trung gian từ }$U(s)/A(s)$.
+
+Đặt
+\[
+X_1(s)=\frac{U(s)}{A(s)},\qquad
+X_2(s)=sX_1(s),\qquad
+X_3(s)=sX_2(s)=s^2X_1(s).
+\]
+Suy ra trong miền thời gian:
+\[
+\dot x_1=x_2,\qquad \dot x_2=x_3.
+\]
+Từ
+\[
+U(s)=A(s)X_1(s)
+=\big(s^3+9s^2+26s+24\big)X_1(s)
+\]
+và các quan hệ trên:
+\[
+U(s)=sX_3(s)+9X_3(s)+26X_2(s)+24X_1(s).
+\]
+Do đó
+\[
+\dot x_3=-24x_1-26x_2-9x_3+u.
+\]
+Mặt khác,
+\[
+Y(s)=24X_1(s)
+\quad\Longrightarrow\quad
+y=24x_1.
+\]
+Vì vậy
+\[
+\boxed{
+\dot x=
+\begin{bmatrix}
+0&1&0\\
+0&0&1\\
+-24&-26&-9
+\end{bmatrix}x+
+\begin{bmatrix}
+0\\0\\1
+\end{bmatrix}u
+}
+\]
+và
+\[
+\boxed{
+y=
+\begin{bmatrix}
+24&0&0
+\end{bmatrix}x,\qquad D=0.
+}
+\]
+Tức là
+\[
+A=
+\begin{bmatrix}
+0&1&0\\
+0&0&1\\
+-24&-26&-9
+\end{bmatrix},\quad
+B=
+\begin{bmatrix}
+0\\0\\1
+\end{bmatrix},\quad
+C=
+\begin{bmatrix}
+24&0&0
+\end{bmatrix},\quad D=0.
+\]
+
+\textbf{Cách 2: chọn trực tiếp các đạo hàm của đầu ra.}
+
+Từ hàm truyền:
+\[
+\big(s^3+9s^2+26s+24\big)Y(s)=24U(s).
+\]
+Với điều kiện đầu bằng không:
+\[
+y^{(3)}+9\ddot y+26\dot y+24y=24u.
+\]
+Chọn
+\[
+x_1=y,\qquad x_2=\dot y,\qquad x_3=\ddot y.
+\]
+Khi đó
+\[
+\dot x_1=x_2,\qquad
+\dot x_2=x_3,
+\]
+\[
+\dot x_3=-24x_1-26x_2-9x_3+24u.
+\]
+Suy ra
+\[
+\boxed{
+\dot x=
+\begin{bmatrix}
+0&1&0\\
+0&0&1\\
+-24&-26&-9
+\end{bmatrix}x+
+\begin{bmatrix}
+0\\0\\24
+\end{bmatrix}u
+}
+\]
+và
+\[
+\boxed{
+y=
+\begin{bmatrix}
+1&0&0
+\end{bmatrix}x,\qquad D=0.
+}
+\]
+
+Hai mô hình đều mô tả cùng một hàm truyền. Chúng chỉ khác nhau do cách chọn và chuẩn hóa biến trạng thái.
+
+\baitap{15}
+\debai
+Cho
+\[
+G(s)=\frac{Y(s)}{U(s)}
+=\frac{s^2+7s+2}{s^3+9s^2+26s+24}.
+\]
+Hãy tìm một mô hình không gian trạng thái dạng
+\[
+\dot x=Ax+Bu,\qquad y=Cx+Du.
+\]
+
+\loigiai
+Mẫu số vẫn là
+\[
+A(s)=s^3+9s^2+26s+24.
+\]
+Tử số là
+\[
+B(s)=s^2+7s+2.
+\]
+Vì bậc tử $m=2$ nhỏ hơn bậc mẫu $n=3$, hệ là strictly proper nên
+\[
+D=0.
+\]
+
+Ta chọn các biến trung gian theo đúng cách ở trang tiếp theo của ghi chép:
+\[
+X_1(s)=\frac{U(s)}{A(s)},\qquad
+X_2(s)=sX_1(s),\qquad
+X_3(s)=s^2X_1(s).
+\]
+Do đó
+\[
+\dot x_1=x_2,\qquad
+\dot x_2=x_3.
+\]
+Từ
+\[
+U(s)=A(s)X_1(s)
+\]
+suy ra
+\[
+U(s)=sX_3(s)+9X_3(s)+26X_2(s)+24X_1(s),
+\]
+nên
+\[
+\dot x_3=-24x_1-26x_2-9x_3+u.
+\]
+Phương trình đầu ra:
+\[
+Y(s)=\big(s^2+7s+2\big)X_1(s)
+=2X_1(s)+7X_2(s)+X_3(s).
+\]
+Vì vậy
+\[
+y=2x_1+7x_2+x_3.
+\]
+Mô hình trạng thái là
+\[
+\boxed{
+A=
+\begin{bmatrix}
+0&1&0\\
+0&0&1\\
+-24&-26&-9
+\end{bmatrix},\quad
+B=
+\begin{bmatrix}
+0\\0\\1
+\end{bmatrix}
+}
+\]
+và
+\[
+\boxed{
+C=
+\begin{bmatrix}
+2&7&1
+\end{bmatrix},\qquad D=0.
+}
+\]
+
+\textbf{Lưu ý về cách chọn }$x_1=y,\ x_2=\dot y,\ x_3=\ddot y$.
+Nếu chọn trực tiếp như vậy thì phương trình vi phân thu được từ hàm truyền là
+\[
+y^{(3)}+9\ddot y+26\dot y+24y
+=\ddot u+7\dot u+2u,
+\]
+nên phương trình trạng thái sẽ xuất hiện $\dot u$ và $\ddot u$. Đây không còn là dạng chuẩn $\dot x=Ax+Bu$ với đầu vào duy nhất $u$. Vì vậy với bài này, cách dùng biến trung gian $X_1=U/A$ là phù hợp hơn.
+
+Kiểm tra lại:
+\[
+G(s)=C(sI-A)^{-1}B+D
+=\frac{s^2+7s+2}{s^3+9s^2+26s+24}.
+\]
+
+\baitap{16}
+\debai
+Xét mạch điện gồm nguồn $v_{in}(t)$ nối tiếp cuộn cảm $L$, sau đó đến một nút có điện trở $R$ và tụ $C$ mắc song song xuống mass. Chọn
+\[
+u(t)=v_{in}(t),\qquad y(t)=v_C(t).
+\]
+Hãy xây dựng mô hình không gian trạng thái của mạch.
+
+\begin{center}
+\begin{circuitikz}[european resistors, scale=1.0, transform shape, >=Stealth]
+  \coordinate (BL) at (0,0);
+  \coordinate (TL) at (0,3.2);
+  \coordinate (N) at (4.1,3.2);
+  \coordinate (G1) at (4.1,0);
+  \coordinate (G2) at (7.2,0);
+  \coordinate (CT) at (7.2,3.2);
+
+  \draw (BL) to[sV,l_=$v_{in}(t)$] (TL)
+        to[L=$L$, i>^=$i_L(t)$] (N) node[circ]{};
+  \draw (N) to[R=$R$, i>_=$i_R(t)$] (G1) -- (BL);
+  \draw (N) -- (CT) to[C=$C$, i>^=$i_C(t)$, v^>=$v_C(t)$] (G2) -- (G1);
+
+  \node[above] at (N) {$+$};
+  \node[below] at (G1) {$-$};
+\end{circuitikz}
+\end{center}
+
+\loigiai
+Trong mạch có hai phần tử tích trữ năng lượng là $C$ và $L$, nên chọn hai biến trạng thái
+\[
+x_1=v_C,\qquad x_2=i_L.
+\]
+Tức là
+\[
+x=
+\begin{bmatrix}
+v_C\\ i_L
+\end{bmatrix}.
+\]
+
+\textbf{Phương trình thứ nhất - KCL tại nút sau cuộn cảm.}
+
+Dòng qua cuộn cảm chia thành dòng qua điện trở và dòng qua tụ:
+\[
+i_L=i_R+i_C.
+\]
+Vì
+\[
+i_R=\frac{v_C}{R},\qquad
+i_C=C\frac{dv_C}{dt},
+\]
+nên
+\[
+i_L=\frac{v_C}{R}+C\frac{dv_C}{dt}.
+\]
+Suy ra
+\[
+\boxed{
+\dot v_C
+=-\frac{1}{RC}v_C+\frac1C i_L.
+}
+\tag{1}
+\]
+
+\textbf{Phương trình thứ hai - KVL vòng nguồn, cuộn cảm và nhánh song song.}
+
+Ta có
+\[
+v_{in}=v_L+v_C,
+\]
+với
+\[
+v_L=L\frac{di_L}{dt}.
+\]
+Do đó
+\[
+v_{in}=L\frac{di_L}{dt}+v_C,
+\]
+hay
+\[
+\boxed{
+\dot i_L
+=-\frac1L v_C+\frac1L u.
+}
+\tag{2}
+\]
+
+Ghép (1) và (2):
+\[
+\boxed{
+\begin{bmatrix}
+\dot v_C\\[2mm]
+\dot i_L
+\end{bmatrix}
+=
+\begin{bmatrix}
+-\dfrac{1}{RC}&\dfrac1C\\[2mm]
+-\dfrac1L&0
+\end{bmatrix}
+\begin{bmatrix}
+v_C\\[2mm]
+i_L
+\end{bmatrix}
++
+\begin{bmatrix}
+0\\[2mm]
+\dfrac1L
+\end{bmatrix}u.
+}
+\]
+Vì đầu ra được chọn là điện áp tụ,
+\[
+\boxed{
+y=
+\begin{bmatrix}
+1&0
+\end{bmatrix}
+\begin{bmatrix}
+v_C\\ i_L
+\end{bmatrix},\qquad D=0.
+}
+\]
+Vậy
+\[
+\boxed{
+A=
+\begin{bmatrix}
+-\dfrac{1}{RC}&\dfrac1C\\[2mm]
+-\dfrac1L&0
+\end{bmatrix},\quad
+B=
+\begin{bmatrix}
+0\\[2mm]
+\dfrac1L
+\end{bmatrix},\quad
+C=
+\begin{bmatrix}
+1&0
+\end{bmatrix},\quad D=0.
+}
+\]
+
+\textbf{Kiểm tra từ mô hình trạng thái.}
+Từ
+\[
+G(s)=C(sI-A)^{-1}B+D
+\]
+thu được
+\[
+\boxed{
+\frac{V_C(s)}{V_{in}(s)}
+=
+\frac{1}{LCs^2+\dfrac{L}{R}s+1}.
+}
+\]
+
+\textbf{Chú ý hiệu chỉnh từ ghi chép.}
+Từ phương trình KCL ở trên, hệ số của $v_C$ trong $\dot v_C$ bắt buộc là
+\[
+-\frac{1}{RC},
+\]
+không phải $-C/R$. Dạng $-C/R$ không đúng về đơn vị và không suy ra từ KCL.
+
+
 \end{document}
