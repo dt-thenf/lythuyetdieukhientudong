@@ -1,0 +1,674 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{vntex,inputenc}
+\usepackage[T5]{fontenc}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{circuitikz}
+\usetikzlibrary{arrows.meta,calc}
+\usepackage[hidelinks]{hyperref}
+
+\geometry{left=1.85cm,right=1.85cm,top=1.65cm,bottom=1.55cm,headheight=16pt,headsep=0.35cm,footskip=0.75cm}
+\setstretch{1.06}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.22em}
+\setlength{\abovedisplayskip}{5pt plus 1pt minus 2pt}
+\setlength{\belowdisplayskip}{5pt plus 1pt minus 2pt}
+\setlength{\abovedisplayshortskip}{3pt plus 1pt}
+\setlength{\belowdisplayshortskip}{3pt plus 1pt minus 1pt}
+\setlength{\jot}{2pt}
+\raggedbottom
+\setlist[itemize]{leftmargin=1.6em,itemsep=0.2em,topsep=0.2em}
+\allowdisplaybreaks
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily LÝ THUYẾT ĐIỀU KHIỂN TỰ ĐỘNG}
+\fancyhead[R]{\small\sffamily Bài tập và lời giải}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\titleformat{\section}{\large\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{0.75em}{0.2em}
+
+\newcommand{\baitap}[1]{%
+  \Needspace{4\baselineskip}%
+  \section*{Bài #1}%
+}
+\newcommand{\debai}{\par\noindent\textbf{Đề bài.}\enspace}
+\newcommand{\loigiai}{\par\smallskip\noindent\textbf{Lời giải.}\enspace}
+\newcommand{\Lap}{\mathcal{L}}
+
+\begin{document}
+
+\noindent{\bfseries\large BÀI TẬP VÀ LỜI GIẢI -- LÝ THUYẾT ĐIỀU KHIỂN TỰ ĐỘNG}
+\vspace{0.25em}
+\hrule
+\vspace{0.45em}
+
+\baitap{1}
+\debai
+Tìm biến đổi Laplace ngược của
+\[
+F(s)=\frac{1}{s^2-8s+7}.
+\]
+
+\loigiai
+Phân tích mẫu số:
+\[
+s^2-8s+7=(s-1)(s-7).
+\]
+Do đó
+\[
+F(s)=\frac{1}{(s-1)(s-7)}
+=\frac{C_1}{s-1}+\frac{C_2}{s-7}.
+\]
+Với các cực đơn, dùng
+\[
+C_i=\left[(s-p_i)F(s)\right]_{s=p_i}.
+\]
+Suy ra
+\[
+C_1=\left[\frac{1}{s-7}\right]_{s=1}=-\frac16,
+\qquad
+C_2=\left[\frac{1}{s-1}\right]_{s=7}=\frac16.
+\]
+Vậy
+\[
+F(s)=-\frac{1}{6}\frac{1}{s-1}+\frac{1}{6}\frac{1}{s-7}.
+\]
+Dùng
+\[
+\Lap^{-1}\left\{\frac{1}{s-a}\right\}=e^{at}1(t),
+\]
+ta được
+\[
+\boxed{f(t)=\frac{e^{7t}-e^t}{6}\,1(t)}.
+\]
+
+\baitap{2}
+\debai
+Giải phương trình vi phân
+\[
+\frac{d^2y}{dt^2}-8\frac{dy}{dt}+7y=4,
+\qquad y(0)=0,\quad y'(0)=0.
+\]
+
+\loigiai
+Lấy biến đổi Laplace hai vế. Vì các điều kiện đầu bằng không,
+\[
+\Lap\{y'\}=sY(s),\qquad \Lap\{y''\}=s^2Y(s),\qquad \Lap\{4\}=\frac4s.
+\]
+Suy ra
+\[
+s^2Y(s)-8sY(s)+7Y(s)=\frac4s,
+\]
+hay
+\[
+Y(s)=\frac{4}{s(s^2-8s+7)}
+=\frac{4}{s(s-1)(s-7)}.
+\]
+Tách phân thức:
+\[
+Y(s)=\frac{C_1}{s}+\frac{C_2}{s-1}+\frac{C_3}{s-7}.
+\]
+Các hệ số là
+\[
+C_1=\left[sY(s)\right]_{s=0}=\frac47,
+\]
+\[
+C_2=\left[(s-1)Y(s)\right]_{s=1}=-\frac23,
+\]
+\[
+C_3=\left[(s-7)Y(s)\right]_{s=7}=\frac{2}{21}.
+\]
+Do đó
+\[
+Y(s)=\frac47\frac1s-\frac23\frac1{s-1}+\frac{2}{21}\frac1{s-7}.
+\]
+Lấy Laplace ngược:
+\[
+\boxed{y(t)=\left(\frac47-\frac23e^t+\frac{2}{21}e^{7t}\right)1(t)}.
+\]
+
+\baitap{3}
+\debai
+Giả sử $F(s)$ có một cực bội bậc $3$ tại $s=p$ và phần phân thức tương ứng có dạng
+\[
+F(s)=\frac{C_1}{(s-p)^3}+\frac{C_2}{(s-p)^2}+\frac{C_3}{s-p}+\cdots.
+\]
+Suy ra công thức xác định $C_1,C_2,C_3$.
+
+\loigiai
+Nhân hai vế với $(s-p)^3$:
+\[
+(s-p)^3F(s)=C_1+C_2(s-p)+C_3(s-p)^2+\cdots.
+\]
+Cho $s=p$:
+\[
+\boxed{C_1=\left[(s-p)^3F(s)\right]_{s=p}}.
+\]
+Lấy đạo hàm theo $s$:
+\[
+\frac{d}{ds}\big[(s-p)^3F(s)\big]
+=C_2+2C_3(s-p)+\cdots.
+\]
+Cho $s=p$:
+\[
+\boxed{C_2=\left[\frac{d}{ds}\big((s-p)^3F(s)\big)\right]_{s=p}}.
+\]
+Lấy đạo hàm lần hai:
+\[
+\frac{d^2}{ds^2}\big[(s-p)^3F(s)\big]=2C_3+\cdots.
+\]
+Vì vậy
+\[
+\boxed{C_3=\frac{1}{2!}\left[\frac{d^2}{ds^2}\big((s-p)^3F(s)\big)\right]_{s=p}}.
+\]
+
+\baitap{4}
+\debai
+Giải phương trình
+\[
+\frac{dy(t)}{dt}+4y(t)=5u_{in}(t),
+\]
+trong đó $u_{in}(t)=1(t)$ và $y(0)=0$.
+
+\loigiai
+Vì
+\[
+\Lap\{1(t)\}=\frac1s,
+\]
+nên
+\[
+sY(s)-y(0)+4Y(s)=\frac5s.
+\]
+Thay $y(0)=0$:
+\[
+(s+4)Y(s)=\frac5s
+\quad\Rightarrow\quad
+Y(s)=\frac{5}{s(s+4)}.
+\]
+Tách phân thức:
+\[
+\frac{5}{s(s+4)}=\frac{A}{s}+\frac{B}{s+4}.
+\]
+Nhân với $s(s+4)$:
+\[
+5=A(s+4)+Bs.
+\]
+Cho $s=0$ và $s=-4$:
+\[
+A=\frac54,\qquad B=-\frac54.
+\]
+Vậy
+\[
+Y(s)=\frac54\frac1s-\frac54\frac1{s+4},
+\]
+và
+\[
+\boxed{y(t)=\frac54\left(1-e^{-4t}\right)1(t)}.
+\]
+
+\baitap{5}
+\debai
+Cho
+\[
+F(s)=\frac{s+5}{s+1},\qquad s=-1+j3.
+\]
+Tính giá trị phức, biên độ và pha của $F(s)$.
+
+\loigiai
+Thay $s=-1+j3$:
+\[
+F(-1+j3)=\frac{4+j3}{j3}=1-\frac43j.
+\]
+Biên độ:
+\[
+|F|=\sqrt{1^2+\left(-\frac43\right)^2}=\frac53.
+\]
+Pha:
+\[
+\varphi=\tan^{-1}\left(-\frac43\right)\approx -53.13^\circ.
+\]
+Do đó
+\[
+\boxed{F(-1+j3)=1-\frac43j=\frac53\angle(-53.13^\circ)}.
+\]
+
+\baitap{6}
+\debai
+Tìm biến đổi Laplace của
+\[
+f(t)=t^2+e^{-2t}\sin 3t.
+\]
+
+\loigiai
+Theo tính tuyến tính,
+\[
+F(s)=\Lap\{t^2\}+\Lap\{e^{-2t}\sin3t\}.
+\]
+Với
+\[
+\Lap\{t^n\}=\frac{n!}{s^{n+1}},
+\]
+ta có
+\[
+\Lap\{t^2\}=\frac{2}{s^3}.
+\]
+Mặt khác,
+\[
+\Lap\{\sin3t\}=\frac{3}{s^2+9}.
+\]
+Dùng tính chất dịch
+\[
+e^{-at}f(t)\ \longleftrightarrow\ F(s+a),
+\]
+suy ra
+\[
+\Lap\{e^{-2t}\sin3t\}=\frac{3}{(s+2)^2+9}.
+\]
+Vậy
+\[
+\boxed{F(s)=\frac{2}{s^3}+\frac{3}{(s+2)^2+9}}.
+\]
+
+\baitap{7}
+\debai
+Tìm biến đổi Laplace của
+\[
+f(t)=t\sin t.
+\]
+
+\loigiai
+Dùng tính chất
+\[
+\Lap\{tf(t)\}=-\frac{d}{ds}F(s),
+\qquad F(s)=\Lap\{f(t)\}.
+\]
+Vì
+\[
+\Lap\{\sin t\}=\frac{1}{s^2+1},
+\]
+nên
+\[
+\Lap\{t\sin t\}
+=-\frac{d}{ds}\left(\frac{1}{s^2+1}\right)
+=\frac{2s}{(s^2+1)^2}.
+\]
+Do đó
+\[
+\boxed{\Lap\{t\sin t\}=\frac{2s}{(s^2+1)^2}}.
+\]
+
+\baitap{8}
+\debai
+Tìm biến đổi Laplace ngược của
+\[
+F(s)=\frac{2(s^2+s+1)}{s(s+1)^2}.
+\]
+
+\loigiai
+Do $s=-1$ là cực bội bậc $2$, đặt
+\[
+F(s)=\frac{C_1}{s}+\frac{C_2}{s+1}+\frac{C_3}{(s+1)^2}.
+\]
+Với cực đơn $s=0$:
+\[
+C_1=\left[sF(s)\right]_{s=0}=2.
+\]
+Với cực bội $s=-1$:
+\[
+C_3=\left[(s+1)^2F(s)\right]_{s=-1}
+=\left[\frac{2(s^2+s+1)}{s}\right]_{s=-1}=-2.
+\]
+Đặt
+\[
+H(s)=(s+1)^2F(s)=2\left(s+1+\frac1s\right).
+\]
+Khi đó
+\[
+C_2=H'(-1)
+=\left[2\left(1-\frac1{s^2}\right)\right]_{s=-1}=0.
+\]
+Vậy
+\[
+F(s)=\frac2s-\frac{2}{(s+1)^2}.
+\]
+Dùng
+\[
+\Lap^{-1}\left\{\frac{1}{(s+a)^2}\right\}=te^{-at}1(t),
+\]
+ta được
+\[
+\boxed{f(t)=\left(2-2te^{-t}\right)1(t)}.
+\]
+
+\baitap{9}
+\debai
+Một xe được mô hình hóa bởi khối lượng $m$ và hệ số ma sát nhớt $b$. Lực kéo là $u(t)$, độ dịch chuyển là $d(t)$. Cho
+\[
+m=b=1,\qquad u(t)=1(t),\qquad d(0)=0,\quad \dot d(0)=0.
+\]
+Hãy tìm hàm truyền $G(s)=D(s)/U(s)$ và đáp ứng $d(t)$.
+
+\loigiai
+Theo định luật II Newton,
+\[
+\sum F=ma.
+\]
+Lực ma sát nhớt là $b\dot d(t)$, ngược chiều chuyển động, nên
+\[
+u(t)-b\dot d(t)=m\ddot d(t).
+\]
+Hay
+\[
+m\ddot d(t)+b\dot d(t)=u(t).
+\]
+Lấy Laplace với điều kiện đầu bằng không:
+\[
+(ms^2+bs)D(s)=U(s).
+\]
+Do đó
+\[
+\boxed{G(s)=\frac{D(s)}{U(s)}=\frac{1}{ms^2+bs}}.
+\]
+Với $m=b=1$:
+\[
+G(s)=\frac{1}{s(s+1)}.
+\]
+Vì $u(t)=1(t)$ nên $U(s)=1/s$, do đó
+\[
+D(s)=G(s)U(s)=\frac{1}{s^2(s+1)}.
+\]
+Tách phân thức:
+\[
+D(s)=-\frac1s+\frac1{s^2}+\frac1{s+1}.
+\]
+Lấy Laplace ngược:
+\[
+\boxed{d(t)=\left(-1+t+e^{-t}\right)1(t)}.
+\]
+
+\baitap{10}
+\debai
+Xét con lắc đơn có khối lượng $m$, chiều dài $l$, góc lệch $\theta$ so với phương thẳng đứng và mômen điều khiển $T_c$. Hãy lập mô hình phi tuyến và tuyến tính hóa quanh điểm làm việc $\theta=0$.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.05,>=Stealth]
+  \coordinate (O) at (0,2.75);
+  \coordinate (P) at ({2.45*sin(28)},{2.75-2.45*cos(28)});
+  \coordinate (V) at (0,0.05);
+  \draw[thick] (-1.2,3.15)--(1.2,3.15);
+  \draw[fill=black] (O) circle (1.5pt);
+  \draw[dashed] (O)--(V);
+  \draw[very thick] (O)--(P) node[midway,right]{$l$};
+  \draw[fill=black] (P) circle (2.7pt);
+  \node[above left] at (O) {O};
+
+  % Quy ước: theta dương theo chiều kim đồng hồ từ phương thẳng đứng xuống.
+  \draw[->,thick,blue] ($(O)+(0,-0.85)$) arc[start angle=-90,end angle=-62,radius=0.85];
+  \node[blue] at ($(O)+(0.38,-0.92)$) {$\theta$};
+
+  % Mômen điều khiển T_c cùng chiều dương của theta.
+  \draw[->,thick] ($(O)+(0.72,0.05)$) arc[start angle=8,end angle=-62,radius=0.72];
+  \node[right] at ($(O)+(0.78,0.32)$) {$T_c$};
+
+  % Trọng lực và thành phần tiếp tuyến gây mômen hồi phục.
+  \draw[->,thick,red] (P)--++(0,-1.35) node[right]{$mg$};
+  \draw[->,thick,red!70!black] (P)--++({-0.95*cos(28)},{-0.95*sin(28)})
+    node[below left]{$mg\sin\theta$};
+  \node[align=left] at (3.45,1.85) {chiều dương $\theta$\\và $T_c$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Mômen quán tính của vật đối với điểm treo là
+\[
+I=ml^2.
+\]
+Chọn chiều dương của $\theta$ theo chiều kim đồng hồ từ phương thẳng đứng xuống và chọn $T_c$ dương cùng chiều đó. Tổng mômen quanh điểm treo bằng mômen quán tính nhân gia tốc góc:
+\[
+\sum M_O = I\ddot\theta.
+\]
+Thành phần tiếp tuyến $mg\sin\theta$ tạo mômen hồi phục ngược chiều dương nên mômen trọng lực là $-mgl\sin\theta$. Mômen điều khiển là $+T_c$. Do đó
+\[
+T_c-mgl\sin\theta=ml^2\ddot\theta.
+\]
+Chia cả hai vế cho $ml^2$ thu được mô hình phi tuyến:
+\[
+\boxed{\ddot\theta+\frac{g}{l}\sin\theta=\frac{T_c}{ml^2}}.
+\]
+Để tuyến tính hóa quanh $\theta=0$, dùng khai triển Taylor của $\sin\theta$ tại $0$:
+\[
+\sin\theta\approx \sin0+\cos0\,\theta=\theta.
+\]
+Suy ra mô hình tuyến tính hóa:
+\[
+\boxed{\ddot\theta+\frac{g}{l}\theta=\frac{T_c}{ml^2}}.
+\]
+
+\baitap{11}
+\debai
+Xét mạch dẫn trước (lead network) như hình dưới. Giữa nút vào và nút $A$ có hai nhánh song song: nhánh trên là tụ $C$, nhánh dưới là điện trở $R_1$. Từ nút $A$ xuống mass là điện trở $R_2$. Tìm hàm truyền
+\[
+G(s)=\frac{V_{out}(s)}{V_{in}(s)},
+\]
+biết $v_C(0)=0$.
+
+\begin{center}
+\begin{circuitikz}[european resistors, scale=1.0, transform shape]
+  \coordinate (IN) at (0,3.2);
+  \coordinate (GND) at (0,0);
+  \coordinate (A) at (5.4,3.2);
+  \coordinate (B) at (5.4,0);
+
+  % Hai nhánh song song từ nút vào đến A: C và R1.
+  \draw (IN) node[circ]{} to[R=$R_1$] (A) node[circ,label=above:$A$]{};
+  \draw (IN) -- (0,4.45) to[C=$C$] (5.4,4.45) -- (A);
+
+  % Nhánh ra R2 và dây hồi về nút âm của Vin.
+  \draw (A) to[R,l_=$R_2$] (B) node[circ]{} -- (GND) node[circ]{};
+  \draw (B) node[ground]{};
+
+  % Cực tính điện áp đúng theo ghi chép gốc:
+  % Vin: + ở nút trên, - ở nút dưới.
+  \node[left] at ($(IN)+(-0.15,0.18)$) {$+$};
+  \node[left] at ($(GND)+(-0.15,-0.18)$) {$-$};
+  \node[left] at (-0.55,1.6) {$V_{in}$};
+
+  % vC: + bên trái tụ, - bên phải tụ.
+  \node[above] at ($(IN)+(1.55,1.25)$) {$+$};
+  \node[above] at ($(A)+(-1.55,1.25)$) {$-$};
+
+  % Vout: + tại A, - tại nút dưới.
+  \node[right] at ($(A)+(0.18,0.18)$) {$+$};
+  \node[right] at ($(B)+(0.18,-0.18)$) {$-$};
+  \node[right] at (6.35,1.6) {$V_{out}$};
+
+  % Chiều dòng điện: iC, iR1 sang phải; iR2 đi xuống.
+  \draw[->,thick] (1.05,4.70)--(2.05,4.70) node[midway,above]{$i_C$};
+  \draw[->,thick] (1.25,3.52)--(2.25,3.52) node[midway,above]{$i_{R_1}$};
+  \draw[->,thick] (5.90,2.85)--(5.90,1.95) node[midway,right]{$i_{R_2}$};
+
+  % Vòng KVL I theo chiều kim đồng hồ.
+  \draw[->,thick] (2.10,1.20) arc[start angle=205,end angle=-120,radius=0.72];
+  \node at (2.10,1.20) {$I$};
+\end{circuitikz}
+\end{center}
+
+\loigiai
+Tại nút $A$, áp dụng định luật Kirchhoff dòng điện (KCL):
+\[
+i_C+i_{R_1}=i_{R_2}.
+\]
+Với quy ước cực tính trên hình, dòng $i_C$ và $i_{R_1}$ đi từ cực dương sang cực âm của $v_C$, còn $i_{R_2}$ đi từ cực dương sang cực âm của $v_{out}$. Do đó
+\[
+i_C=C\frac{dv_C}{dt},\qquad
+i_{R_1}=\frac{v_C}{R_1},\qquad
+i_{R_2}=\frac{v_{out}}{R_2}.
+\]
+Suy ra
+\[
+C\frac{dv_C}{dt}+\frac{v_C}{R_1}=\frac{v_{out}}{R_2}. \tag{1}
+\]
+Theo KVL trên vòng $I$:
+\[
+v_C+v_{out}-v_{in}=0,
+\]
+hay
+\[
+v_C=v_{in}-v_{out}. \tag{2}
+\]
+Lấy biến đổi Laplace của (1), với $v_C(0)=0$:
+\[
+\left(sC+\frac1{R_1}\right)V_C(s)=\frac{V_{out}(s)}{R_2}. \tag{3}
+\]
+Từ (2):
+\[
+V_C(s)=V_{in}(s)-V_{out}(s). \tag{4}
+\]
+Thay (4) vào (3):
+\[
+\left(sC+\frac1{R_1}\right)\big(V_{in}-V_{out}\big)=\frac{V_{out}}{R_2}.
+\]
+Sắp xếp lại:
+\[
+\left(sC+\frac1{R_1}\right)V_{in}
+=
+\left(sC+\frac1{R_1}+\frac1{R_2}\right)V_{out}.
+\]
+Vì vậy
+\[
+\boxed{
+G(s)=\frac{V_{out}(s)}{V_{in}(s)}
+=
+\frac{sC+\dfrac1{R_1}}
+{sC+\dfrac1{R_1}+\dfrac1{R_2}}
+}.
+\]
+Chia cả tử và mẫu cho $C$:
+\[
+\boxed{
+G(s)=
+\frac{s+\dfrac1{R_1C}}
+{s+\dfrac1{R_1C}+\dfrac1{R_2C}}
+}.
+\]
+Nếu đặt
+\[
+b=\frac1{R_1C},\qquad
+a=\frac1{R_1C}+\frac1{R_2C},
+\]
+thì
+\[
+\boxed{G(s)=\frac{s+b}{s+a}},\qquad b<a.
+\]
+
+\baitap{12 - bổ sung}
+\debai
+Giải phương trình vi phân
+\[
+\boxed{y''-7y'-8y=10e^t},
+\]
+với
+\[
+y(0)=1,\qquad y'(0)=3.
+\]
+Tìm $y(t)$.
+
+\loigiai
+Lấy Laplace hai vế:
+\[
+\Lap\{y''\}=s^2Y(s)-sy(0)-y'(0)=s^2Y(s)-s-3,
+\]
+\[
+\Lap\{-7y'\}=-7[sY(s)-y(0)]=-7sY(s)+7,
+\]
+\[
+\Lap\{-8y\}=-8Y(s),
+\]
+và
+\[
+\Lap\{10e^t\}=\frac{10}{s-1}.
+\]
+Do đó
+\[
+s^2Y-s-3-7sY+7-8Y=\frac{10}{s-1}.
+\]
+Nhóm các số hạng chứa $Y(s)$:
+\[
+(s^2-7s-8)Y(s)-s+4=\frac{10}{s-1}.
+\]
+Suy ra
+\[
+(s^2-7s-8)Y(s)=\frac{10}{s-1}+s-4,
+\]
+\[
+Y(s)=\frac{\dfrac{10}{s-1}+s-4}{s^2-7s-8}.
+\]
+Phân tích mẫu:
+\[
+s^2-7s-8=(s-8)(s+1).
+\]
+Quy đồng tử:
+\[
+\frac{10}{s-1}+s-4
+=\frac{10+(s-4)(s-1)}{s-1}
+=\frac{s^2-5s+14}{s-1}.
+\]
+Vì vậy
+\[
+\boxed{
+Y(s)=\frac{s^2-5s+14}{(s-1)(s-8)(s+1)}
+}.
+\]
+Tách phân thức:
+\[
+Y(s)=\frac{A}{s-1}+\frac{B}{s-8}+\frac{C}{s+1}.
+\]
+Với $A$:
+\[
+A=\left[(s-1)Y(s)\right]_{s=1}
+=\frac{1^2-5(1)+14}{(1-8)(1+1)}
+=-\frac57.
+\]
+Với $B$:
+\[
+B=\left[(s-8)Y(s)\right]_{s=8}
+=\frac{8^2-5(8)+14}{(8-1)(8+1)}
+=\frac{38}{63}.
+\]
+Với $C$:
+\[
+C=\left[(s+1)Y(s)\right]_{s=-1}
+=\frac{(-1)^2-5(-1)+14}{(-1-1)(-1-8)}
+=\frac{10}{9}.
+\]
+Do đó
+\[
+Y(s)=-\frac57\frac1{s-1}
++\frac{38}{63}\frac1{s-8}
++\frac{10}{9}\frac1{s+1}.
+\]
+Lấy Laplace ngược:
+\[
+\boxed{
+y(t)=-\frac57e^t+\frac{38}{63}e^{8t}+\frac{10}{9}e^{-t}
+}.
+\]
+Kiểm tra điều kiện đầu:
+\[
+y(0)=-\frac57+\frac{38}{63}+\frac{10}{9}=1,
+\]
+\[
+y'(0)=-\frac57+8\cdot\frac{38}{63}-\frac{10}{9}=3.
+\]
+
+\end{document}
