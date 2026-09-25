@@ -25,6 +25,14 @@ jobs:
           latexmk_use_xelatex: true
           args: -interaction=nonstopmode -halt-on-error -file-line-error
 
+      - name: Upload compiled PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: lythuyetdieukhientudong-pdf
+          path: main.pdf
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Commit generated PDF as dt-thenf
         run: |
           git config user.name "paotroudz"
