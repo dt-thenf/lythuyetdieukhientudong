@@ -12,6 +12,8 @@
 \usepackage{fancyhdr}
 \usepackage{microtype}
 \usepackage{circuitikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 \usetikzlibrary{arrows.meta,calc,positioning}
 \usepackage[hidelinks]{hyperref}
 
@@ -2080,5 +2082,585 @@ G(s)=\frac{P_1\Delta_1}{\Delta}
 \frac{G_1G_2G_3}
 {1+G_1G_2H_1+G_2G_3H_2-G_1G_2G_3}.}
 \]
+
+
+\clearpage
+\chuong{4}{ĐẶC TÍNH ĐỘNG HỌC VÀ ĐÁP ỨNG TẦN SỐ}
+
+\baitap{4.1}
+\debai
+Cho hệ có hàm truyền
+\[
+G(s)=\frac{s+1}{s(s+5)}.
+\]
+Hãy:
+\begin{itemize}
+  \item tìm đáp ứng xung \(g(t)\);
+  \item tìm đáp ứng của hệ khi tín hiệu vào là \(r(t)=2\,1(t)\).
+\end{itemize}
+
+\loigiai
+Theo định nghĩa, đáp ứng xung là
+\[
+g(t)=\Lap^{-1}\{G(s)\}.
+\]
+Tách phân thức:
+\[
+\frac{s+1}{s(s+5)}
+=
+\frac{1/5}{s}+\frac{4/5}{s+5}.
+\]
+Vì vậy
+\[
+\boxed{
+g(t)=
+\left(\frac15+\frac45e^{-5t}\right)1(t).
+}
+\]
+
+Với
+\[
+r(t)=2\,1(t)
+\quad\Longrightarrow\quad
+R(s)=\frac2s,
+\]
+đầu ra trong miền Laplace là
+\[
+C(s)=G(s)R(s)
+=
+\frac{2(s+1)}{s^2(s+5)}.
+\]
+Tách phân thức:
+\[
+C(s)
+=
+\frac{8}{25}\frac1s
++\frac25\frac1{s^2}
+-\frac{8}{25}\frac1{s+5}.
+\]
+Do đó
+\[
+\boxed{
+c(t)=
+\left(
+\frac{8}{25}
++\frac25t
+-\frac{8}{25}e^{-5t}
+\right)1(t).
+}
+\]
+Dấu của số hạng \(e^{-5t}\) là âm, phù hợp với hệ số
+\(-8/25\) trong phép tách phân thức và cho \(c(0)=0\).
+
+\baitap{4.2}
+\debai
+Biết đáp ứng bước đơn vị của một hệ là
+\[
+h(t)=\left(1-3e^{-2t}+2e^{-3t}\right)1(t).
+\]
+Hãy tìm hàm truyền \(G(s)\).
+
+\loigiai
+Với hệ tuyến tính bất biến theo thời gian, đáp ứng xung là đạo hàm của đáp ứng bước:
+\[
+g(t)=\frac{dh(t)}{dt}.
+\]
+Do
+\[
+h(0^+)=1-3+2=0,
+\]
+không xuất hiện thành phần xung Dirac khi lấy đạo hàm. Vì vậy
+\[
+g(t)=6e^{-2t}-6e^{-3t}.
+\]
+Lấy Laplace:
+\[
+G(s)
+=
+\frac6{s+2}-\frac6{s+3}.
+\]
+Quy đồng:
+\[
+G(s)
+=
+\frac{6[(s+3)-(s+2)]}{(s+2)(s+3)}
+=
+\boxed{\frac6{s^2+5s+6}}.
+\]
+
+\baitap{4.3}
+\debai
+Xét khâu quán tính bậc nhất
+\[
+G(s)=\frac{k}{Ts+1},
+\qquad k>0,\quad T>0.
+\]
+Hãy xác định:
+\begin{itemize}
+  \item đặc tính tần số Nyquist \(G(j\omega)=P(\omega)+jQ(\omega)\);
+  \item biên độ \(A(\omega)\), pha \(\varphi(\omega)\);
+  \item đặc tính logarithm \(L(\omega)\);
+  \item các điểm đặc trưng tại \(\omega=0\), \(\omega=1/T\) và \(\omega\to\infty\).
+\end{itemize}
+
+\loigiai
+Thay \(s=j\omega\):
+\[
+G(j\omega)=\frac{k}{1+jT\omega}.
+\]
+Nhân cả tử và mẫu với \(1-jT\omega\):
+\[
+G(j\omega)
+=
+\frac{k(1-jT\omega)}{1+T^2\omega^2}.
+\]
+Do đó
+\[
+\boxed{
+P(\omega)=\frac{k}{1+T^2\omega^2},
+\qquad
+Q(\omega)=-\frac{kT\omega}{1+T^2\omega^2}.
+}
+\]
+Khử \(\omega\) cho ta
+\[
+\boxed{
+\left(P-\frac{k}{2}\right)^2+Q^2
+=
+\left(\frac{k}{2}\right)^2.
+}
+\]
+Vì \(\omega\ge0\) nên \(Q(\omega)\le0\): quỹ tích Nyquist là nửa đường tròn phía dưới trục thực, đi từ \(k\) về gốc tọa độ khi \(\omega\) tăng.
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,scale=1.0]
+  \draw[->] (-0.5,0) -- (5.1,0) node[right]{$P(\omega)$};
+  \draw[->] (0,-2.8) -- (0,1.0) node[above]{$Q(\omega)$};
+  \draw[very thick,->] (4,0) arc[start angle=0,end angle=-180,radius=2];
+  \fill (4,0) circle (1.6pt) node[above] {$k,\ \omega=0$};
+  \fill (2,-2) circle (1.6pt) node[below] {$\frac{k}{2}-j\frac{k}{2},\ \omega=\frac1T$};
+  \fill (0,0) circle (1.6pt) node[above right] {$\omega\to\infty$};
+  \draw[dashed] (2,0)--(2,-2);
+  \node[above] at (2,0) {$k/2$};
+\end{tikzpicture}
+\end{center}
+
+Biên độ:
+\[
+\boxed{
+A(\omega)=|G(j\omega)|
+=\frac{k}{\sqrt{1+T^2\omega^2}}.
+}
+\]
+Pha:
+\[
+\boxed{
+\varphi(\omega)=-\arctan(T\omega).
+}
+\]
+Đặc tính logarithm biên độ:
+\[
+\boxed{
+L(\omega)=20\log_{10}A(\omega)
+=
+20\log_{10}k
+-10\log_{10}\!\left(1+T^2\omega^2\right).
+}
+\]
+Các giá trị đặc trưng:
+\[
+\omega=0:
+\qquad
+L(0)=20\log_{10}k,\qquad
+\varphi(0)=0,
+\]
+\[
+\omega=\frac1T:
+\qquad
+L\!\left(\frac1T\right)
+=
+20\log_{10}\frac{k}{\sqrt2},
+\qquad
+\varphi\!\left(\frac1T\right)=-\frac{\pi}{4},
+\]
+\[
+\omega\to\infty:
+\qquad
+L(\omega)\to-\infty,\qquad
+\varphi(\omega)\to-\frac{\pi}{2}.
+\]
+
+Hình dưới biểu diễn chính xác phần thay đổi do khâu \(1/(Ts+1)\); giá trị \(20\log_{10}k\) chỉ làm tịnh tiến đường biên độ theo phương đứng.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.88\linewidth,height=4.6cm,
+  xmode=log,xmin=0.01,xmax=100,
+  ymin=-42,ymax=3,
+  grid=both,
+  xlabel={$\omega T$},
+  ylabel={$L-20\log_{10}k$ (dB)},
+  xtick={0.01,0.1,1,10,100},
+  ytick={0,-3.01,-20,-40},
+  legend style={font=\small,at={(0.02,0.05)},anchor=south west}
+]
+\addplot[thick,domain=0.01:100,samples=160]
+  {-10*ln(1+x^2)/ln(10)};
+\addlegendentry{chính xác}
+\addplot[dashed,domain=0.01:1,samples=2] {0};
+\addplot[dashed,domain=1:100,samples=80] {-20*ln(x)/ln(10)};
+\addlegendentry{tiệm cận}
+\addplot[only marks,mark=*] coordinates {(1,-3.0103)};
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.88\linewidth,height=4.2cm,
+  xmode=log,xmin=0.01,xmax=100,
+  ymin=-95,ymax=5,
+  grid=both,
+  xlabel={$\omega T$},
+  ylabel={$\varphi$ (độ)},
+  xtick={0.01,0.1,1,10,100},
+  ytick={0,-45,-90}
+]
+\addplot[thick,domain=0.01:100,samples=160] {-atan(x)};
+\addplot[only marks,mark=*] coordinates {(1,-45)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\baitap{4.4}
+\debai
+Vẽ đặc tính Nyquist của
+\[
+G(s)=\frac{4}{1+s}.
+\]
+Xác định các điểm tại \(\omega=0\), \(\omega=1\), \(\omega\to\infty\).
+
+\loigiai
+Thay \(s=j\omega\):
+\[
+G(j\omega)
+=
+\frac{4}{1+j\omega}
+=
+\frac{4}{1+\omega^2}
+-j\frac{4\omega}{1+\omega^2}.
+\]
+Do đó
+\[
+P(\omega)=\frac{4}{1+\omega^2},
+\qquad
+Q(\omega)=-\frac{4\omega}{1+\omega^2}.
+\]
+Các điểm đặc trưng:
+\[
+G(j0)=4,
+\]
+\[
+G(j1)=2-2j,
+\]
+\[
+G(j\infty)=0.
+\]
+Quỹ tích thỏa
+\[
+\boxed{(P-2)^2+Q^2=2^2,\qquad Q\le0.}
+\]
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,scale=1.0]
+  \draw[->] (-0.5,0)--(5.1,0) node[right]{$\Re\{G\}$};
+  \draw[->] (0,-2.8)--(0,0.8) node[above]{$\Im\{G\}$};
+  \draw[very thick,->] (4,0) arc[start angle=0,end angle=-180,radius=2];
+  \fill (4,0) circle (1.6pt) node[above] {$\omega=0$};
+  \fill (2,-2) circle (1.6pt) node[below] {$\omega=1$};
+  \fill (0,0) circle (1.6pt) node[above right] {$\omega\to\infty$};
+  \draw[dashed] (2,0)--(2,-2);
+  \draw[dashed] (0,-2)--(2,-2);
+  \node[below left] at (2,-2) {$2-2j$};
+\end{tikzpicture}
+\end{center}
+
+\baitap{4.5}
+\debai
+Vẽ đặc tính Nyquist của
+\[
+G(s)=\frac{3}{s(1+2s)},
+\qquad \omega\in(0,\infty).
+\]
+
+\loigiai
+Thay \(s=j\omega\):
+\[
+G(j\omega)
+=
+\frac{3}{j\omega(1+j2\omega)}.
+\]
+Rút gọn về phần thực và phần ảo:
+\[
+\boxed{
+G(j\omega)
+=
+-\frac{6}{4\omega^2+1}
+-j\frac{3}{\omega(4\omega^2+1)}.
+}
+\]
+Vì vậy
+\[
+P(\omega)=-\frac{6}{4\omega^2+1},
+\qquad
+Q(\omega)=-\frac{3}{\omega(4\omega^2+1)}.
+\]
+Các điểm giới hạn:
+\[
+\omega\to0^+:
+\qquad
+P\to-6,\quad Q\to-\infty,
+\]
+\[
+\omega=\frac12:
+\qquad
+G\!\left(j\frac12\right)=-3-3j,
+\]
+\[
+\omega\to\infty:
+\qquad
+G(j\omega)\to0.
+\]
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.72\linewidth,height=6.0cm,
+  axis lines=middle,
+  xmin=-6.7,xmax=0.7,
+  ymin=-10,ymax=1.0,
+  xlabel={$\Re\{G\}$},
+  ylabel={$\Im\{G\}$},
+  grid=both,
+  xtick={-6,-5,-4,-3,-2,-1,0},
+  ytick={-9,-6,-3,0},
+  axis equal image
+]
+\addplot[thick,domain=0.18:12,samples=240,variable=\w]
+  ({-6/(4*\w^2+1)},{-3/(\w*(4*\w^2+1))});
+\addplot[only marks,mark=*] coordinates {(-3,-3) (0,0)};
+\node[anchor=north east] at (axis cs:-3,-3) {$\omega=\frac12$};
+\node[anchor=south east] at (axis cs:-5.9,-8.7) {$\omega\to0^+$};
+\node[anchor=south west] at (axis cs:-0.25,-0.4) {$\omega\to\infty$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\baitap{4.6}
+\debai
+Vẽ đặc tính logarithm (Bode) của
+\[
+G(s)=\frac{100}{s+2}.
+\]
+
+\loigiai
+Đưa về dạng khâu quán tính bậc nhất:
+\[
+G(s)
+=
+\frac{100}{2(0.5s+1)}
+=
+\frac{50}{0.5s+1}.
+\]
+Suy ra
+\[
+k=50,\qquad T=0.5,
+\qquad
+\omega_g=\frac1T=2\ {\rm rad/s}.
+\]
+Biên độ logarithm và pha:
+\[
+\boxed{
+L(\omega)
+=
+20\log_{10}
+\frac{50}{\sqrt{1+0.25\omega^2}},
+}
+\]
+\[
+\boxed{
+\varphi(\omega)=-\arctan(0.5\omega).
+}
+\]
+Các điểm đặc trưng:
+\[
+L(0)=20\log_{10}50\approx33.98\ {\rm dB},
+\qquad
+\varphi(0)=0,
+\]
+\[
+L(2)
+=
+20\log_{10}\frac{50}{\sqrt2}
+\approx30.97\ {\rm dB},
+\qquad
+\varphi(2)=-45^\circ,
+\]
+và khi \(\omega\to\infty\),
+\[
+L(\omega)\to-\infty,
+\qquad
+\varphi(\omega)\to-90^\circ.
+\]
+Đường tiệm cận biên độ nằm ngang ở \(33.98\) dB trước \(\omega_g=2\), sau đó có độ dốc \(-20\) dB/decade.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.88\linewidth,height=4.8cm,
+  xmode=log,xmin=0.1,xmax=100,
+  ymin=-2,ymax=38,
+  grid=both,
+  xlabel={$\omega$ (rad/s)},
+  ylabel={$L(\omega)$ (dB)},
+  xtick={0.1,1,2,10,100},
+  legend style={font=\small,at={(0.02,0.05)},anchor=south west}
+]
+\addplot[thick,domain=0.1:100,samples=180]
+  {20*ln(50/sqrt(1+0.25*x^2))/ln(10)};
+\addlegendentry{chính xác}
+\addplot[dashed,domain=0.1:2,samples=2] {20*ln(50)/ln(10)};
+\addplot[dashed,domain=2:100,samples=100]
+  {20*ln(50)/ln(10)-20*ln(x/2)/ln(10)};
+\addlegendentry{tiệm cận}
+\addplot[only marks,mark=*] coordinates {(2,30.969)};
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.88\linewidth,height=4.2cm,
+  xmode=log,xmin=0.1,xmax=100,
+  ymin=-95,ymax=5,
+  grid=both,
+  xlabel={$\omega$ (rad/s)},
+  ylabel={$\varphi(\omega)$ (độ)},
+  xtick={0.1,1,2,10,100},
+  ytick={0,-45,-90}
+]
+\addplot[thick,domain=0.1:100,samples=180] {-atan(0.5*x)};
+\addplot[only marks,mark=*] coordinates {(2,-45)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\baitap{4.7}
+\debai
+Xác định và vẽ đặc tính Bode của
+\[
+G(s)=\frac{100}{s^2+3s+2}.
+\]
+
+\loigiai
+Phân tích mẫu:
+\[
+s^2+3s+2=(s+1)(s+2).
+\]
+Chuẩn hóa từng khâu:
+\[
+G(s)
+=
+\frac{50}{(s+1)(0.5s+1)}.
+\]
+Có thể xem
+\[
+G(s)=G_1(s)G_2(s),
+\]
+với
+\[
+G_1(s)=\frac{100}{s+1},
+\qquad
+G_2(s)=\frac{1}{s+2}
+=\frac{0.5}{0.5s+1}.
+\]
+Do các khâu mắc nối tiếp:
+\[
+\boxed{
+L(\omega)=L_1(\omega)+L_2(\omega),
+\qquad
+\varphi(\omega)=\varphi_1(\omega)+\varphi_2(\omega).
+}
+\]
+Cụ thể:
+\[
+\boxed{
+L(\omega)
+=
+20\log_{10}50
+-10\log_{10}(1+\omega^2)
+-10\log_{10}(1+0.25\omega^2),
+}
+\]
+\[
+\boxed{
+\varphi(\omega)
+=
+-\arctan(\omega)-\arctan(0.5\omega).
+}
+\]
+Hai tần số gãy:
+\[
+\omega_{g1}=1\ {\rm rad/s},
+\qquad
+\omega_{g2}=2\ {\rm rad/s}.
+\]
+Đường tiệm cận biên độ có:
+\begin{itemize}
+  \item độ dốc \(0\) dB/decade khi \(\omega<1\);
+  \item độ dốc \(-20\) dB/decade khi \(1<\omega<2\);
+  \item độ dốc \(-40\) dB/decade khi \(\omega>2\).
+\end{itemize}
+Pha đi từ \(0^\circ\) về \(-180^\circ\).
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.88\linewidth,height=4.8cm,
+  xmode=log,xmin=0.05,xmax=100,
+  ymin=-55,ymax=38,
+  grid=both,
+  xlabel={$\omega$ (rad/s)},
+  ylabel={$L(\omega)$ (dB)},
+  xtick={0.1,1,2,10,100},
+  legend style={font=\small,at={(0.02,0.05)},anchor=south west}
+]
+\addplot[thick,domain=0.05:100,samples=200]
+  {20*ln(50/sqrt((1+x^2)*(1+0.25*x^2)))/ln(10)};
+\addlegendentry{chính xác}
+\addplot[dashed,domain=0.05:1,samples=2] {20*ln(50)/ln(10)};
+\addplot[dashed,domain=1:2,samples=25]
+  {20*ln(50)/ln(10)-20*ln(x)/ln(10)};
+\addplot[dashed,domain=2:100,samples=100]
+  {(20*ln(50)/ln(10)-20*ln(2)/ln(10))-40*ln(x/2)/ln(10)};
+\addlegendentry{tiệm cận}
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.88\linewidth,height=4.2cm,
+  xmode=log,xmin=0.05,xmax=100,
+  ymin=-185,ymax=5,
+  grid=both,
+  xlabel={$\omega$ (rad/s)},
+  ylabel={$\varphi(\omega)$ (độ)},
+  xtick={0.1,1,2,10,100},
+  ytick={0,-45,-90,-135,-180}
+]
+\addplot[thick,domain=0.05:100,samples=200]
+  {-atan(x)-atan(0.5*x)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
 
 \end{document}
