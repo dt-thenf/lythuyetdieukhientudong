@@ -562,3 +562,173 @@ G(s)=\frac{Y(s)}{U(s)}
 
 Đây là công thức cần thuộc.
 
+
+% ======================================================================
+\subsection*{CHƯƠNG 3 -- ĐẠI SỐ SƠ ĐỒ KHỐI VÀ GRAPH TÍN HIỆU}
+% ======================================================================
+
+\subsubsection*{1. Ba phần tử của sơ đồ khối}
+
+\begin{itemize}
+  \item \textbf{Khối chức năng:} đầu ra bằng hàm truyền nhân với đầu vào.
+  \item \textbf{Bộ tổng:} đầu ra bằng tổng đại số các tín hiệu vào.
+  \item \textbf{Điểm rẽ nhánh:} tất cả các nhánh lấy ra cùng một tín hiệu.
+\end{itemize}
+
+\subsubsection*{2. Ba công thức rút gọn phải thuộc}
+
+\textbf{Nối tiếp}
+\[
+\boxed{
+G_{\mathrm{eq}}=G_1G_2\cdots G_n
+}
+\]
+
+\textbf{Song song}
+\[
+\boxed{
+G_{\mathrm{eq}}=G_1\pm G_2\pm\cdots
+}
+\]
+
+\textbf{Hồi tiếp âm}
+\[
+\boxed{
+G_{\mathrm{cl}}(s)=\frac{G(s)}{1+G(s)H(s)}
+}
+\]
+
+\textbf{Hồi tiếp dương}
+\[
+\boxed{
+G_{\mathrm{cl}}(s)=\frac{G(s)}{1-G(s)H(s)}
+}
+\]
+
+Nếu $H(s)=1$ thì gọi là hồi tiếp đơn vị.
+
+\subsubsection*{3. Quy tắc di chuyển điểm rẽ nhánh và bộ tổng}
+
+Mục tiêu của mọi phép biến đổi là \textbf{giữ nguyên quan hệ tín hiệu vào--ra}.
+
+\begin{center}
+\begin{tabular}{|p{0.43\linewidth}|p{0.45\linewidth}|}
+\hline
+\textbf{Phép di chuyển} & \textbf{Hệ số phải bù để tương đương} \\ \hline
+Điểm rẽ nhánh từ \emph{trước} khối $G$ ra \emph{sau} khối $G$ &
+Nhánh rẽ phải qua $\dfrac{1}{G}$ để lấy lại tín hiệu trước khối \\ \hline
+Điểm rẽ nhánh từ \emph{sau} khối $G$ về \emph{trước} khối $G$ &
+Nhánh rẽ phải qua $G$ \\ \hline
+Bộ tổng từ \emph{trước} khối $G$ ra \emph{sau} khối $G$ &
+Tín hiệu phụ đi vào bộ tổng phải nhân $G$ \\ \hline
+Bộ tổng từ \emph{sau} khối $G$ về \emph{trước} khối $G$ &
+Tín hiệu phụ đi vào bộ tổng phải chia $G$ \\ \hline
+\end{tabular}
+\end{center}
+
+Không nên đổi chỗ tuỳ tiện điểm rẽ nhánh với bộ tổng, hoặc hai bộ tổng khi ở giữa
+có điểm rẽ nhánh, nếu chưa viết phương trình tín hiệu để kiểm tra tương đương.
+
+\subsubsection*{4. Chiến lược rút gọn sơ đồ nhiều vòng}
+
+\begin{enumerate}
+  \item Tìm các vòng hồi tiếp nhỏ nhất ở phía trong.
+  \item Rút gọn các khối song song/nối tiếp nhìn thấy ngay.
+  \item Nếu bị vướng điểm rẽ hoặc bộ tổng, di chuyển chúng bằng quy tắc tương đương.
+  \item Sau mỗi lần rút gọn, \textbf{vẽ lại sơ đồ}.
+  \item Lặp đến khi còn một khối giữa $R(s)$ và $C(s)$.
+\end{enumerate}
+
+\medskip
+\noindent
+\fbox{\parbox{0.96\linewidth}{
+\textbf{Mẹo chống nhầm dấu:}
+trước khi dùng công thức hồi tiếp, viết
+$E=R\mp HC$ và $C=GE$.
+Từ đó tự suy ra mẫu $1\pm GH$ thay vì học máy móc.
+}}
+
+\subsubsection*{5. Graph tín hiệu}
+
+Trong graph:
+\begin{itemize}
+  \item \textbf{Node}: biểu diễn một tín hiệu.
+  \item \textbf{Branch}: nhánh có hướng, hệ số nhánh chính là hệ số truyền.
+  \item \textbf{Forward path}: đường từ nút nguồn tới nút đích, không đi qua một nút quá một lần.
+  \item \textbf{Loop}: đường kín có hướng, không đi qua một nút quá một lần.
+  \item Hai loop \textbf{không chạm nhau} nếu không có nút chung.
+\end{itemize}
+
+Tín hiệu tại một nút bằng tổng các tín hiệu đi vào nút đó sau khi nhân với hệ số nhánh.
+
+\subsubsection*{6. Công thức Mason}
+
+\[
+\boxed{
+T=\frac{C(s)}{R(s)}
+=\frac{\sum_k P_k\Delta_k}{\Delta}
+}
+\]
+
+Trong đó:
+\[
+\boxed{
+\Delta
+=
+1-\sum_iL_i
++\sum_{\substack{i<j\\L_i,L_j\ \text{không chạm}}}L_iL_j
+-\sum_{\substack{i<j<k\\\text{ba loop không chạm}}}L_iL_jL_k
++\cdots
+}
+\]
+
+$\Delta_k$ được tính giống $\Delta$ nhưng \textbf{loại toàn bộ loop chạm forward path $P_k$}.
+
+\textbf{Quy trình Mason 5 bước}
+\begin{enumerate}
+  \item Liệt kê tất cả forward path $P_k$.
+  \item Liệt kê tất cả loop $L_i$ và ghi đúng dấu.
+  \item Tìm các cặp, bộ ba,\ldots loop không chạm nhau.
+  \item Tính $\Delta$ và từng $\Delta_k$.
+  \item Thế vào công thức Mason.
+\end{enumerate}
+
+\textbf{Ví dụ tối giản}
+Nếu có một đường tiến:
+\[
+P_1=G_1G_2
+\]
+và một vòng hồi tiếp:
+\[
+L_1=-G_2H,
+\]
+thì
+\[
+\Delta=1-L_1=1+G_2H,\qquad \Delta_1=1
+\]
+nên
+\[
+\boxed{
+T=\frac{G_1G_2}{1+G_2H}.
+}
+\]
+
+\subsubsection*{7. Dạng bài: từ sơ đồ khối sang Graph rồi dùng Mason}
+
+\textbf{Cách làm nhanh}
+\begin{enumerate}
+  \item Mỗi tín hiệu sau một khối hoặc sau một bộ tổng tạo một node.
+  \item Mỗi khối $G_i$ trở thành một branch mang hệ số $G_i$.
+  \item Nhánh hồi tiếp âm phải mang dấu âm trong hệ số branch.
+  \item Đánh dấu nút nguồn và nút đích trước khi tìm forward path.
+  \item Chỉ sau khi graph hoàn chỉnh mới bắt đầu liệt kê loop.
+\end{enumerate}
+
+\textbf{Lỗi hay gặp}
+\begin{itemize}
+  \item Quên dấu âm của nhánh hồi tiếp.
+  \item Nhầm điều kiện không có chung nhánh với không chạm nhau; Mason yêu cầu \textbf{không có chung node}.
+  \item Bỏ sót forward path có nhánh tắt.
+  \item Tính $\Delta_k$ sai: phải loại các loop chạm $P_k$ và giữ các loop không chạm $P_k$.
+\end{itemize}
+
