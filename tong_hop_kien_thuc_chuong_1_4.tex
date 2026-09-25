@@ -407,3 +407,158 @@ Hai cách giải mạch:
   \item Đổi trực tiếp $R,L,C$ sang trở kháng miền $s$ $\to$ viết KCL/KVL $\to$ giải.
 \end{itemize}
 
+
+\subsubsection*{8. Hàm truyền}
+
+Với hệ LTI và điều kiện đầu bằng không:
+\[
+\boxed{
+G(s)=\frac{Y(s)}{U(s)}
+}.
+\]
+
+Hàm truyền phụ thuộc cấu trúc và thông số hệ, không phụ thuộc dạng cụ thể của tín hiệu vào.
+
+\textbf{Quy trình tìm hàm truyền}
+\begin{enumerate}
+  \item Lập phương trình vi phân vào--ra từ định luật vật lý.
+  \item Cho các điều kiện đầu bằng không.
+  \item Lấy Laplace hai vế.
+  \item Gom các số hạng chứa $Y(s)$ và $U(s)$.
+  \item Lấy tỉ số $G(s)=Y(s)/U(s)$.
+\end{enumerate}
+
+\textbf{Ví dụ cơ học}
+\[
+m\ddot d+b\dot d=u(t)
+\]
+cho
+\[
+(ms^2+bs)D(s)=U(s)
+\]
+nên
+\[
+\boxed{
+G(s)=\frac{D(s)}{U(s)}=\frac{1}{ms^2+bs}.
+}
+\]
+
+\textbf{Cực và zero}
+
+Nếu
+\[
+G(s)=K\frac{\prod_i(s-z_i)}{\prod_j(s-p_j)},
+\]
+thì $z_i$ là các zero và $p_j$ là các cực.
+
+\subsubsection*{9. Đáp ứng xung và hàm truyền}
+
+Nếu đầu vào là xung đơn vị:
+\[
+R(s)=1,\qquad C(s)=G(s).
+\]
+Do đó
+\[
+\boxed{
+g(t)=\Lap^{-1}\{G(s)\}
+}
+\]
+là đáp ứng xung hay hàm trọng lượng của hệ.
+
+\subsubsection*{10. Không gian trạng thái}
+
+Dạng LTI tổng quát:
+\[
+\boxed{
+\dot x=Ax+Bu,\qquad y=Cx+Du.
+}
+\]
+
+\begin{itemize}
+  \item \textbf{Trạng thái}: tập nhỏ nhất các biến cần biết để xác định hành vi tương lai của hệ khi biết đầu vào.
+  \item \textbf{Biến trạng thái}: các biến tạo thành trạng thái.
+  \item \textbf{Vector trạng thái}: $x=[x_1\ x_2\ \cdots\ x_n]^T$.
+  \item Hệ bậc $n$ cần $n$ biến trạng thái độc lập.
+\end{itemize}
+
+Khác với hàm truyền, mô hình trạng thái có thể giữ thông tin điều kiện đầu và thuận tiện cho hệ MIMO.
+
+\subsubsection*{11. Chuyển hàm truyền sang trạng thái -- cách dễ làm trong bài thi}
+
+Nếu từ hàm truyền suy ra phương trình:
+\[
+y^{(n)}+a_{n-1}y^{(n-1)}+\cdots+a_1\dot y+a_0y=b_0u
+\]
+thì chọn:
+\[
+x_1=y,\quad x_2=\dot y,\quad \ldots,\quad x_n=y^{(n-1)}.
+\]
+Khi đó:
+\[
+\dot x_1=x_2,\quad
+\dot x_2=x_3,\quad\ldots,\quad
+\dot x_{n-1}=x_n,
+\]
+\[
+\dot x_n=-a_0x_1-a_1x_2-\cdots-a_{n-1}x_n+b_0u.
+\]
+
+\textbf{Ví dụ}
+\[
+G(s)=\frac{24}{s^3+9s^2+26s+24}
+\]
+tương ứng:
+\[
+y'''+9y''+26y'+24y=24u.
+\]
+Chọn
+\[
+x_1=y,\qquad x_2=\dot y,\qquad x_3=\ddot y.
+\]
+Suy ra:
+\[
+\boxed{
+\dot x=
+\begin{bmatrix}
+0&1&0\\
+0&0&1\\
+-24&-26&-9
+\end{bmatrix}x+
+\begin{bmatrix}
+0\\0\\24
+\end{bmatrix}u
+}
+\]
+và
+\[
+\boxed{
+y=
+\begin{bmatrix}
+1&0&0
+\end{bmatrix}x,\qquad D=0.
+}
+\]
+
+\textbf{Chú ý:} một hàm truyền có thể có nhiều biểu diễn trạng thái khác nhau; các ma trận
+$A,B,C,D$ không nhất thiết giống nhau nếu cách chọn biến trạng thái khác nhau.
+
+\subsubsection*{12. Chuyển trạng thái sang hàm truyền}
+
+Với điều kiện đầu bằng không:
+\[
+sX=AX+BU
+\]
+nên
+\[
+X=(sI-A)^{-1}BU.
+\]
+Thế vào $Y=CX+DU$:
+\[
+\boxed{
+G(s)=\frac{Y(s)}{U(s)}
+=C(sI-A)^{-1}B+D.
+}
+\]
+
+Đây là công thức cần thuộc.
+
