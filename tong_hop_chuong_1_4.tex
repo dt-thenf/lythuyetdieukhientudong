@@ -1,0 +1,1066 @@
+% ============================================================
+% PHỤ LỤC TỔNG HỢP KIẾN THỨC CHƯƠNG 1--4
+% Học phần: Lý thuyết điều khiển tự động
+%
+% File độc lập để \input vào cuối main.tex sau này.
+% KHÔNG chứa \documentclass, \begin{document}, \end{document}.
+% KHÔNG sửa main.tex.
+% ============================================================
+
+\providecommand{\Lap}{\mathcal{L}}
+\providecommand{\jj}{\mathrm{j}}
+
+\clearpage
+\begin{center}
+{\LARGE\bfseries PHỤ LỤC TỔNG HỢP KIẾN THỨC}\\[0.25em]
+{\Large\bfseries CHƯƠNG 1 -- CHƯƠNG 4}\\[0.45em]
+{\small Lý thuyết, bảng công thức, quy trình giải bài tập và các lỗi thường gặp}
+\end{center}
+\hrule
+\vspace{0.7em}
+
+\noindent\textbf{Quy ước dùng trong phụ lục.}
+Trong các công thức Laplace, giả sử tín hiệu bằng $0$ với $t<0$.
+Khi xác định hàm truyền, điều kiện đầu được lấy bằng $0$.
+Ký hiệu $r(t)$: tín hiệu đặt; $e(t)$: sai lệch; $u(t)$: tín hiệu điều khiển;
+$c(t)$ hoặc $y(t)$: tín hiệu ra; $R(s),E(s),U(s),C(s),Y(s)$ là các ảnh Laplace tương ứng.
+
+% ============================================================
+\clearpage
+\section*{CHƯƠNG 1 -- TỔNG QUAN VỀ HỆ THỐNG ĐIỀU KHIỂN TỰ ĐỘNG}
+
+\subsection*{1. Khái niệm cốt lõi}
+
+\textbf{Điều khiển} là quá trình thu thập thông tin, xử lý thông tin và tác động lên hệ thống
+để đáp ứng thực tế gần với mục tiêu đã định trước.
+
+\textbf{Điều khiển tự động} là quá trình điều khiển trong đó thao tác điều chỉnh được thực hiện
+không cần sự can thiệp trực tiếp liên tục của con người.
+
+\medskip
+\noindent Một hệ điều khiển điển hình có thể nhận diện qua chuỗi:
+\[
+\boxed{\text{tín hiệu đặt}}
+\longrightarrow
+\boxed{\text{so sánh}}
+\longrightarrow
+\boxed{\text{bộ điều khiển}}
+\longrightarrow
+\boxed{\text{đối tượng}}
+\longrightarrow
+\boxed{\text{tín hiệu ra}} .
+\]
+
+\subsection*{2. Các tín hiệu thường gặp}
+
+\begin{center}
+\small
+\begin{tabular}{|p{0.18\textwidth}|p{0.25\textwidth}|p{0.46\textwidth}|}
+\hline
+\textbf{Ký hiệu} & \textbf{Tên} & \textbf{Ý nghĩa}\\
+\hline
+$r(t)$ & tín hiệu đặt / tín hiệu chuẩn & giá trị mong muốn của đại lượng cần điều khiển\\
+\hline
+$e(t)$ & sai lệch & chênh lệch giữa giá trị đặt và tín hiệu hồi tiếp\\
+\hline
+$u(t)$ & tín hiệu điều khiển & đầu ra bộ điều khiển, tác động lên đối tượng\\
+\hline
+$c(t)$ hoặc $y(t)$ & tín hiệu ra & đại lượng cần điều khiển / quan sát\\
+\hline
+$c_{ht}(t)$ & tín hiệu hồi tiếp & tín hiệu đo từ đầu ra đưa trở về bộ so sánh\\
+\hline
+$d(t)$ & nhiễu & tác động ngoài không mong muốn lên hệ thống\\
+\hline
+\end{tabular}
+\end{center}
+
+Với hồi tiếp âm:
+\[
+\boxed{e(t)=r(t)-c_{ht}(t)}.
+\]
+Nếu cảm biến / khâu hồi tiếp là đơn vị thì $c_{ht}(t)=c(t)$:
+\[
+\boxed{e(t)=r(t)-c(t)}.
+\]
+
+\subsection*{3. Hệ hở và hệ kín}
+
+\textbf{Hệ hở:}
+đầu ra không được dùng trực tiếp để điều chỉnh lại tín hiệu điều khiển.
+Ưu điểm là cấu trúc đơn giản; nhược điểm là khả năng tự sửa sai và khử nhiễu kém.
+
+\textbf{Hệ kín:}
+đầu ra được đo, hồi tiếp và so sánh với tín hiệu đặt.
+Sai lệch được dùng để sinh tín hiệu điều khiển mới.
+
+\medskip
+\noindent Ba nguyên tắc điều khiển thường gặp:
+\begin{itemize}[leftmargin=1.7em,itemsep=0.2em]
+  \item \textbf{Điều khiển bù nhiễu:} đo hoặc ước lượng nhiễu rồi bù tác động của nhiễu.
+  \item \textbf{Điều khiển theo sai lệch:} so sánh đầu ra với tín hiệu đặt rồi điều chỉnh để giảm sai lệch.
+  \item \textbf{Điều khiển phối hợp:} kết hợp bù nhiễu và phản hồi sai lệch.
+\end{itemize}
+
+\subsection*{4. Phân loại hệ thống -- bảng nhớ nhanh}
+
+\begin{center}
+\small
+\begin{tabular}{|p{0.30\textwidth}|p{0.59\textwidth}|}
+\hline
+\textbf{Tiêu chí} & \textbf{Nhóm thường gặp}\\
+\hline
+Theo số ngõ vào -- ngõ ra & SISO: một vào -- một ra; MIMO: nhiều vào -- nhiều ra\\
+\hline
+Theo dạng tín hiệu & hệ liên tục; hệ rời rạc / lấy mẫu / số\\
+\hline
+Theo tính tuyến tính & hệ tuyến tính; hệ phi tuyến\\
+\hline
+Theo sự thay đổi theo thời gian & hệ bất biến theo thời gian; hệ biến thiên theo thời gian\\
+\hline
+Theo cấu trúc phản hồi & hệ hở; hệ kín\\
+\hline
+Theo mục tiêu điều khiển & ổn định hóa; theo chương trình; bám / theo dõi; thích nghi; tối ưu\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{5. Dạng bài Chương 1 và cách làm}
+
+\subsubsection*{Dạng 1: Xác định các phần tử của một hệ điều khiển}
+
+Làm theo thứ tự:
+\begin{enumerate}[leftmargin=1.8em,itemsep=0.2em]
+  \item Xác định \textbf{đại lượng cần giữ / cần bám} $\Rightarrow$ đầu ra $c(t)$.
+  \item Xác định \textbf{giá trị mong muốn} $\Rightarrow$ tín hiệu đặt $r(t)$.
+  \item Xác định \textbf{đối tượng} cần điều khiển.
+  \item Xác định \textbf{cơ cấu chấp hành} tạo tác động vật lý lên đối tượng.
+  \item Xác định \textbf{cảm biến / khâu đo}.
+  \item Xác định \textbf{bộ điều khiển}.
+  \item Chỉ ra \textbf{nhiễu} nếu đề có.
+\end{enumerate}
+
+\subsubsection*{Dạng 2: Nhận biết hệ hở hay hệ kín}
+
+Tìm xem có đường đưa thông tin đầu ra quay trở lại bộ so sánh hay không.
+Có phản hồi $\Rightarrow$ hệ kín; không có phản hồi $\Rightarrow$ hệ hở.
+
+\subsubsection*{Dạng 3: Vẽ sơ đồ khối từ mô tả vật lý}
+
+Không vẽ ngay chi tiết thiết bị. Trước hết rút hệ thống về logic:
+\[
+r(t)\rightarrow \text{bộ so sánh}\rightarrow \text{bộ điều khiển}
+\rightarrow \text{đối tượng}\rightarrow c(t),
+\]
+sau đó mới thêm cảm biến, phản hồi và nhiễu.
+
+\medskip
+\noindent\textbf{Lỗi thường gặp:}
+nhầm \emph{đối tượng điều khiển} với \emph{cơ cấu chấp hành};
+bỏ sót dấu $-$ tại bộ so sánh của hồi tiếp âm.
+
+% ============================================================
+\clearpage
+\section*{CHƯƠNG 2 -- MÔ HÌNH TOÁN HỌC, LAPLACE, HÀM TRUYỀN VÀ KHÔNG GIAN TRẠNG THÁI}
+
+\subsection*{1. Từ hệ vật lý đến phương trình vi phân}
+
+Quan hệ vào -- ra của hệ tuyến tính bất biến liên tục thường được viết:
+\[
+a_n\frac{d^ny}{dt^n}
++a_{n-1}\frac{d^{n-1}y}{dt^{n-1}}
++\cdots+a_1\frac{dy}{dt}+a_0y
+=
+b_m\frac{d^mu}{dt^m}
++\cdots+b_1\frac{du}{dt}+b_0u.
+\]
+Thông thường với hệ hợp thức: $n\ge m$.
+
+\subsection*{2. Biến đổi Laplace}
+
+Định nghĩa:
+\[
+\boxed{
+F(s)=\Lap\{f(t)\}=\int_0^\infty f(t)e^{-st}\,dt,
+\qquad s=\sigma+\jj\omega.
+}
+\]
+
+\subsection*{3. Bảng Laplace cơ bản}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{0.40\textwidth}|p{0.42\textwidth}|}
+\hline
+\textbf{Hàm thời gian $f(t)$} & \textbf{Ảnh Laplace $F(s)$}\\
+\hline
+$\delta(t)$ & $1$\\
+\hline
+$1(t)$ & $\dfrac{1}{s}$\\
+\hline
+$t\,1(t)$ & $\dfrac{1}{s^2}$\\
+\hline
+$t^n1(t)$ & $\dfrac{n!}{s^{n+1}}$\\
+\hline
+$e^{-at}1(t)$ & $\dfrac{1}{s+a}$\\
+\hline
+$\sin \omega t\,1(t)$ & $\dfrac{\omega}{s^2+\omega^2}$\\
+\hline
+$\cos \omega t\,1(t)$ & $\dfrac{s}{s^2+\omega^2}$\\
+\hline
+$e^{-at}\sin\omega t\,1(t)$ & $\dfrac{\omega}{(s+a)^2+\omega^2}$\\
+\hline
+$e^{-at}\cos\omega t\,1(t)$ & $\dfrac{s+a}{(s+a)^2+\omega^2}$\\
+\hline
+$\dfrac{t^{n-1}}{(n-1)!}e^{-at}1(t)$ & $\dfrac{1}{(s+a)^n}$\\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{center}
+
+\subsection*{4. Các tính chất Laplace cần thuộc}
+
+Nếu $F(s)=\Lap\{f(t)\}$ và $G(s)=\Lap\{g(t)\}$:
+
+\textbf{Tuyến tính}
+\[
+\Lap\{af(t)+bg(t)\}=aF(s)+bG(s).
+\]
+
+\textbf{Dịch thời gian}
+\[
+\Lap\{f(t-T)1(t-T)\}=e^{-Ts}F(s),\qquad T>0.
+\]
+
+\textbf{Dịch theo biến $s$}
+\[
+\Lap\{e^{-at}f(t)\}=F(s+a).
+\]
+
+\textbf{Nhân với $t^n$}
+\[
+\boxed{\Lap\{t^nf(t)\}=(-1)^n\frac{d^nF(s)}{ds^n}}.
+\]
+
+\textbf{Ảnh của đạo hàm}
+\[
+\Lap\{f'(t)\}=sF(s)-f(0^+),
+\]
+\[
+\Lap\{f''(t)\}=s^2F(s)-sf(0^+)-f'(0^+),
+\]
+và tổng quát:
+\[
+\boxed{
+\Lap\{f^{(n)}(t)\}
+=s^nF(s)-s^{n-1}f(0^+)-s^{n-2}f'(0^+)-\cdots-f^{(n-1)}(0^+).
+}
+\]
+
+\textbf{Ảnh của tích phân}
+\[
+\Lap\left\{\int_0^t f(\tau)\,d\tau\right\}=\frac{F(s)}{s}.
+\]
+
+\textbf{Định lý giá trị đầu}
+\[
+f(0^+)=\lim_{s\to\infty}sF(s),
+\]
+khi các giả thiết hội tụ thỏa mãn.
+
+\textbf{Định lý giá trị cuối}
+\[
+\boxed{f(\infty)=\lim_{s\to0}sF(s)}
+\]
+chỉ dùng khi các cực liên quan của $sF(s)$ nằm trong nửa mặt phẳng trái
+(với các ngoại lệ biên phải được xét riêng).
+
+\subsection*{5. Laplace ngược bằng phân tích phân thức}
+
+Cho
+\[
+F(s)=\frac{B(s)}{A(s)}.
+\]
+Nếu $\deg B\ge\deg A$, phải chia đa thức trước để đưa về phân thức hợp thức.
+
+\subsubsection*{Trường hợp cực thực đơn}
+
+Nếu
+\[
+F(s)=\sum_{i=1}^{n}\frac{C_i}{s-p_i},
+\]
+thì
+\[
+\boxed{C_i=\left[(s-p_i)F(s)\right]_{s=p_i}},
+\qquad
+f(t)=\sum_i C_ie^{p_it}1(t).
+\]
+
+\subsubsection*{Trường hợp cực bội}
+
+Nếu $p$ là cực bội $r$:
+\[
+F(s)=\frac{A_r}{(s-p)^r}+\frac{A_{r-1}}{(s-p)^{r-1}}
++\cdots+\frac{A_1}{s-p}+\cdots
+\]
+Đặt
+\[
+H(s)=(s-p)^rF(s).
+\]
+Khi đó:
+\[
+A_r=H(p),\qquad
+A_{r-1}=H'(p),\qquad
+A_{r-2}=\frac{H''(p)}{2!},\ldots
+\]
+Tổng quát:
+\[
+\boxed{
+A_k=
+\frac{1}{(r-k)!}
+\left[
+\frac{d^{\,r-k}}{ds^{\,r-k}}H(s)
+\right]_{s=p},
+\qquad k=1,\ldots,r.
+}
+\]
+
+\subsubsection*{Trường hợp cặp cực phức}
+
+Đưa mẫu về dạng:
+\[
+(s+a)^2+\omega^2.
+\]
+Tử nên tách:
+\[
+A(s+a)+B\omega.
+\]
+Sau đó dùng:
+\[
+\Lap^{-1}\left\{\frac{s+a}{(s+a)^2+\omega^2}\right\}
+=e^{-at}\cos\omega t,
+\]
+\[
+\Lap^{-1}\left\{\frac{\omega}{(s+a)^2+\omega^2}\right\}
+=e^{-at}\sin\omega t.
+\]
+
+\subsection*{6. Quy trình giải phương trình vi phân bằng Laplace}
+
+\begin{enumerate}[leftmargin=1.9em,itemsep=0.2em]
+  \item Lấy Laplace hai vế.
+  \item Thay công thức đạo hàm, giữ đúng các điều kiện đầu.
+  \item Gom các hạng chứa $Y(s)$ và rút $Y(s)$.
+  \item Phân tích $Y(s)$ thành các phân thức tối giản.
+  \item Lấy Laplace ngược.
+  \item Kiểm tra điều kiện đầu và thế lại phương trình nếu cần.
+\end{enumerate}
+
+\textbf{Ví dụ nhanh}
+\[
+y'(t)+4y(t)=5\,1(t),\qquad y(0)=0.
+\]
+Lấy Laplace:
+\[
+sY(s)+4Y(s)=\frac{5}{s}.
+\]
+Do đó:
+\[
+Y(s)=\frac{5}{s(s+4)}
+=\frac54\frac1s-\frac54\frac1{s+4}.
+\]
+Suy ra:
+\[
+\boxed{y(t)=\frac54\left(1-e^{-4t}\right)1(t)}.
+\]
+
+\subsection*{7. Hàm truyền đạt}
+
+Với hệ LTI, khi các điều kiện đầu bằng $0$:
+\[
+\boxed{G(s)=\frac{Y(s)}{U(s)}}.
+\]
+
+Nếu
+\[
+a_ny^{(n)}+\cdots+a_1\dot y+a_0y
+=
+b_mu^{(m)}+\cdots+b_1\dot u+b_0u,
+\]
+thì:
+\[
+\boxed{
+G(s)=
+\frac{b_ms^m+b_{m-1}s^{m-1}+\cdots+b_1s+b_0}
+{a_ns^n+a_{n-1}s^{n-1}+\cdots+a_1s+a_0}.
+}
+\]
+
+\subsubsection*{Quy trình từ phương trình vi phân sang hàm truyền}
+
+\begin{enumerate}[leftmargin=1.9em,itemsep=0.2em]
+  \item Xác định rõ đầu vào và đầu ra.
+  \item Cho tất cả điều kiện đầu bằng $0$.
+  \item Lấy Laplace hai vế.
+  \item Gom $Y(s)$ một phía, $U(s)$ phía còn lại.
+  \item Lấy tỷ số $G(s)=Y(s)/U(s)$ và rút gọn.
+\end{enumerate}
+
+\textbf{Ví dụ}
+\[
+\ddot y+3\dot y+2y=u
+\quad\Longrightarrow\quad
+(s^2+3s+2)Y(s)=U(s)
+\]
+nên:
+\[
+\boxed{G(s)=\frac{1}{s^2+3s+2}}.
+\]
+
+\subsection*{8. Mô hình các phần tử vật lý cơ bản}
+
+\subsubsection*{Mạch điện}
+
+\begin{center}
+\small
+\begin{tabular}{|p{0.17\textwidth}|p{0.35\textwidth}|p{0.29\textwidth}|}
+\hline
+\textbf{Phần tử} & \textbf{Miền thời gian} & \textbf{Quan hệ miền $s$, điều kiện đầu $0$}\\
+\hline
+Điện trở $R$ & $v_R(t)=Ri_R(t)$ & $V_R(s)=RI_R(s)$, $Z_R=R$\\
+\hline
+Cuộn cảm $L$ & $v_L(t)=L\dfrac{di_L}{dt}$ & $V_L(s)=sL\,I_L(s)$, $Z_L=sL$\\
+\hline
+Tụ điện $C$ & $i_C(t)=C\dfrac{dv_C}{dt}$ & $I_C(s)=sC\,V_C(s)$, $Z_C=\dfrac1{sC}$\\
+\hline
+\end{tabular}
+\end{center}
+
+Với mạch RLC nối tiếp, lấy điện áp trên tụ làm đầu ra:
+\[
+LC\ddot u_C+RC\dot u_C+u_C=u_{in},
+\]
+nên:
+\[
+\boxed{
+\frac{U_C(s)}{U_{in}(s)}
+=
+\frac{1}{LCs^2+RCs+1}.
+}
+\]
+
+\subsubsection*{Hệ cơ tịnh tiến}
+
+\begin{center}
+\small
+\begin{tabular}{|p{0.18\textwidth}|p{0.35\textwidth}|p{0.28\textwidth}|}
+\hline
+\textbf{Phần tử} & \textbf{Quan hệ lực -- chuyển vị} & \textbf{Miền $s$}\\
+\hline
+Khối lượng $M$ & $F_M=M\ddot x$ & $F_M=Ms^2X$\\
+\hline
+Giảm chấn $B$ & $F_B=B\dot x$ & $F_B=BsX$\\
+\hline
+Lò xo $K$ & $F_K=Kx$ & $F_K=KX$\\
+\hline
+\end{tabular}
+\end{center}
+
+Với hệ khối lượng -- giảm chấn -- lò xo:
+\[
+M\ddot x+B\dot x+Kx=F(t)
+\]
+nên:
+\[
+\boxed{\frac{X(s)}{F(s)}=\frac{1}{Ms^2+Bs+K}}.
+\]
+
+\subsection*{9. Không gian trạng thái}
+
+Dạng chuẩn:
+\[
+\boxed{
+\dot x=Ax+Bu,\qquad y=Cx+Du.
+}
+\]
+
+Từ mô hình trạng thái sang hàm truyền:
+\[
+\boxed{G(s)=C(sI-A)^{-1}B+D}.
+\]
+
+Phương trình đặc trưng của ma trận trạng thái:
+\[
+\boxed{\det(sI-A)=0}.
+\]
+Các nghiệm là các trị riêng của $A$; với một biểu diễn tối thiểu, chúng trùng với các cực của hàm truyền.
+
+\subsubsection*{Quy trình chuyển hàm truyền sang trạng thái}
+
+Một cách thường dùng:
+\begin{enumerate}[leftmargin=1.9em,itemsep=0.2em]
+  \item Đưa hàm truyền về phương trình vi phân.
+  \item Chọn các biến trạng thái, thường chọn theo chuỗi đạo hàm của đầu ra.
+  \item Viết các phương trình vi phân cấp một.
+  \item Sắp xếp vào dạng ma trận $\dot x=Ax+Bu$, $y=Cx+Du$.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Lưu ý:}
+một hàm truyền có thể có nhiều mô hình trạng thái tương đương; mô hình trạng thái không duy nhất.
+
+% ============================================================
+\clearpage
+\section*{CHƯƠNG 3 -- ĐẠI SỐ SƠ ĐỒ KHỐI VÀ GRAPH TÍN HIỆU}
+
+\subsection*{1. Ba phần tử của sơ đồ khối}
+
+\begin{itemize}[leftmargin=1.7em,itemsep=0.2em]
+  \item \textbf{Khối chức năng:} nếu đầu vào là $X(s)$, đầu ra là $Y(s)$ thì
+  \[
+  Y(s)=G(s)X(s).
+  \]
+  \item \textbf{Bộ tổng:} đầu ra bằng tổng đại số các tín hiệu vào theo dấu $+$ / $-$.
+  \item \textbf{Điểm rẽ nhánh:} các nhánh lấy ra từ cùng một điểm có cùng giá trị tín hiệu.
+\end{itemize}
+
+\subsection*{2. Các cấu trúc phải thuộc}
+
+\textbf{Nối tiếp}
+\[
+\boxed{G_{eq}(s)=G_1(s)G_2(s)\cdots G_n(s)}.
+\]
+
+\textbf{Song song}
+\[
+\boxed{G_{eq}(s)=G_1(s)+G_2(s)+\cdots+G_n(s)}
+\]
+có xét dấu đúng tại bộ tổng.
+
+\textbf{Hồi tiếp âm}
+\[
+\boxed{
+G_{cl}(s)=\frac{G(s)}{1+G(s)H(s)}.
+}
+\]
+
+\textbf{Hồi tiếp dương}
+\[
+\boxed{
+G_{cl}(s)=\frac{G(s)}{1-G(s)H(s)}.
+}
+\]
+
+Hồi tiếp đơn vị: đặt $H(s)=1$.
+
+\subsection*{3. Quy tắc di chuyển bộ tổng và điểm rẽ nhánh}
+
+Giả sử có một khối $G(s)$.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{0.38\textwidth}|p{0.45\textwidth}|}
+\hline
+\textbf{Phép di chuyển} & \textbf{Điều chỉnh nhánh phụ để giữ tương đương}\\
+\hline
+Bộ tổng: từ trước $G$ ra sau $G$ & nhánh phụ phải nhân $G$\\
+\hline
+Bộ tổng: từ sau $G$ về trước $G$ & nhánh phụ phải chia $G$\\
+\hline
+Điểm rẽ: từ trước $G$ ra sau $G$ & nhánh lấy ra phải qua $1/G$\\
+\hline
+Điểm rẽ: từ sau $G$ về trước $G$ & nhánh lấy ra phải qua $G$\\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{center}
+
+\subsection*{4. Quy trình rút gọn sơ đồ khối nhiều vòng}
+
+\begin{enumerate}[leftmargin=1.9em,itemsep=0.2em]
+  \item Đánh dấu các vòng hồi tiếp \textbf{nhỏ nhất / trong cùng} trước.
+  \item Gộp các khối nối tiếp hoặc song song nhìn thấy ngay.
+  \item Nếu chưa gộp được, di chuyển bộ tổng hoặc điểm rẽ để tạo cấu trúc chuẩn.
+  \item Rút gọn vòng trong, sau đó tiến dần ra vòng ngoài.
+  \item Sau mỗi phép biến đổi, kiểm tra lại vị trí bộ tổng, dấu và nhánh lấy tín hiệu.
+\end{enumerate}
+
+\subsubsection*{Mẹo kiểm tra nhanh}
+
+Hai sơ đồ tương đương khi quan hệ vào -- ra của chúng không đổi.
+Nếu nghi ngờ một phép di chuyển, đặt một tín hiệu ký hiệu $X$ tại nút trước biến đổi,
+tính tín hiệu tại các nút trước và sau; hai kết quả phải trùng nhau.
+
+\subsection*{5. Graph tín hiệu -- khái niệm}
+
+\begin{itemize}[leftmargin=1.7em,itemsep=0.2em]
+  \item \textbf{Nút}: đại diện cho một tín hiệu.
+  \item \textbf{Nhánh có hướng}: mang hệ số truyền của nhánh.
+  \item \textbf{Đường truyền thuận $P_k$}: đường từ nút vào đến nút ra, không đi qua một nút quá một lần.
+  \item \textbf{Vòng lặp $L_i$}: đường khép kín bắt đầu và kết thúc tại cùng một nút.
+  \item \textbf{Hai vòng không chạm nhau}: không có nút chung.
+\end{itemize}
+
+\subsection*{6. Công thức Mason}
+
+\[
+\boxed{
+\frac{C(s)}{R(s)}
+=
+\frac{\displaystyle\sum_k P_k\Delta_k}{\Delta}.
+}
+\]
+
+Trong đó:
+\[
+\boxed{
+\Delta
+=
+1-\sum_iL_i
++\sum_{\substack{i<j\\\text{không chạm}}}L_iL_j
+-\sum_{\substack{i<j<m\\\text{đôi một không chạm}}}L_iL_jL_m
++\cdots
+}
+\]
+
+$\Delta_k$ được tính giống $\Delta$ nhưng \textbf{loại tất cả vòng chạm đường truyền thuận $P_k$}.
+
+\subsection*{7. Quy trình giải graph bằng Mason}
+
+\begin{enumerate}[leftmargin=1.9em,itemsep=0.2em]
+  \item Liệt kê tất cả đường truyền thuận $P_1,P_2,\ldots$.
+  \item Liệt kê tất cả vòng $L_1,L_2,\ldots$, ghi cả dấu của từng vòng.
+  \item Tìm các cặp, bộ ba, \ldots vòng không chạm nhau.
+  \item Tính $\Delta$.
+  \item Với từng $P_k$, loại vòng chạm $P_k$ để tính $\Delta_k$.
+  \item Thay vào công thức Mason và rút gọn.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Lỗi thường gặp:}
+bỏ dấu âm của nhánh hồi tiếp; nhầm khái niệm hai vòng không chạm nhau với hai vòng không dùng chung nhánh
+(trong Mason, không chạm nghĩa là \textbf{không có nút chung});
+bỏ sót đường truyền thuận; dùng một vòng chạm $P_k$ trong $\Delta_k$.
+
+% ============================================================
+\clearpage
+\section*{CHƯƠNG 4 -- ĐẶC TÍNH ĐỘNG HỌC VÀ CÁC KHÂU ĐỘNG HỌC CƠ BẢN}
+
+\subsection*{1. Đặc tính thời gian}
+
+Cho hệ có hàm truyền $G(s)$, điều kiện đầu bằng $0$.
+
+\textbf{Đáp ứng xung / hàm trọng lượng}
+\[
+r(t)=\delta(t)\Longrightarrow R(s)=1,
+\]
+\[
+C(s)=G(s),
+\qquad
+\boxed{g(t)=\Lap^{-1}\{G(s)\}}.
+\]
+
+\textbf{Đáp ứng bước / hàm quá độ}
+\[
+r(t)=1(t)\Longrightarrow R(s)=\frac1s,
+\]
+\[
+C(s)=\frac{G(s)}s,
+\qquad
+\boxed{h(t)=\Lap^{-1}\left\{\frac{G(s)}s\right\}}.
+\]
+
+Quan hệ:
+\[
+\boxed{
+h(t)=\int_0^t g(\tau)\,d\tau,
+\qquad
+g(t)=\frac{dh(t)}{dt}.
+}
+\]
+
+Do đó, nếu biết $h(t)$:
+\[
+H(s)=\Lap\{h(t)\},
+\qquad
+\boxed{G(s)=sH(s)}
+\]
+khi $h(0^-)=0$.
+
+\subsection*{2. Đặc tính tần số}
+
+Thay:
+\[
+s=\jj\omega
+\]
+vào hàm truyền:
+\[
+\boxed{
+G(\jj\omega)
+=
+P(\omega)+\jj Q(\omega)
+=
+M(\omega)e^{\jj\varphi(\omega)}.
+}
+\]
+
+Biên độ:
+\[
+\boxed{
+M(\omega)=|G(\jj\omega)|
+=\sqrt{P^2(\omega)+Q^2(\omega)}.
+}
+\]
+
+Pha:
+\[
+\boxed{
+\varphi(\omega)=\arg G(\jj\omega).
+}
+\]
+
+Biên độ theo dB:
+\[
+\boxed{
+L(\omega)=20\log_{10}M(\omega)\quad\text{dB}.
+}
+\]
+
+Nếu:
+\[
+G(s)=K\prod_iG_i(s),
+\]
+thì:
+\[
+L(\omega)=20\log_{10}|K|+\sum_iL_i(\omega),
+\]
+\[
+\varphi(\omega)=\arg K+\sum_i\varphi_i(\omega).
+\]
+
+\subsection*{3. Bảng các khâu động học điển hình}
+
+\begin{center}
+\scriptsize
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{0.19\textwidth}|p{0.22\textwidth}|p{0.27\textwidth}|p{0.20\textwidth}|}
+\hline
+\textbf{Khâu} & \textbf{$G(s)$} & \textbf{Đáp ứng bước chính} & \textbf{Đặc tính tần số chính}\\
+\hline
+Khuếch đại / tỉ lệ & $K$ & $c(t)=K\,1(t)$ & $M=|K|$, pha $0^\circ$ nếu $K>0$\\
+\hline
+Tích phân lý tưởng & $\dfrac1s$ & $h(t)=t\,1(t)$ & $M=1/\omega$, pha $-90^\circ$\\
+\hline
+Vi phân lý tưởng & $s$ & $h(t)=\delta(t)$ & $M=\omega$, pha $+90^\circ$\\
+\hline
+Quán tính bậc nhất & $\dfrac{K}{Ts+1}$ & $h(t)=K(1-e^{-t/T})1(t)$ & góc pha $0^\circ\to-90^\circ$\\
+\hline
+Vi phân bậc nhất & $K(Ts+1)$ & có thành phần xung tại $t=0$ & góc pha $0^\circ\to+90^\circ$\\
+\hline
+Bậc hai chuẩn & $\dfrac{K\omega_n^2}{s^2+2\xi\omega_ns+\omega_n^2}$ & phụ thuộc $\xi$ & pha tiến từ $0^\circ$ về gần $-180^\circ$\\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{center}
+
+\subsection*{4. Khâu quán tính bậc nhất}
+
+\[
+\boxed{G(s)=\frac{K}{Ts+1}},\qquad T>0.
+\]
+
+Đáp ứng xung:
+\[
+\boxed{g(t)=\frac{K}{T}e^{-t/T}1(t)}.
+\]
+
+Đáp ứng bước:
+\[
+\boxed{h(t)=K(1-e^{-t/T})1(t)}.
+\]
+
+Tại $t=T$:
+\[
+h(T)=K(1-e^{-1})\approx0.632K.
+\]
+Vì vậy $T$ là \textbf{hằng số thời gian}.
+
+Đặc tính tần số:
+\[
+G(\jj\omega)=\frac{K}{1+\jj\omega T},
+\]
+\[
+\boxed{
+M(\omega)=\frac{|K|}{\sqrt{1+(\omega T)^2}},
+\qquad
+\varphi(\omega)=-\tan^{-1}(\omega T)
+}
+\]
+với $K>0$.
+
+Tần số gãy:
+\[
+\boxed{\omega_b=\frac1T}.
+\]
+Sau tần số gãy, đường Bode biên độ tiệm cận có độ dốc $-20$ dB/dec.
+
+\subsubsection*{Dạng bài: Nhận dạng khâu bậc nhất}
+
+Đưa hàm truyền về:
+\[
+G(s)=\frac{K}{Ts+1}.
+\]
+Ví dụ:
+\[
+G(s)=\frac{6}{2s+4}
+=\frac{3/2}{0.5s+1}.
+\]
+Suy ra:
+\[
+\boxed{K=\frac32,\qquad T=0.5}.
+\]
+
+\subsection*{5. Khâu bậc hai}
+
+Dạng chuẩn:
+\[
+\boxed{
+G(s)=
+\frac{K\omega_n^2}
+{s^2+2\xi\omega_ns+\omega_n^2}.
+}
+\]
+
+Tương đương:
+\[
+G(s)=\frac{K}{T^2s^2+2\xi Ts+1},
+\qquad
+\omega_n=\frac1T.
+\]
+
+Cực:
+\[
+s_{1,2}
+=
+-\xi\omega_n
+\pm
+\omega_n\sqrt{\xi^2-1}.
+\]
+
+Nếu $0<\xi<1$:
+\[
+\omega_d=\omega_n\sqrt{1-\xi^2},
+\]
+\[
+s_{1,2}=-\xi\omega_n\pm\jj\omega_d.
+\]
+
+Với $K=1$, $0<\xi<1$, đáp ứng xung:
+\[
+\boxed{
+g(t)
+=
+\frac{\omega_n}{\sqrt{1-\xi^2}}
+e^{-\xi\omega_nt}
+\sin(\omega_dt)\,1(t).
+}
+\]
+
+Một dạng đáp ứng bước tương đương:
+\[
+\boxed{
+h(t)
+=
+1-
+\frac{e^{-\xi\omega_nt}}{\sqrt{1-\xi^2}}
+\sin(\omega_dt+\theta),
+}
+\]
+trong đó:
+\[
+\theta=\cos^{-1}\xi.
+\]
+
+Ý nghĩa $\xi$:
+\begin{itemize}[leftmargin=1.7em,itemsep=0.2em]
+  \item $\xi=0$: dao động không tắt.
+  \item $0<\xi<1$: dao động tắt dần.
+  \item $\xi=1$: tắt dần tới hạn.
+  \item $\xi>1$: quá tắt, hai cực thực âm phân biệt.
+\end{itemize}
+
+\subsubsection*{Dạng bài: Từ đa thức bậc hai tìm $\omega_n,\xi$}
+
+Với:
+\[
+s^2+as+b,
+\]
+so sánh với:
+\[
+s^2+2\xi\omega_ns+\omega_n^2.
+\]
+Suy ra:
+\[
+\boxed{
+\omega_n=\sqrt b,
+\qquad
+\xi=\frac{a}{2\sqrt b}.
+}
+\]
+
+\subsection*{6. Khâu tích phân và vi phân trên Bode}
+
+\textbf{Tích phân lý tưởng}
+\[
+G(s)=\frac1s
+\Longrightarrow
+G(\jj\omega)=\frac1{\jj\omega}.
+\]
+\[
+\boxed{
+L(\omega)=-20\log_{10}\omega,
+\qquad
+\varphi=-90^\circ.
+}
+\]
+Độ dốc: $-20$ dB/dec trên toàn dải.
+
+\textbf{Vi phân lý tưởng}
+\[
+G(s)=s
+\Longrightarrow
+G(\jj\omega)=\jj\omega.
+\]
+\[
+\boxed{
+L(\omega)=20\log_{10}\omega,
+\qquad
+\varphi=+90^\circ.
+}
+\]
+Độ dốc: $+20$ dB/dec trên toàn dải.
+
+\subsection*{7. Dạng bài Chương 4 và quy trình giải}
+
+\subsubsection*{Dạng 1: Từ $G(s)$ tìm $g(t)$ và $h(t)$}
+
+\[
+\boxed{
+g(t)=\Lap^{-1}\{G(s)\},
+\qquad
+h(t)=\Lap^{-1}\left\{\frac{G(s)}s\right\}.
+}
+\]
+Nếu biểu thức hữu tỷ khó lấy ngược, phân tích phân thức như Chương 2.
+
+\subsubsection*{Dạng 2: Từ $h(t)$ hoặc $g(t)$ suy ra $G(s)$}
+
+\[
+G(s)=\Lap\{g(t)\}.
+\]
+Nếu cho $h(t)$:
+\[
+H(s)=\Lap\{h(t)\},
+\qquad
+G(s)=sH(s)
+\]
+khi điều kiện đầu phù hợp.
+
+\subsubsection*{Dạng 3: Tìm đặc tính tần số}
+
+\begin{enumerate}[leftmargin=1.9em,itemsep=0.2em]
+  \item Thay $s=\jj\omega$.
+  \item Đưa về $P(\omega)+\jj Q(\omega)$ hoặc dạng tích.
+  \item Tính $M(\omega)=|G(\jj\omega)|$.
+  \item Tính pha bằng góc phần tư đúng.
+  \item Nếu vẽ Bode: cộng biên độ dB và pha của từng khâu thành phần.
+\end{enumerate}
+
+% ============================================================
+\clearpage
+\section*{BẢNG TRA NHANH CHƯƠNG 1 -- 4}
+
+\subsection*{A. Chuỗi thao tác theo dạng bài}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{0.28\textwidth}|p{0.60\textwidth}|}
+\hline
+\textbf{Bài toán} & \textbf{Chuỗi thao tác}\\
+\hline
+PTVP $\to y(t)$ & Laplace hai vế $\to Y(s)$ $\to$ phân thức tối giản $\to$ Laplace ngược\\
+\hline
+PTVP $\to G(s)$ & điều kiện đầu bằng $0$ $\to$ Laplace $\to Y(s)/U(s)$\\
+\hline
+$G(s)\to g(t)$ & $g(t)=\Lap^{-1}\{G(s)\}$\\
+\hline
+$G(s)\to h(t)$ & $h(t)=\Lap^{-1}\{G(s)/s\}$\\
+\hline
+$h(t)\to G(s)$ & $H(s)=\Lap\{h(t)\}$, rồi $G(s)=sH(s)$\\
+\hline
+State-space $\to G(s)$ & $G(s)=C(sI-A)^{-1}B+D$\\
+\hline
+Sơ đồ khối $\to G_{eq}$ & vòng trong $\to$ nối tiếp / song song $\to$ hồi tiếp $\to$ lặp lại\\
+\hline
+Graph $\to G(s)$ & $P_k\to L_i\to\Delta\to\Delta_k\to$ Mason\\
+\hline
+$G(s)\to G(\jj\omega)$ & thay $s=\jj\omega\to M(\omega)\to\varphi(\omega)\to$ Bode\\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{center}
+
+\subsection*{B. Công thức bắt buộc thuộc}
+
+\[
+\boxed{\Lap\{f'(t)\}=sF(s)-f(0^+)}
+\]
+\[
+\boxed{\Lap\{f''(t)\}=s^2F(s)-sf(0^+)-f'(0^+)}
+\]
+\[
+\boxed{G(s)=\frac{Y(s)}{U(s)}\quad\text{(điều kiện đầu bằng 0)}}
+\]
+\[
+\boxed{G_{cl}(s)=\frac{G(s)}{1+G(s)H(s)}\quad\text{(hồi tiếp âm)}}
+\]
+\[
+\boxed{G(s)=C(sI-A)^{-1}B+D}
+\]
+\[
+\boxed{g(t)=\Lap^{-1}\{G(s)\},
+\qquad h(t)=\Lap^{-1}\{G(s)/s\}}
+\]
+\[
+\boxed{G(\jj\omega)=G(s)\big|_{s=\jj\omega}}
+\]
+\[
+\boxed{
+\frac{C(s)}{R(s)}
+=
+\frac{\sum_kP_k\Delta_k}{\Delta}
+\quad\text{(Mason)}.
+}
+\]
+
+\subsection*{C. Checklist trước khi chốt đáp án}
+
+\begin{itemize}[leftmargin=1.7em,itemsep=0.2em]
+  \item Đã xác định đúng tín hiệu vào, đầu ra và dấu hồi tiếp chưa?
+  \item Khi tìm hàm truyền, đã cho điều kiện đầu bằng $0$ chưa?
+  \item Khi giải PTVP, đã thay đầy đủ $y(0),y'(0),\ldots$ trong công thức Laplace chưa?
+  \item Phân thức Laplace ngược đã hợp thức chưa? Nếu chưa, đã chia đa thức chưa?
+  \item Mạch điện đã dùng đúng $Z_R=R$, $Z_L=sL$, $Z_C=1/(sC)$ khi điều kiện đầu bằng $0$ chưa?
+  \item Sơ đồ khối đã rút vòng trong trước vòng ngoài chưa?
+  \item Mason đã liệt kê đủ đường truyền thuận, vòng lặp và các vòng không chạm chưa?
+  \item Khi tìm pha của $G(\jj\omega)$, đã xét đúng góc phần tư chưa?
+  \item Kết quả cuối đã có đúng đơn vị, điều kiện và ký hiệu chưa?
+\end{itemize}
+
+\medskip
+\noindent\textit{Ghi chú tích hợp: file này được cố ý để độc lập với phần nội dung chính.
+Khi hoàn thiện main.tex, chỉ cần đặt lệnh
+\texttt{\string\input\{tong\_hop\_chuong\_1\_4.tex\}}
+ngay trước \texttt{\string\end\{document\}}.}
