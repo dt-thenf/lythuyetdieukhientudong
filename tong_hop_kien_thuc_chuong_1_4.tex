@@ -732,3 +732,477 @@ T=\frac{G_1G_2}{1+G_2H}.
   \item Tính $\Delta_k$ sai: phải loại các loop chạm $P_k$ và giữ các loop không chạm $P_k$.
 \end{itemize}
 
+
+% ======================================================================
+\subsection*{CHƯƠNG 4 -- ĐẶC TÍNH ĐỘNG HỌC VÀ CÁC KHÂU ĐỘNG HỌC CƠ BẢN}
+% ======================================================================
+
+\subsubsection*{1. Đặc tính thời gian}
+
+Ba tín hiệu thử cơ bản:
+\[
+\delta(t),\qquad u(t),\qquad \sin\omega t.
+\]
+
+\textbf{Đáp ứng xung}
+\[
+\boxed{
+g(t)=\Lap^{-1}\{G(s)\}
+}
+\]
+
+\textbf{Đáp ứng bước đơn vị}
+\[
+\boxed{
+h(t)=\Lap^{-1}\left\{\frac{G(s)}{s}\right\}
+}
+\]
+
+Nếu không có vấn đề xung tại điểm gián đoạn:
+\[
+\boxed{
+g(t)=\frac{\dd h(t)}{\dd t},
+\qquad
+h(t)=\int_0^t g(\tau)\dd\tau.
+}
+\]
+
+\textbf{Dạng bài 1 -- biết $G(s)$, tìm $g(t),h(t)$}
+\begin{enumerate}
+  \item Tìm $g(t)$ bằng $\Lap^{-1}\{G(s)\}$.
+  \item Lập $H(s)=G(s)/s$.
+  \item Phân tích $H(s)$ và lấy Laplace ngược.
+\end{enumerate}
+
+\textbf{Dạng bài 2 -- biết $h(t)$, tìm $G(s)$}
+\[
+g(t)=\dot h(t),\qquad G(s)=\Lap\{g(t)\}.
+\]
+Nếu $h(t)$ có bước nhảy tại $t=0$ phải chú ý thành phần Dirac khi đạo hàm.
+
+\subsubsection*{2. Đặc tính tần số}
+
+Thay
+\[
+s=j\omega
+\]
+vào hàm truyền:
+\[
+\boxed{
+G(j\omega)=P(\omega)+jQ(\omega)
+=M(\omega)\e^{j\varphi(\omega)}
+}
+\]
+với
+\[
+\boxed{
+M(\omega)=|G(j\omega)|
+=\sqrt{P^2(\omega)+Q^2(\omega)}
+}
+\]
+và
+\[
+\boxed{
+\varphi(\omega)=\arg G(j\omega).
+}
+\]
+
+Khi hệ ổn định và đầu vào hình sin ở trạng thái xác lập:
+\[
+r(t)=R\sin\omega t
+\]
+thì đầu ra vẫn cùng tần số:
+\[
+\boxed{
+c_{xl}(t)=R|G(j\omega)|
+\sin\!\left(\omega t+\arg G(j\omega)\right).
+}
+\]
+
+\subsubsection*{3. Nyquist và Bode}
+
+\textbf{Nyquist:} vẽ quỹ tích điểm $G(j\omega)$ trên mặt phẳng phức khi $\omega$ thay đổi.
+
+\textbf{Bode biên độ}
+\[
+\boxed{
+L(\omega)=20\log_{10}|G(j\omega)|\quad[\mathrm{dB}]
+}
+\]
+
+\textbf{Bode pha}
+\[
+\boxed{
+\varphi(\omega)=\arg G(j\omega)
+}
+\]
+
+Nếu
+\[
+G=G_1G_2\cdots G_n,
+\]
+thì:
+\[
+\boxed{
+L=L_1+L_2+\cdots+L_n,\qquad
+\varphi=\varphi_1+\varphi_2+\cdots+\varphi_n.
+}
+\]
+
+\subsubsection*{4. Bảng các khâu động học cơ bản}
+
+\begin{center}
+\begin{tabular}{|p{0.17\linewidth}|p{0.23\linewidth}|p{0.23\linewidth}|p{0.25\linewidth}|}
+\hline
+\textbf{Khâu} & \textbf{$G(s)$} & \textbf{$|G(j\omega)|$} & \textbf{Pha / Bode chính} \\ \hline
+Khuếch đại & $K$ & $K$ & $\varphi=0^\circ$, $L=20\log_{10}K$ \\ \hline
+Tích phân lý tưởng & $\dfrac{1}{s}$ & $\dfrac{1}{\omega}$ & $-90^\circ$, dốc $-20$ dB/dec \\ \hline
+Vi phân lý tưởng & $s$ & $\omega$ & $+90^\circ$, dốc $+20$ dB/dec \\ \hline
+Quán tính bậc nhất & $\dfrac{K}{Ts+1}$ & $\dfrac{K}{\sqrt{1+(T\omega)^2}}$ &
+$\varphi=-\arctan(T\omega)$, gãy $\omega_b=1/T$ \\ \hline
+Vi phân bậc nhất & $K(Ts+1)$ & $K\sqrt{1+(T\omega)^2}$ &
+$\varphi=+\arctan(T\omega)$, sau $\omega_b$: $+20$ dB/dec \\ \hline
+Trễ thuần & $\e^{-Ts}$ & $1$ & $\varphi=-T\omega$ rad, biên độ $0$ dB \\ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{5. Khâu quán tính bậc nhất}
+
+\[
+\boxed{
+G(s)=\frac{K}{Ts+1},\qquad T>0.
+}
+\]
+
+\textbf{Đáp ứng xung}
+\[
+\boxed{
+g(t)=\frac{K}{T}\e^{-t/T}u(t)
+}
+\]
+
+\textbf{Đáp ứng bước}
+\[
+\boxed{
+h(t)=K\left(1-\e^{-t/T}\right)u(t)
+}
+\]
+
+Tại $t=T$:
+\[
+h(T)=K(1-\e^{-1})\approx0.632K.
+\]
+Do đó $T$ là hằng số thời gian.
+
+Đặc tính tần số:
+\[
+G(j\omega)=\frac{K}{1+jT\omega},
+\]
+\[
+|G(j\omega)|=\frac{K}{\sqrt{1+T^2\omega^2}},
+\qquad
+\varphi=-\arctan(T\omega).
+\]
+
+Tần số gãy:
+\[
+\boxed{
+\omega_b=\frac1T.
+}
+\]
+Sau tần số gãy, đường tiệm cận Bode giảm với độ dốc $-20$ dB/dec.
+
+\subsubsection*{6. Khâu bậc hai}
+
+Dạng chuẩn:
+\[
+\boxed{
+G(s)=
+\frac{K\omega_n^2}
+{s^2+2\xi\omega_ns+\omega_n^2}
+}
+\]
+tương đương
+\[
+G(s)=\frac{K}{T^2s^2+2\xi Ts+1},
+\qquad \omega_n=\frac1T.
+\]
+
+\begin{itemize}
+  \item $K$: hệ số khuếch đại.
+  \item $\omega_n$: tần số riêng.
+  \item $\xi$: hệ số tắt dần.
+\end{itemize}
+
+\textbf{Phân loại theo $\xi$}
+\begin{itemize}
+  \item $\xi=0$: dao động không suy giảm.
+  \item $0<\xi<1$: dưới tắt dần, đáp ứng dao động giảm dần.
+  \item $\xi=1$: tắt dần tới hạn.
+  \item $\xi>1$: quá tắt dần, không dao động.
+\end{itemize}
+
+Với $0<\xi<1$, đặt:
+\[
+\omega_d=\omega_n\sqrt{1-\xi^2}.
+\]
+Đáp ứng xung:
+\[
+\boxed{
+g(t)=
+\frac{K\omega_n}{\sqrt{1-\xi^2}}
+\e^{-\xi\omega_nt}
+\sin(\omega_dt)\,u(t).
+}
+\]
+
+Về tần số:
+\[
+|G(j\omega)|
+=
+\frac{K\omega_n^2}
+{\sqrt{(\omega_n^2-\omega^2)^2+(2\xi\omega_n\omega)^2}}.
+\]
+Khi $\omega\gg\omega_n$, dốc tiệm cận biên độ là $-40$ dB/dec và pha tiến về $-180^\circ$.
+
+\subsubsection*{7. Khâu trễ thuần}
+
+\[
+\boxed{
+G(s)=\e^{-Ts}.
+}
+\]
+
+Theo định lý dịch, khâu trễ làm tín hiệu bị dịch đi $T$ giây.
+Tần số:
+\[
+\boxed{
+|G(j\omega)|=1,\qquad
+\varphi(\omega)=-T\omega.
+}
+\]
+Nghĩa là khâu trễ \textbf{không đổi biên độ}, chỉ làm pha giảm tuyến tính theo $\omega$.
+
+Theo định nghĩa đáp ứng xung và đáp ứng bước ở phần 4.2:
+\[
+\boxed{
+g(t)=\delta(t-T),\qquad h(t)=u(t-T).
+}
+\]
+
+\textbf{Lưu ý đối chiếu tài liệu:}
+trang Khâu trễ trong slide có phần công thức ký hiệu $g(t)$ và $h(t)$ bị đảo;
+các biểu thức trong khung trên được lấy theo chính định nghĩa $g(t)=\Lap^{-1}\{G(s)\}$,
+$h(t)=\Lap^{-1}\{G(s)/s\}$ đã nêu trước đó trong cùng chương.
+
+\subsubsection*{8. Dạng bài Nyquist -- quy trình}
+
+\begin{enumerate}
+  \item Thay $s=j\omega$.
+  \item Khử số phức ở mẫu để đưa về $P(\omega)+jQ(\omega)$.
+  \item Tính các điểm $\omega=0$, một vài điểm đặc trưng, $\omega\to\infty$.
+  \item Xác định dấu của $P,Q$ để biết góc phần tư.
+  \item Nếu có thể, khử $\omega$ để tìm phương trình quỹ tích.
+  \item Vẽ mũi tên theo chiều $\omega$ tăng.
+\end{enumerate}
+
+\textbf{Ví dụ}
+\[
+G(s)=\frac{4}{s+1}
+\]
+cho:
+\[
+G(j\omega)
+=\frac{4}{1+j\omega}
+=
+\frac{4}{1+\omega^2}
+-j\frac{4\omega}{1+\omega^2}.
+\]
+Do đó:
+\[
+P=\frac{4}{1+\omega^2},\qquad
+Q=-\frac{4\omega}{1+\omega^2}.
+\]
+Các điểm:
+\[
+G(j0)=4,\qquad
+G(j1)=2-2j,\qquad
+G(j\infty)=0.
+\]
+Khử $\omega$:
+\[
+\boxed{
+(P-2)^2+Q^2=4,\qquad Q\le0.
+}
+\]
+
+\subsubsection*{9. Dạng bài Bode -- quy trình}
+
+\begin{enumerate}
+  \item Phân tích hàm truyền thành tích các khâu chuẩn.
+  \item Tính $20\log_{10}|K|$.
+  \item Xác định các tần số gãy $\omega_b=1/T$.
+  \item Sắp xếp các $\omega_b$ từ nhỏ đến lớn.
+  \item Cộng dốc biên độ:
+  \begin{itemize}
+    \item zero bậc nhất: $+20$ dB/dec sau $\omega_b$;
+    \item pole bậc nhất: $-20$ dB/dec sau $\omega_b$;
+    \item cặp pole bậc hai: $-40$ dB/dec sau $\omega_n$.
+  \end{itemize}
+  \item Cộng pha của từng khâu.
+\end{enumerate}
+
+\textbf{Ví dụ}
+\[
+G(s)=\frac{100}{s+2}
+=\frac{50}{0.5s+1}.
+\]
+Suy ra:
+\[
+K=50,\qquad T=0.5,\qquad \omega_b=2\ \mathrm{rad/s}.
+\]
+Biên độ:
+\[
+\boxed{
+L(\omega)=
+20\log_{10}50
+-10\log_{10}(1+0.25\omega^2)
+}
+\]
+và pha:
+\[
+\boxed{
+\varphi(\omega)=-\arctan(0.5\omega).
+}
+\]
+Trước $\omega_b$, tiệm cận nằm ngang ở
+\[
+20\log_{10}50\approx33.98\ \mathrm{dB};
+\]
+sau $\omega_b$ có dốc $-20$ dB/dec.
+
+% ======================================================================
+\subsection*{BẢNG TRA NHANH CUỐI PHẦN}
+% ======================================================================
+
+\subsubsection*{1. Tín hiệu chuẩn và ảnh Laplace}
+
+\[
+\boxed{
+\delta(t)\leftrightarrow1,\qquad
+u(t)\leftrightarrow\frac1s,\qquad
+t\,u(t)\leftrightarrow\frac1{s^2}
+}
+\]
+\[
+\boxed{
+\e^{-at}\leftrightarrow\frac1{s+a},\qquad
+\sin\omega t\leftrightarrow\frac{\omega}{s^2+\omega^2},\qquad
+\cos\omega t\leftrightarrow\frac{s}{s^2+\omega^2}
+}
+\]
+
+\subsubsection*{2. Đạo hàm}
+
+\[
+\boxed{
+\Lap\{y'\}=sY-y(0)
+}
+\]
+\[
+\boxed{
+\Lap\{y''\}=s^2Y-sy(0)-y'(0)
+}
+\]
+\[
+\boxed{
+\Lap\{y^{(n)}\}
+=s^nY-s^{n-1}y(0)-\cdots-y^{(n-1)}(0)
+}
+\]
+
+\subsubsection*{3. Quan hệ đáp ứng}
+
+\[
+\boxed{
+g(t)=\Lap^{-1}\{G(s)\},\qquad
+h(t)=\Lap^{-1}\left\{\frac{G(s)}{s}\right\},\qquad
+g(t)=\dot h(t)
+}
+\]
+
+\subsubsection*{4. Sơ đồ khối}
+
+\[
+\boxed{
+G_{\mathrm{series}}=\prod G_i,\qquad
+G_{\mathrm{parallel}}=\sum (\pm G_i)
+}
+\]
+\[
+\boxed{
+G_{\mathrm{fb-}}=\frac{G}{1+GH},\qquad
+G_{\mathrm{fb+}}=\frac{G}{1-GH}
+}
+\]
+
+\subsubsection*{5. Mason}
+
+\[
+\boxed{
+T=\frac{\sum P_k\Delta_k}{\Delta}
+}
+\]
+\[
+\boxed{
+\Delta=1-\sum L_i+\sum L_iL_j-\sum L_iL_jL_k+\cdots
+}
+\]
+chỉ lấy tích của các loop \textbf{không chạm nhau}.
+
+\subsubsection*{6. Tần số}
+
+\[
+\boxed{
+G(j\omega)=G(s)\big|_{s=j\omega}
+}
+\]
+\[
+\boxed{
+M=|G(j\omega)|,\qquad
+L=20\log_{10}M,\qquad
+\varphi=\arg G(j\omega)
+}
+\]
+
+\subsubsection*{7. Công thức trạng thái}
+
+\[
+\boxed{
+\dot x=Ax+Bu,\qquad y=Cx+Du
+}
+\]
+\[
+\boxed{
+G(s)=C(sI-A)^{-1}B+D
+}
+\]
+
+% ======================================================================
+\subsection*{CHECKLIST TRƯỚC KHI NỘP BÀI}
+% ======================================================================
+
+\begin{enumerate}
+  \item Đã xác định đúng tín hiệu vào, ra và điều kiện đầu chưa?
+  \item Nếu lấy hàm truyền: đã đặt điều kiện đầu bằng 0 chưa?
+  \item Nếu giải PTVP: có giữ các điều kiện đầu trong công thức đạo hàm Laplace không?
+  \item Mẫu đa thức đã phân tích đúng chưa? Có kiểm tra lại bằng nhân ngược không?
+  \item Phân thức hữu tỷ có tử bậc lớn hơn hoặc bằng mẫu không? Nếu có, đã chia đa thức chưa?
+  \item Với hồi tiếp: đã kiểm tra dấu tại bộ tổng trước khi chọn $1+GH$ hay $1-GH$ chưa?
+  \item Với Mason: đã liệt kê đủ forward path, loop và các loop không chạm nhau chưa?
+  \item Với Bode: đã chuẩn hoá từng khâu về dạng $1+Ts$ và sắp tần số gãy chưa?
+  \item Với Nyquist: đã ghi chiều $\omega$ tăng và các điểm đầu/cuối chưa?
+  \item Kết quả có thể kiểm tra nhanh bằng điều kiện đầu, giá trị cuối hoặc đơn vị vật lý không?
+\end{enumerate}
+
+% KẾT THÚC FILE FRAGMENT -- KHÔNG THÊM \end{document}
