@@ -11,7 +11,7 @@
 \usepackage{fancyhdr}
 \usepackage{microtype}
 \usepackage{circuitikz}
-\usetikzlibrary{arrows.meta,calc}
+\usetikzlibrary{arrows.meta,calc,positioning}
 \usepackage[hidelinks]{hyperref}
 
 \geometry{left=1.85cm,right=1.85cm,top=1.65cm,bottom=1.55cm,headheight=16pt,headsep=0.35cm,footskip=0.75cm}
@@ -44,6 +44,16 @@
 \newcommand{\debai}{\par\noindent\textbf{Đề bài.}\enspace}
 \newcommand{\loigiai}{\par\smallskip\noindent\textbf{Lời giải.}\enspace}
 \newcommand{\Lap}{\mathcal{L}}
+\newcommand{\chuong}[2]{%
+  \par\medskip
+  \noindent{\Large\bfseries CHƯƠNG #1 -- #2}\par
+  \smallskip\hrule\medskip
+}
+\tikzset{
+  block/.style={draw,rectangle,minimum width=1.7cm,minimum height=0.75cm,align=center},
+  sum/.style={draw,circle,minimum size=6.5mm,inner sep=0pt},
+  pickoff/.style={circle,fill,inner sep=1.3pt}
+}
 
 \begin{document}
 
@@ -52,7 +62,9 @@
 \hrule
 \vspace{0.45em}
 
-\baitap{1}
+\chuong{2}{MÔ HÌNH TOÁN HỌC CỦA HỆ THỐNG}
+
+\baitap{2.1}
 \debai
 Tìm biến đổi Laplace ngược của
 \[
@@ -92,7 +104,7 @@ ta được
 \boxed{f(t)=\frac{e^{7t}-e^t}{6}\,1(t)}.
 \]
 
-\baitap{2}
+\baitap{2.2}
 \debai
 Giải phương trình vi phân
 \[
@@ -146,7 +158,7 @@ Lấy Laplace ngược:
 \boxed{y(t)=\left(\frac47-\frac23e^t+\frac{2}{21}e^{7t}\right)1(t)}.
 \]
 
-\baitap{3}
+\baitap{2.3}
 \debai
 Giả sử $F(s)$ có một cực bội bậc $3$ tại $s=p$ và phần phân thức tương ứng có dạng
 \[
@@ -181,7 +193,7 @@ Vì vậy
 \boxed{C_3=\frac{1}{2!}\left[\frac{d^2}{ds^2}\big((s-p)^3F(s)\big)\right]_{s=p}}.
 \]
 
-\baitap{4}
+\baitap{2.4}
 \debai
 Giải phương trình
 \[
@@ -225,7 +237,7 @@ và
 \boxed{y(t)=\frac54\left(1-e^{-4t}\right)1(t)}.
 \]
 
-\baitap{5}
+\baitap{2.5}
 \debai
 Cho
 \[
@@ -251,7 +263,7 @@ Do đó
 \boxed{F(-1+j3)=1-\frac43j=\frac53\angle(-53.13^\circ)}.
 \]
 
-\baitap{6}
+\baitap{2.6}
 \debai
 Tìm biến đổi Laplace của
 \[
@@ -288,7 +300,7 @@ Vậy
 \boxed{F(s)=\frac{2}{s^3}+\frac{3}{(s+2)^2+9}}.
 \]
 
-\baitap{7}
+\baitap{2.7}
 \debai
 Tìm biến đổi Laplace của
 \[
@@ -316,7 +328,7 @@ Do đó
 \boxed{\Lap\{t\sin t\}=\frac{2s}{(s^2+1)^2}}.
 \]
 
-\baitap{8}
+\baitap{2.8}
 \debai
 Tìm biến đổi Laplace ngược của
 \[
@@ -359,7 +371,7 @@ ta được
 \boxed{f(t)=\left(2-2te^{-t}\right)1(t)}.
 \]
 
-\baitap{9}
+\baitap{2.9}
 \debai
 Một xe được mô hình hóa bởi khối lượng $m$ và hệ số ma sát nhớt $b$. Lực kéo là $u(t)$, độ dịch chuyển là $d(t)$. Cho
 \[
@@ -405,7 +417,7 @@ Lấy Laplace ngược:
 \boxed{d(t)=\left(-1+t+e^{-t}\right)1(t)}.
 \]
 
-\baitap{10}
+\baitap{2.10}
 \debai
 Xét con lắc đơn có khối lượng $m$, chiều dài $l$, góc lệch $\theta$ so với phương thẳng đứng và mômen điều khiển $T_c$. Hãy lập mô hình phi tuyến và tuyến tính hóa quanh điểm làm việc $\theta=0$.
 
@@ -463,7 +475,7 @@ Suy ra mô hình tuyến tính hóa:
 \boxed{\ddot\theta+\frac{g}{l}\theta=\frac{T_c}{ml^2}}.
 \]
 
-\baitap{11}
+\baitap{2.11}
 \debai
 Xét mạch dẫn trước (lead network) như hình dưới. Giữa nút vào và nút $A$ có hai nhánh song song: nhánh trên là tụ $C$, nhánh dưới là điện trở $R_1$. Từ nút $A$ xuống mass là điện trở $R_2$. Tìm hàm truyền
 \[
@@ -580,7 +592,7 @@ thì
 \boxed{G(s)=\frac{s+b}{s+a}},\qquad b<a.
 \]
 
-\baitap{12 - bổ sung}
+\baitap{2.12}
 \debai
 (Buổi 4 -- câu a) Giải phương trình vi phân
 \[
@@ -681,7 +693,7 @@ y'(0)=-\frac57+8\cdot\frac{38}{63}-\frac{10}{9}=3.
 \]
 
 
-\baitap{13}
+\baitap{2.13}
 \debai
 (Buổi 4 -- ví dụ mạch điện) Xét mạch gồm nguồn điện áp $v(t)$, điện trở $R_1$, cuộn cảm $L$, điện trở $R_2$ và tụ điện $C$ như hình. Hai dòng vòng được chọn là $i_1(t)$ và $i_2(t)$, cùng chiều kim đồng hồ. Hãy tìm hàm truyền
 \[
@@ -838,7 +850,7 @@ Vì đầu ra là dòng điện và đầu vào là điện áp nên $G(s)$ ph�
 
 
 
-\baitap{14}
+\baitap{2.14}
 \debai
 Từ hàm truyền
 \[
@@ -973,7 +985,7 @@ y=
 
 Hai mô hình đều mô tả cùng một hàm truyền. Chúng chỉ khác nhau do cách chọn và chuẩn hóa biến trạng thái.
 
-\baitap{15}
+\baitap{2.15}
 \debai
 Cho
 \[
@@ -1070,7 +1082,7 @@ G(s)=C(sI-A)^{-1}B+D
 =\frac{s^2+7s+2}{s^3+9s^2+26s+24}.
 \]
 
-\baitap{16}
+\baitap{2.16}
 \debai
 Xét mạch điện gồm nguồn $v_{in}(t)$ nối tiếp cuộn cảm $L$, sau đó đến một nút có điện trở $R$ và tụ $C$ mắc song song xuống mass. Chọn
 \[
@@ -1233,5 +1245,560 @@ Từ phương trình KCL ở trên, hệ số của $v_C$ trong $\dot v_C$ bắt
 \]
 không phải $-C/R$. Dạng $-C/R$ không đúng về đơn vị và không suy ra từ KCL.
 
+
+
+\baitap{2.17}
+\debai
+Cho ma trận
+\[
+A=\begin{bmatrix}a&b\\c&d\end{bmatrix}.
+\]
+Hãy xác định ma trận phụ hợp \(\operatorname{adj}(A)\).
+
+\loigiai
+Các phần bù đại số của \(A\) là
+\[
+\hat a_{11}=d,\qquad
+\hat a_{12}=-c,\qquad
+\hat a_{21}=-b,\qquad
+\hat a_{22}=a.
+\]
+Ma trận các phần bù đại số là
+\[
+\begin{bmatrix}
+d&-c\\
+-b&a
+\end{bmatrix}.
+\]
+Ma trận phụ hợp là chuyển vị của ma trận trên:
+\[
+\boxed{
+\operatorname{adj}(A)=
+\begin{bmatrix}
+d&-b\\
+-c&a
+\end{bmatrix}.}
+\]
+Lưu ý phần tử góc dưới bên phải là \(a\).
+
+\baitap{2.18}
+\debai
+Cho hệ
+\[
+\dot x(t)=
+\begin{bmatrix}
+0&1\\
+-2&-3
+\end{bmatrix}x(t)
++
+\begin{bmatrix}
+0\\1
+\end{bmatrix}u(t),
+\qquad
+y(t)=\begin{bmatrix}1&0\end{bmatrix}x(t),
+\]
+với \(D=0\). Tìm hàm truyền
+\[
+G(s)=\frac{Y(s)}{U(s)}.
+\]
+
+\loigiai
+Dùng
+\[
+G(s)=C(sI-A)^{-1}B+D.
+\]
+Ta có
+\[
+sI-A=
+\begin{bmatrix}
+s&-1\\
+2&s+3
+\end{bmatrix},
+\]
+\[
+\det(sI-A)=s(s+3)+2=s^2+3s+2,
+\]
+và
+\[
+\operatorname{adj}(sI-A)=
+\begin{bmatrix}
+s+3&1\\
+-2&s
+\end{bmatrix}.
+\]
+Do đó
+\[
+(sI-A)^{-1}
+=
+\frac{1}{s^2+3s+2}
+\begin{bmatrix}
+s+3&1\\
+-2&s
+\end{bmatrix}.
+\]
+Suy ra
+\[
+G(s)
+=
+\begin{bmatrix}1&0\end{bmatrix}
+\frac{1}{s^2+3s+2}
+\begin{bmatrix}
+s+3&1\\
+-2&s
+\end{bmatrix}
+\begin{bmatrix}0\\1\end{bmatrix}
+=
+\boxed{\frac{1}{s^2+3s+2}}.
+\]
+
+\baitap{2.19}
+\debai
+Cho hệ
+\[
+\dot x(t)=
+\begin{bmatrix}
+0&1&0\\
+0&0&1\\
+-1&-2&-3
+\end{bmatrix}x(t)
++
+\begin{bmatrix}
+10\\0\\0
+\end{bmatrix}u(t),
+\qquad
+y(t)=
+\begin{bmatrix}
+1&0&0
+\end{bmatrix}x(t),
+\]
+với \(D=0\). Tìm hàm truyền \(G(s)=Y(s)/U(s)\).
+
+\loigiai
+Ta có
+\[
+sI-A=
+\begin{bmatrix}
+s&-1&0\\
+0&s&-1\\
+1&2&s+3
+\end{bmatrix}.
+\]
+Định thức:
+\[
+\det(sI-A)
+=s^3+3s^2+2s+1.
+\]
+Vì
+\[
+C=\begin{bmatrix}1&0&0\end{bmatrix},
+\qquad
+B=\begin{bmatrix}10\\0\\0\end{bmatrix},
+\]
+nên trong tích \(C\,\operatorname{adj}(sI-A)B\) chỉ cần phần tử hàng \(1\), cột \(1\) của \(\operatorname{adj}(sI-A)\):
+\[
+\hat a_{11}
+=
+\det
+\begin{bmatrix}
+s&-1\\
+2&s+3
+\end{bmatrix}
+=s^2+3s+2.
+\]
+Do đó
+\[
+C\,\operatorname{adj}(sI-A)B
+=10(s^2+3s+2),
+\]
+và
+\[
+\boxed{
+G(s)=
+\frac{10s^2+30s+20}
+{s^3+3s^2+2s+1}.}
+\]
+
+\clearpage
+\chuong{3}{ĐẠI SỐ SƠ ĐỒ KHỐI VÀ GRAPH TÍN HIỆU}
+
+\baitap{3.1}
+\debai
+Rút gọn sơ đồ khối sau và tìm hàm truyền kín \(G_k(s)=Y(s)/U(s)\). Sơ đồ dưới đây là dạng tương đương sau khi tách hai bộ tổng như trong ghi chép: tín hiệu \(U(s)\) đi qua \(G_1(s)\), đồng thời có một nhánh truyền thẳng \(U(s)\) cùng đi vào bộ tổng thứ nhất; bộ tổng thứ hai nhận hồi tiếp âm đơn vị từ \(Y(s)\), sau đó qua \(G_2(s)\).
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[pickoff] (p) at (0,0) {};
+  \node[block] (g1) at (2,1.0) {$G_1(s)$};
+  \node[sum] (s1) at (4.2,1.0) {};
+  \node[sum] (s2) at (5.7,1.0) {};
+  \node[block] (g2) at (7.5,1.0) {$G_2(s)$};
+  \node[pickoff] (ypt) at (9.0,1.0) {};
+
+  \draw[->] (-1.2,0) node[left]{$U(s)$} -- (p);
+  \draw[->] (p) |- (g1.west);
+  \draw[->] (g1.east) -- (s1.west);
+  \draw[->] (p) -- (0,-0.6) -- (4.2,-0.6) -- (s1.south);
+  \draw[->] (s1.east) -- (s2.west);
+  \draw[->] (s2.east) -- (g2.west);
+  \draw[->] (g2.east) -- (ypt) -- (10.0,1.0) node[right]{$Y(s)$};
+  \draw[->] (ypt) -- (9.0,-1.25) -- (5.7,-1.25) -- (s2.south);
+
+  \node at (3.85,1.25) {$+$};
+  \node at (4.0,-0.25) {$+$};
+  \node at (5.35,1.25) {$+$};
+  \node at (5.45,-0.35) {$-$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Đầu ra của bộ tổng thứ nhất là
+\[
+X(s)=G_1(s)U(s)+U(s)
+=\bigl[G_1(s)+1\bigr]U(s).
+\]
+Bộ \(G_2\) nằm trong vòng hồi tiếp âm đơn vị:
+\[
+Y(s)=G_2(s)\bigl[X(s)-Y(s)\bigr].
+\]
+Suy ra
+\[
+\bigl[1+G_2(s)\bigr]Y(s)
+=G_2(s)X(s).
+\]
+Thay \(X(s)\):
+\[
+\boxed{
+G_k(s)=\frac{Y(s)}{U(s)}
+=
+\frac{G_2(s)\bigl[G_1(s)+1\bigr]}
+{1+G_2(s)}.}
+\]
+
+\baitap{3.2}
+\debai
+Rút gọn sơ đồ có \(G_2(s)\) và \(G_3(s)\) mắc song song sau \(G_1(s)\), toàn bộ nằm trong hồi tiếp âm đơn vị như hình. Tìm \(G_k(s)=Y(s)/U(s)\).
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[sum] (s1) at (0,0) {};
+  \node[block] (g1) at (1.8,0) {$G_1(s)$};
+  \node[pickoff] (p) at (3.1,0) {};
+  \node[block] (g2) at (4.8,0.75) {$G_2(s)$};
+  \node[block] (g3) at (4.8,-0.75) {$G_3(s)$};
+  \node[sum] (s2) at (6.7,0) {};
+  \node[pickoff] (ypt) at (8.0,0) {};
+
+  \draw[->] (-1.4,0) node[left]{$U(s)$} -- (s1.west);
+  \draw[->] (s1.east) -- (g1.west);
+  \draw[->] (g1.east) -- (p);
+  \draw[->] (p) |- (g2.west);
+  \draw[->] (p) |- (g3.west);
+  \draw[->] (g2.east) -| (s2.north);
+  \draw[->] (g3.east) -| (s2.south);
+  \draw[->] (s2.east) -- (ypt) -- (9.0,0) node[right]{$Y(s)$};
+  \draw[->] (ypt) -- (8.0,-1.8) -- (0,-1.8) -- (s1.south);
+
+  \node at (-0.35,0.3) {$+$};
+  \node at (-0.32,-0.48) {$-$};
+  \node at (6.35,0.45) {$+$};
+  \node at (6.35,-0.45) {$+$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Hai khối song song được gộp:
+\[
+G_{23}(s)=G_2(s)+G_3(s).
+\]
+Khâu truyền thuận trước khi đóng vòng là
+\[
+G_h(s)=G_1(s)\bigl[G_2(s)+G_3(s)\bigr].
+\]
+Do hồi tiếp âm đơn vị:
+\[
+\boxed{
+G_k(s)
+=
+\frac{G_1(s)\bigl[G_2(s)+G_3(s)\bigr]}
+{1+G_1(s)\bigl[G_2(s)+G_3(s)\bigr]}.}
+\]
+
+\baitap{3.3}
+\debai
+Trong bài biến đổi sơ đồ khối ở các trang 3--5 của ghi chép, sau khi chuyển bộ tổng, gộp các bộ tổng và chuyển điểm rẽ nhánh, sơ đồ được đưa về dạng tương đương dưới đây. Hãy tìm hàm truyền kín từ \(U(s)\) đến \(Y(s)\).
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[sum] (s) at (0,0) {};
+  \node[block,minimum width=2.0cm] (f1) at (2.1,0) {$\dfrac{1}{1+G_1G_2}$};
+  \node[block,minimum width=2.0cm] (f2) at (4.8,0) {$\dfrac{G_3}{1+G_3G_4}$};
+  \node[pickoff] (q) at (6.4,0) {};
+  \node[block] (g4) at (7.8,0) {$G_4$};
+  \node[block] (g1) at (3.2,-1.8) {$G_1$};
+
+  \draw[->] (-1.4,0) node[left]{$U(s)$} -- (s.west);
+  \draw[->] (s.east) -- (f1.west);
+  \draw[->] (f1.east) -- (f2.west);
+  \draw[->] (f2.east) -- (q);
+  \draw[->] (q) -- (g4.west);
+  \draw[->] (g4.east) -- (9.2,0) node[right]{$Y(s)$};
+  \draw[->] (q) -- (6.4,-1.8) -- (g1.east);
+  \draw[->] (g1.west) -- (0,-1.8) -- (s.south);
+
+  \node at (-0.35,0.3) {$+$};
+  \node at (-0.30,-0.48) {$-$};
+  \node[above] at (q) {$Q(s)$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Đặt
+\[
+F_1(s)=\frac{1}{1+G_1G_2},
+\qquad
+F_2(s)=\frac{G_3}{1+G_3G_4}.
+\]
+Tại điểm rẽ trước \(G_4\):
+\[
+Q=F_1F_2\bigl(U-G_1Q\bigr).
+\]
+Do đó
+\[
+Q\bigl(1+G_1F_1F_2\bigr)=F_1F_2U.
+\]
+Suy ra
+\[
+\frac{Q}{U}
+=
+\frac{G_3}
+{(1+G_1G_2)(1+G_3G_4)+G_1G_3}.
+\]
+Vì \(Y=G_4Q\):
+\[
+\boxed{
+G_k(s)=\frac{Y}{U}
+=
+\frac{G_3G_4}
+{(1+G_1G_2)(1+G_3G_4)+G_1G_3}.}
+\]
+
+\baitap{3.4}
+\debai
+Sau khi chuyển vị trí các bộ tổng trong ví dụ ở cuối trang 5 và đầu trang 6, sơ đồ tương đương có dạng như hình. Hãy tìm \(G(s)=C(s)/R(s)\).
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[block] (g1) at (0,0) {$1+G_1$};
+  \node[sum] (s) at (2.1,0) {};
+  \node[block] (g2) at (4.0,0) {$G_2$};
+  \node[pickoff] (cpt) at (5.6,0) {};
+  \node[block,minimum width=2.0cm] (fb) at (3.4,-1.7) {$G_3-G_4$};
+
+  \draw[->] (-1.6,0) node[left]{$R(s)$} -- (g1.west);
+  \draw[->] (g1.east) -- (s.west);
+  \draw[->] (s.east) -- (g2.west);
+  \draw[->] (g2.east) -- (cpt) -- (6.8,0) node[right]{$C(s)$};
+  \draw[->] (cpt) -- (5.6,-1.7) -- (fb.east);
+  \draw[->] (fb.west) -- (2.1,-1.7) -- (s.south);
+
+  \node at (1.72,0.3) {$+$};
+  \node at (1.78,-0.48) {$-$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Tín hiệu vào bộ tổng là
+\[
+(1+G_1)R-(G_3-G_4)C.
+\]
+Do đó
+\[
+C
+=
+G_2\Bigl[(1+G_1)R-(G_3-G_4)C\Bigr].
+\]
+Chuyển các số hạng chứa \(C\) về một phía:
+\[
+\Bigl[1+(G_3-G_4)G_2\Bigr]C
+=(1+G_1)G_2R.
+\]
+Vậy
+\[
+\boxed{
+G(s)=\frac{C(s)}{R(s)}
+=
+\frac{(1+G_1)G_2}
+{1+(G_3-G_4)G_2}.}
+\]
+
+\baitap{3.5}
+\debai
+Cho hệ kín có khâu truyền thuận
+\[
+G(s)=\frac{10}{s(s+3)}
+\]
+và khâu hồi tiếp
+\[
+H(s)=\frac{1}{s+2},
+\]
+hồi tiếp âm như hình. Hãy:
+\begin{itemize}
+  \item tìm hàm truyền kín \(\bar G(s)=C(s)/R(s)\);
+  \item xây dựng một mô hình không gian trạng thái liên tục của hệ kín.
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node[sum] (s) at (0,0) {};
+  \node[block,minimum width=2.3cm] (g) at (2.8,0) {$\dfrac{10}{s(s+3)}$};
+  \node[pickoff] (cpt) at (5.0,0) {};
+  \node[block,minimum width=1.8cm] (h) at (2.8,-1.7) {$\dfrac{1}{s+2}$};
+
+  \draw[->] (-1.5,0) node[left]{$R(s)$} -- (s.west);
+  \draw[->] (s.east) -- (g.west);
+  \draw[->] (g.east) -- (cpt) -- (6.3,0) node[right]{$C(s)$};
+  \draw[->] (cpt) -- (5.0,-1.7) -- (h.east);
+  \draw[->] (h.west) -- (0,-1.7) -- (s.south);
+
+  \node at (-0.35,0.3) {$+$};
+  \node at (-0.32,-0.48) {$-$};
+\end{tikzpicture}
+\end{center}
+
+\loigiai
+Với hồi tiếp âm:
+\[
+\bar G(s)
+=
+\frac{G(s)}{1+G(s)H(s)}.
+\]
+Thay \(G,H\):
+\[
+\bar G(s)
+=
+\frac{\dfrac{10}{s(s+3)}}
+{1+\dfrac{10}{s(s+3)}\dfrac{1}{s+2}}
+=
+\frac{10(s+2)}
+{s(s+3)(s+2)+10}.
+\]
+Khai triển mẫu:
+\[
+s(s+3)(s+2)+10
+=s^3+5s^2+6s+10.
+\]
+Do đó
+\[
+\boxed{
+\bar G(s)
+=
+\frac{10s+20}
+{s^3+5s^2+6s+10}.}
+\]
+
+Từ
+\[
+\bigl(s^3+5s^2+6s+10\bigr)C(s)
+=
+(10s+20)R(s),
+\]
+với điều kiện đầu bằng không:
+\[
+c^{(3)}+5\ddot c+6\dot c+10c
+=
+10\dot r+20r. \tag{1}
+\]
+
+Theo cách chọn biến trạng thái trong ghi chép, đặt
+\[
+x_1=c,
+\]
+\[
+x_2=\dot x_1-\beta_1r
+=\dot c-\beta_1r,
+\]
+\[
+x_3=\dot x_2-\beta_2r
+=\ddot c-\beta_1\dot r-\beta_2r.
+\]
+Khi đó
+\[
+\dot x_1=x_2+\beta_1r,
+\qquad
+\dot x_2=x_3+\beta_2r.
+\]
+Đặt thêm hệ số \(\beta_3\) để viết
+\[
+\dot x_3
+=-10x_1-6x_2-5x_3+\beta_3r.
+\]
+Khi quy đổi ngược về phương trình của \(c(t)\), vế phải có dạng
+\[
+\beta_1\ddot r
++(5\beta_1+\beta_2)\dot r
++(6\beta_1+5\beta_2+\beta_3)r.
+\]
+So sánh với vế phải \(10\dot r+20r\) của (1):
+\[
+\beta_1=0,
+\]
+\[
+5\beta_1+\beta_2=10
+\quad\Rightarrow\quad
+\beta_2=10,
+\]
+\[
+6\beta_1+5\beta_2+\beta_3=20
+\quad\Rightarrow\quad
+\beta_3=-30.
+\]
+Vì vậy
+\[
+\dot x_1=x_2,
+\]
+\[
+\dot x_2=x_3+10r,
+\]
+\[
+\dot x_3=-10x_1-6x_2-5x_3-30r.
+\]
+Mô hình trạng thái là
+\[
+\boxed{
+\begin{bmatrix}
+\dot x_1\\
+\dot x_2\\
+\dot x_3
+\end{bmatrix}
+=
+\begin{bmatrix}
+0&1&0\\
+0&0&1\\
+-10&-6&-5
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\
+x_2\\
+x_3
+\end{bmatrix}
++
+\begin{bmatrix}
+0\\
+10\\
+-30
+\end{bmatrix}r
+}
+\]
+và vì \(c=x_1\),
+\[
+\boxed{
+c=
+\begin{bmatrix}
+1&0&0
+\end{bmatrix}x,
+\qquad D=0.}
+\]
+
+\textbf{Ghi chú.} Cuối tài liệu bắt đầu mục \(3.2\) về graph tín hiệu; phần được cung cấp mới nêu khái niệm điểm nút và các loại điểm, chưa có một bài giải hoàn chỉnh để bổ sung thành bài tập mới.
 
 \end{document}
