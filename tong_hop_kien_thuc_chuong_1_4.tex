@@ -1,0 +1,134 @@
+% ======================================================================
+% TỔNG HỢP KIẾN THỨC CHƯƠNG 1--4 - LÝ THUYẾT ĐIỀU KHIỂN TỰ ĐỘNG
+% LaTeX fragment để chèn sau vào main.tex bằng:
+%   \input{tong_hop_kien_thuc_chuong_1_4}
+% Không có \documentclass, \begin{document}, \end{document}.
+% ======================================================================
+
+\providecommand{\Lap}{\mathcal{L}}
+\providecommand{\dd}{\,\mathrm{d}}
+\providecommand{\e}{\mathrm{e}}
+
+\clearpage
+\section*{TỔNG HỢP KIẾN THỨC VÀ PHƯƠNG PHÁP GIẢI BÀI TẬP -- CHƯƠNG 1 ĐẾN CHƯƠNG 4}
+
+\noindent
+Phần này được viết theo hướng tra nhanh khi làm bài: mỗi chương gồm kiến thức cốt lõi,
+công thức cần nhớ, quy trình giải các dạng bài thường gặp, ví dụ mẫu và lỗi hay mắc.
+Ký hiệu dùng thống nhất:
+\[
+r(t):\text{ tín hiệu đặt},\qquad
+e(t):\text{ sai lệch},\qquad
+u(t):\text{ tín hiệu điều khiển},\qquad
+c(t)\text{ hoặc }y(t):\text{ tín hiệu ra}.
+\]
+
+% ======================================================================
+\subsection*{CHƯƠNG 1 -- TỔNG QUAN VỀ HỆ THỐNG ĐIỀU KHIỂN TỰ ĐỘNG}
+% ======================================================================
+
+\subsubsection*{1. Khái niệm cốt lõi}
+
+Điều khiển là quá trình \textbf{thu thập thông tin, xử lý thông tin và tác động lên hệ thống}
+để đáp ứng thực tế gần với mục đích định trước. Điều khiển tự động là quá trình điều khiển
+không cần con người trực tiếp can thiệp trong quá trình vận hành.
+
+\begin{center}
+\begin{tabular}{|p{0.20\linewidth}|p{0.27\linewidth}|p{0.43\linewidth}|}
+\hline
+\textbf{Ký hiệu} & \textbf{Tên} & \textbf{Ý nghĩa} \\ \hline
+$r(t)$ & Tín hiệu chuẩn / tín hiệu đặt & Giá trị mong muốn của hệ thống \\ \hline
+$c(t)$, $y(t)$ & Tín hiệu ra & Giá trị thực tế của đại lượng cần điều khiển \\ \hline
+$c_{ht}(t)$ & Tín hiệu hồi tiếp & Tín hiệu đo được đưa trở lại bộ so sánh \\ \hline
+$e(t)$ & Sai lệch & Thường có dạng $e(t)=r(t)-c_{ht}(t)$ với hồi tiếp âm \\ \hline
+$u(t)$ & Tín hiệu điều khiển & Tín hiệu từ bộ điều khiển tác động lên đối tượng \\ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{2. Hệ vòng hở và hệ vòng kín}
+
+\textbf{Hệ vòng hở (open-loop):} không dùng tín hiệu ra để hiệu chỉnh tác động điều khiển:
+\[
+r(t)\longrightarrow \text{Bộ điều khiển}\longrightarrow \text{Đối tượng}\longrightarrow c(t).
+\]
+
+\textbf{Hệ vòng kín (closed-loop):} dùng tín hiệu phản hồi để so sánh với tín hiệu đặt,
+tạo sai lệch và hiệu chỉnh liên tục:
+\[
+e(t)=r(t)-c_{ht}(t).
+\]
+
+Gợi ý nhận biết: nếu sơ đồ có đường từ đầu ra quay trở lại nút so sánh thì đó là
+hệ vòng kín; nếu không có đường phản hồi thì là hệ vòng hở.
+
+\subsubsection*{3. Các bài toán điều khiển cơ bản}
+
+\begin{itemize}
+  \item \textbf{Phân tích hệ thống:} đã biết cấu trúc và thông số; cần tìm đáp ứng, đặc tính và đánh giá chất lượng.
+  \item \textbf{Thiết kế hệ thống:} đã biết đối tượng; cần thiết kế bộ điều khiển để đạt yêu cầu.
+  \item \textbf{Nhận dạng hệ thống:} chưa biết đầy đủ cấu trúc/thông số; dùng dữ liệu vào--ra để xác định mô hình.
+\end{itemize}
+
+\subsubsection*{4. Các nguyên tắc và phân loại thường gặp}
+
+Trong tài liệu, các nguyên tắc được nhấn mạnh gồm thông tin phản hồi, đa dạng tương xứng,
+bổ sung ngoài, dự trữ, phân cấp và cân bằng nội. Ba cấu trúc điều khiển theo thông tin phản hồi
+thường gặp là bù nhiễu, san bằng sai lệch và phối hợp hai nguyên tắc trên.
+
+Các cách phân loại chính:
+\begin{itemize}
+  \item Tuyến tính / phi tuyến.
+  \item Bất biến theo thời gian / biến đổi theo thời gian.
+  \item Liên tục / rời rạc / số.
+  \item SISO (một vào--một ra) / MIMO (nhiều vào--nhiều ra).
+  \item Theo mục tiêu: ổn định hoá, theo chương trình, bám theo tín hiệu, thích nghi, tối ưu.
+\end{itemize}
+
+\subsubsection*{5. Quy trình thiết lập một hệ thống điều khiển}
+
+Có thể ghi nhớ theo chuỗi:
+\[
+\boxed{
+\text{Yêu cầu kỹ thuật}
+\rightarrow
+\text{Mô tả hệ vật lý}
+\rightarrow
+\text{Sơ đồ chức năng}
+\rightarrow
+\text{Mô hình toán}
+\rightarrow
+\text{Sơ đồ khối/graph/KGTT}
+\rightarrow
+\text{Rút gọn}
+\rightarrow
+\text{Phân tích, thiết kế}
+}
+\]
+
+\subsubsection*{6. Dạng bài Chương 1: nhận dạng thành phần của hệ}
+
+\textbf{Quy trình:}
+\begin{enumerate}
+  \item Xác định đại lượng mong muốn $\Rightarrow r(t)$.
+  \item Xác định đại lượng thực tế cần điều khiển $\Rightarrow c(t)$.
+  \item Xác định thiết bị đo tạo tín hiệu phản hồi.
+  \item Xác định bộ điều khiển.
+  \item Xác định cơ cấu chấp hành.
+  \item Xác định đối tượng điều khiển.
+  \item Kiểm tra có đường phản hồi hay không để kết luận vòng hở/vòng kín.
+\end{enumerate}
+
+\textbf{Ví dụ mẫu -- điều khiển mức chất lỏng.}
+Mức mong muốn là $r(t)$; cảm biến/phao đo mức tạo phản hồi; bộ điều khiển tính sai lệch;
+van là cơ cấu chấp hành; bồn là đối tượng; mức thực tế là $c(t)$. Nếu mức đo được quay về
+bộ so sánh thì hệ là vòng kín.
+
+\medskip
+\noindent
+\fbox{\parbox{0.96\linewidth}{
+\textbf{Lỗi hay gặp Chương 1:}
+nhầm tín hiệu điều khiển $u(t)$ với tín hiệu đặt $r(t)$;
+nhầm cảm biến với bộ điều khiển; thấy có cảm biến nhưng không kiểm tra xem tín hiệu đo
+có thực sự quay về bộ so sánh hay không.
+}}
+
