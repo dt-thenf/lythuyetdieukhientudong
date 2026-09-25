@@ -132,3 +132,278 @@ nhầm cảm biến với bộ điều khiển; thấy có cảm biến nhưng k
 có thực sự quay về bộ so sánh hay không.
 }}
 
+
+% ======================================================================
+\subsection*{CHƯƠNG 2 -- MÔ HÌNH TOÁN HỌC, LAPLACE, HÀM TRUYỀN VÀ KHÔNG GIAN TRẠNG THÁI}
+% ======================================================================
+
+\subsubsection*{1. Từ hệ vật lý đến phương trình vi phân}
+
+Quan hệ vào--ra của hệ tuyến tính bất biến theo thời gian thường được mô tả bằng:
+\[
+a_n\frac{\dd^n y}{\dd t^n}
++a_{n-1}\frac{\dd^{n-1}y}{\dd t^{n-1}}
++\cdots+a_1\dot y+a_0y
+=
+b_m\frac{\dd^m u}{\dd t^m}
++\cdots+b_1\dot u+b_0u.
+\]
+
+Các định luật thường dùng:
+\begin{itemize}
+  \item Cơ học: $\sum F=ma$, lực ma sát nhớt $F_B=B\dot x$, lực lò xo $F_K=Kx$.
+  \item Điện: định luật Ohm, KCL, KVL.
+  \item Mạch RLC:
+  \[
+  v_R=Ri,\qquad v_L=L\frac{\dd i}{\dd t},\qquad
+  i_C=C\frac{\dd v_C}{\dd t}.
+  \]
+\end{itemize}
+
+Ví dụ hệ cơ học:
+\[
+M\ddot y+B\dot y+Ky=f(t).
+\]
+
+\subsubsection*{2. Biến đổi Laplace -- định nghĩa và ý nghĩa}
+
+Với $t\ge0$:
+\[
+\boxed{
+F(s)=\Lap\{f(t)\}
+=\int_0^\infty f(t)\e^{-st}\dd t
+}
+\qquad (s=\sigma+j\omega).
+\]
+
+Mục tiêu chính:
+\[
+\boxed{
+\text{phương trình vi phân trong }t
+\ \xrightarrow{\Lap}\
+\text{phương trình đại số trong }s
+}
+\]
+sau đó giải đại số và lấy Laplace ngược.
+
+\subsubsection*{3. Bảng Laplace cần thuộc}
+
+\begin{center}
+\begin{tabular}{|p{0.38\linewidth}|p{0.46\linewidth}|}
+\hline
+\textbf{Hàm thời gian $f(t)$} & \textbf{Ảnh Laplace $F(s)$} \\ \hline
+$\delta(t)$ & $1$ \\ \hline
+$u(t)$ & $\dfrac{1}{s}$ \\ \hline
+$c\,u(t)$ & $\dfrac{c}{s}$ \\ \hline
+$t\,u(t)$ & $\dfrac{1}{s^2}$ \\ \hline
+$t^n u(t)$ & $\dfrac{n!}{s^{n+1}}$ \\ \hline
+$\e^{-at}u(t)$ & $\dfrac{1}{s+a}$ \\ \hline
+$\e^{at}u(t)$ & $\dfrac{1}{s-a}$ \\ \hline
+$\sin\omega t\,u(t)$ & $\dfrac{\omega}{s^2+\omega^2}$ \\ \hline
+$\cos\omega t\,u(t)$ & $\dfrac{s}{s^2+\omega^2}$ \\ \hline
+$\e^{-at}\sin\omega t\,u(t)$ & $\dfrac{\omega}{(s+a)^2+\omega^2}$ \\ \hline
+$\e^{-at}\cos\omega t\,u(t)$ & $\dfrac{s+a}{(s+a)^2+\omega^2}$ \\ \hline
+$\dfrac{t^{n-1}}{(n-1)!}\e^{-at}u(t)$ & $\dfrac{1}{(s+a)^n}$ \\ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{4. Các tính chất Laplace quan trọng}
+
+\textbf{Tuyến tính}
+\[
+\Lap\{\alpha f(t)+\beta g(t)\}=\alpha F(s)+\beta G(s).
+\]
+
+\textbf{Dịch trong miền thời gian}
+\[
+\Lap\{f(t-T)u(t-T)\}=\e^{-Ts}F(s).
+\]
+
+\textbf{Dịch trong miền $s$}
+\[
+\Lap\{\e^{-at}f(t)\}=F(s+a).
+\]
+
+\textbf{Đạo hàm}
+\[
+\Lap\{f'(t)\}=sF(s)-f(0),
+\]
+\[
+\Lap\{f''(t)\}=s^2F(s)-sf(0)-f'(0),
+\]
+\[
+\boxed{
+\Lap\{f^{(n)}(t)\}
+=
+s^nF(s)-s^{n-1}f(0)-s^{n-2}f'(0)-\cdots-f^{(n-1)}(0)
+}.
+\]
+
+\textbf{Tích phân}
+\[
+\Lap\left\{\int_0^t f(\tau)\dd\tau\right\}=\frac{F(s)}{s}.
+\]
+
+\textbf{Nhân với $t$}
+\[
+\boxed{\Lap\{t f(t)\}=-\frac{\dd F(s)}{\dd s}}.
+\]
+
+\textbf{Giá trị cuối} (chỉ dùng khi giới hạn tồn tại và điều kiện ổn định phù hợp):
+\[
+\boxed{\lim_{t\to\infty}f(t)=\lim_{s\to0}sF(s)}.
+\]
+
+\subsubsection*{5. Laplace ngược và phân tích phân thức hữu tỷ}
+
+Cho
+\[
+F(s)=\frac{B(s)}{A(s)}.
+\]
+
+\textbf{Bước 0 -- kiểm tra bậc.}
+Nếu $\deg B\ge\deg A$, phải chia đa thức trước:
+\[
+F(s)=Q(s)+\frac{R(s)}{A(s)},\qquad \deg R<\deg A.
+\]
+
+\textbf{Trường hợp A -- cực thực đơn}
+\[
+F(s)=\frac{B(s)}{(s-p_1)(s-p_2)\cdots(s-p_n)}
+=\sum_{i=1}^{n}\frac{C_i}{s-p_i},
+\]
+\[
+\boxed{
+C_i=\left[(s-p_i)F(s)\right]_{s=p_i}.
+}
+\]
+
+Ví dụ:
+\[
+F(s)=\frac{1}{s^2-8s+7}
+=\frac{1}{(s-1)(s-7)}
+=-\frac{1}{6}\frac{1}{s-1}
++\frac{1}{6}\frac{1}{s-7}.
+\]
+Do đó
+\[
+\boxed{
+f(t)=\frac{\e^{7t}-\e^t}{6}\,u(t).
+}
+\]
+
+\textbf{Trường hợp B -- cực bội bậc $r$ tại $s=p$}
+
+Phần phân thức tương ứng có dạng:
+\[
+\frac{A_1}{s-p}
++\frac{A_2}{(s-p)^2}
++\cdots+
+\frac{A_r}{(s-p)^r}.
+\]
+Đặt
+\[
+H(s)=(s-p)^rF(s).
+\]
+Khi đó
+\[
+\boxed{
+A_k=
+\frac{1}{(r-k)!}
+\left[
+\frac{\dd^{\,r-k}}{\dd s^{\,r-k}}H(s)
+\right]_{s=p},
+\qquad k=1,\ldots,r.
+}
+\]
+
+\textbf{Trường hợp C -- cặp cực phức}
+
+Hoàn thành bình phương mẫu:
+\[
+(s+a)^2+\omega^2
+\]
+và đưa tử về dạng
+\[
+A(s+a)+B\omega.
+\]
+Sau đó dùng:
+\[
+\Lap^{-1}\left\{\frac{s+a}{(s+a)^2+\omega^2}\right\}
+=\e^{-at}\cos\omega t,
+\]
+\[
+\Lap^{-1}\left\{\frac{\omega}{(s+a)^2+\omega^2}\right\}
+=\e^{-at}\sin\omega t.
+\]
+
+\subsubsection*{6. Dạng bài: giải phương trình vi phân bằng Laplace}
+
+\textbf{Quy trình chuẩn 4 bước}
+\begin{enumerate}
+  \item Lấy Laplace hai vế.
+  \item Thay điều kiện đầu $y(0),y'(0),\ldots$.
+  \item Rút $Y(s)$, phân tích thành phân thức tối giản.
+  \item Tra bảng Laplace ngược để tìm $y(t)$.
+\end{enumerate}
+
+\textbf{Ví dụ mẫu}
+\[
+y''-8y'+7y=4,\qquad y(0)=0,\quad y'(0)=0.
+\]
+Vì $4$ trên miền $t\ge0$ được hiểu là $4u(t)$:
+\[
+\Lap\{4\}=\frac4s.
+\]
+Suy ra
+\[
+(s^2-8s+7)Y(s)=\frac4s
+\]
+và
+\[
+Y(s)=\frac{4}{s(s-1)(s-7)}
+=\frac{4}{7}\frac1s-\frac23\frac1{s-1}+\frac{2}{21}\frac1{s-7}.
+\]
+Vậy
+\[
+\boxed{
+y(t)=
+\left(
+\frac47-\frac23\e^t+\frac{2}{21}\e^{7t}
+\right)u(t).
+}
+\]
+
+\medskip
+\noindent
+\fbox{\parbox{0.96\linewidth}{
+\textbf{Lỗi hay gặp khi giải PTVP:}
+quên các số hạng điều kiện đầu trong $\Lap\{y'\}$, $\Lap\{y''\}$;
+biến đổi hằng số $4$ thành $4$ thay vì $4/s$;
+phân tích sai mẫu số;
+lấy Laplace ngược của $1/(s-a)$ thành $\e^{-at}$ thay vì $\e^{at}$.
+}}
+
+\subsubsection*{7. Mạch điện trong miền $s$}
+
+Với điều kiện đầu bằng không:
+\[
+Z_R=R,\qquad Z_L=Ls,\qquad Z_C=\frac{1}{Cs}.
+\]
+
+\begin{center}
+\begin{tabular}{|p{0.18\linewidth}|p{0.31\linewidth}|p{0.35\linewidth}|}
+\hline
+\textbf{Phần tử} & \textbf{Miền thời gian} & \textbf{Miền $s$, điều kiện đầu 0} \\ \hline
+Điện trở $R$ & $v=Ri$ & $V=RI$ \\ \hline
+Cuộn cảm $L$ & $v=L\,\dfrac{\dd i}{\dd t}$ & $V=LsI$ \\ \hline
+Tụ điện $C$ & $i=C\,\dfrac{\dd v}{\dd t}$ & $I=CsV$ \\ \hline
+\end{tabular}
+\end{center}
+
+Hai cách giải mạch:
+\begin{itemize}
+  \item Viết phương trình vi tích phân trong miền thời gian $\to$ Laplace $\to$ giải đại số.
+  \item Đổi trực tiếp $R,L,C$ sang trở kháng miền $s$ $\to$ viết KCL/KVL $\to$ giải.
+\end{itemize}
+
