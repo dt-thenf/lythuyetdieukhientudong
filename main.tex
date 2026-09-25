@@ -101,9 +101,18 @@ Giải phương trình vi phân
 \]
 
 \loigiai
-Lấy biến đổi Laplace hai vế. Vì các điều kiện đầu bằng không,
+Lấy biến đổi Laplace hai vế. Với bài toán một phía ($t\ge 0$), hằng số $4$ được hiểu là $4\,1(t)$ nên
 \[
-\Lap\{y'\}=sY(s),\qquad \Lap\{y''\}=s^2Y(s),\qquad \Lap\{4\}=\frac4s.
+\Lap\{4\}=4\Lap\{1(t)\}=\frac{4}{s}.
+\]
+Công thức tổng quát cho đạo hàm là
+\[
+\Lap\{y'\}=sY(s)-y(0),\qquad
+\Lap\{y''\}=s^2Y(s)-sy(0)-y'(0).
+\]
+Do $y(0)=0$ và $y'(0)=0$,
+\[
+\Lap\{y'\}=sY(s),\qquad \Lap\{y''\}=s^2Y(s).
 \]
 Suy ra
 \[
@@ -573,7 +582,7 @@ thì
 
 \baitap{12 - bổ sung}
 \debai
-Giải phương trình vi phân
+(Buổi 4 -- câu a) Giải phương trình vi phân
 \[
 \boxed{y''-7y'-8y=10e^t},
 \]
@@ -670,5 +679,162 @@ y(0)=-\frac57+\frac{38}{63}+\frac{10}{9}=1,
 \[
 y'(0)=-\frac57+8\cdot\frac{38}{63}-\frac{10}{9}=3.
 \]
+
+
+\baitap{13}
+\debai
+(Buổi 4 -- ví dụ mạch điện) Xét mạch gồm nguồn điện áp $v(t)$, điện trở $R_1$, cuộn cảm $L$, điện trở $R_2$ và tụ điện $C$ như hình. Hai dòng vòng được chọn là $i_1(t)$ và $i_2(t)$, cùng chiều kim đồng hồ. Hãy tìm hàm truyền
+\[
+\boxed{G(s)=\frac{I_2(s)}{V(s)}}
+\]
+với giả thiết
+\[
+v_C(0)=0,\qquad i_L(0)=0.
+\]
+
+\begin{center}
+\begin{circuitikz}[european resistors, scale=1.0, transform shape, >=Stealth]
+  \coordinate (BL) at (0,0);
+  \coordinate (TL) at (0,3.1);
+  \coordinate (A)  at (4.0,3.1);
+  \coordinate (B)  at (4.0,0);
+  \coordinate (TR) at (8.0,3.1);
+  \coordinate (BR) at (8.0,0);
+
+  \draw (BL) to[sV,l_=$v(t)$] (TL)
+        to[R=$R_1$] (A) node[circ,label=above:$A$]{}
+        to[R=$R_2$] (TR)
+        to[C=$C$] (BR)
+        -- (B) node[circ,label=below:$B$]{}
+        -- (BL);
+
+  \draw (A) to[L=$L$] (B);
+
+  % Dòng vòng: cùng chiều kim đồng hồ.
+  \draw[->,thick] (1.15,1.50) arc[start angle=160,end angle=-155,radius=0.62];
+  \node at (1.15,1.50) {$i_1(t)$};
+
+  \draw[->,thick] (6.15,1.50) arc[start angle=160,end angle=-155,radius=0.62];
+  \node at (6.15,1.50) {$i_2(t)$};
+
+  % Điện áp tụ theo quy ước thụ động.
+  \node[right] at ($(TR)+(0.20,-0.25)$) {$+$};
+  \node[right] at ($(BR)+(0.20,0.25)$) {$-$};
+  \node[right] at (8.55,1.55) {$v_C(t)$};
+\end{circuitikz}
+\end{center}
+
+\loigiai
+Ta giải đúng theo hai dòng vòng trong hình ghi chép. Vì $i_1$ và $i_2$ cùng chiều kim đồng hồ nên trên nhánh chung chứa cuộn cảm, dòng thực theo chiều từ $A$ xuống $B$ là
+\[
+i_L=i_1-i_2.
+\]
+
+\textbf{Cách 1: lập phương trình KVL trong miền thời gian rồi biến đổi Laplace.}
+
+Vòng I:
+\[
+u_{R_1}+u_L-v=0.
+\]
+Với
+\[
+u_{R_1}=R_1i_1,\qquad
+u_L=L\frac{d}{dt}(i_1-i_2),
+\]
+ta được
+\[
+R_1i_1+L\left(\frac{di_1}{dt}-\frac{di_2}{dt}\right)=v(t). \tag{1}
+\]
+
+Vòng II:
+\[
+u_{R_2}+u_C-u_L=0.
+\]
+Do
+\[
+u_{R_2}=R_2i_2,\qquad
+u_C=\frac1C\int_0^t i_2(\tau)\,d\tau,
+\]
+nên
+\[
+R_2i_2+\frac1C\int_0^t i_2(\tau)\,d\tau
++L\left(\frac{di_2}{dt}-\frac{di_1}{dt}\right)=0. \tag{2}
+\]
+
+Vì $v_C(0)=0$ và $i_L(0)=0$, biến đổi Laplace của (1), (2) cho:
+\[
+R_1I_1(s)+Ls\big[I_1(s)-I_2(s)\big]=V(s), \tag{3}
+\]
+\[
+R_2I_2(s)+\frac{1}{Cs}I_2(s)
++Ls\big[I_2(s)-I_1(s)\big]=0. \tag{4}
+\]
+
+Từ (4):
+\[
+Ls\,I_1(s)
+=
+\left(R_2+\frac1{Cs}+Ls\right)I_2(s),
+\]
+do đó
+\[
+I_1(s)
+=
+\left(
+1+\frac{R_2}{Ls}+\frac{1}{LCs^2}
+\right)I_2(s). \tag{5}
+\]
+
+Thay (5) vào (3):
+\[
+(R_1+Ls)I_1-LsI_2=V.
+\]
+Suy ra
+\[
+\left[
+R_1+R_2+\frac{R_1R_2}{Ls}
++\frac{R_1}{LCs^2}
++\frac1{Cs}
+\right]I_2(s)=V(s).
+\]
+Nhân cả tử và mẫu với $LCs^2$:
+\[
+\boxed{
+G(s)=\frac{I_2(s)}{V(s)}
+=
+\frac{LCs^2}
+{(R_1+R_2)LCs^2+(R_1R_2C+L)s+R_1}
+}.
+\]
+
+\textbf{Cách 2: thay trực tiếp các phần tử bởi trở kháng trong miền $s$.}
+
+Với điều kiện đầu bằng không:
+\[
+Z_{R_1}=R_1,\qquad
+Z_{R_2}=R_2,\qquad
+Z_L=Ls,\qquad
+Z_C=\frac1{Cs}.
+\]
+Hai phương trình dòng vòng trong miền $s$ là
+\[
+(R_1+Ls)I_1-LsI_2=V, \tag{6}
+\]
+\[
+-LsI_1+\left(R_2+\frac1{Cs}+Ls\right)I_2=0. \tag{7}
+\]
+Giải hệ (6)--(7) cho $I_2/V$ cũng thu được
+\[
+\boxed{
+\frac{I_2(s)}{V(s)}
+=
+\frac{LCs^2}
+{(R_1+R_2)LCs^2+(R_1R_2C+L)s+R_1}
+}.
+\]
+
+\textbf{Kiểm tra nhanh.}
+Vì đầu ra là dòng điện và đầu vào là điện áp nên $G(s)$ phải có đơn vị nghịch đảo điện trở. Biểu thức trên thỏa điều này: tử số $LCs^2$ không thứ nguyên, còn mẫu số có đơn vị $\Omega$.
+
 
 \end{document}
